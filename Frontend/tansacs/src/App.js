@@ -1,5 +1,6 @@
 import './App.css';
 import DeputyDirectorForm from './components/user/deputydirectorform';
+import ClusterManagerForm from './components/user/clustermanagerform';
 import SignIn from './components/user/signin';
 import Signup from './components/user/signup';
 import ForgotPassword from './components/user/forgot';
@@ -29,7 +30,7 @@ function App() {
         <Route path='/verify' element={<VerifyOTP/>}/>
         <Route path='/' element={<Jobs/>}/>
         <Route path='/job1' element={<Job1/>}/>
-        <Route path='/job1/apply' element={<DeputyDirectorForm/>}/>
+        <Route path='/job1/apply' element={<ClusterManagerForm/>}/>
         <Route path='/admin' element={<AdminHome/>}/>
         <Route path='/admin/post' element={<Detail/>}/>
 
