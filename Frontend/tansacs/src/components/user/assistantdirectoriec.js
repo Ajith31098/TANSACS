@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
 
 
-function ClusterManagerForm() {
+function AssistantDirectorIEC() {
 
     const initialValues = {
         sslcfirstname: '',
@@ -297,8 +297,8 @@ function ClusterManagerForm() {
         { key: 'Select', value: '' },
         { key: 'STATE', value: 'state' },
         { key: 'CBSE', value: 'cbse' },
-        { key: 'ICSE', value: 'icse' },
-        { key: 'MATRIC', value: 'matrics' }
+        { key: 'ICIC', value: 'icic' },
+        { key: 'MATRICS', value: 'matrics' }
     ]
 
     const ugDegreeOptions = [
@@ -319,7 +319,6 @@ function ClusterManagerForm() {
         { key: 'Demography  ', value: 'option7' },
         { key: 'Statistics ', value: 'option8' },
         { key: 'Population Sciences ', value: 'option9' },
-        { key: 'Similar fields', value: 'option10' },
     ]
 
     const experienceOptions = [
@@ -337,7 +336,7 @@ function ClusterManagerForm() {
                 <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
 
 
-                <p className='text-lg my-5 text-start text-red-600 font-bold'>CLUSTER PROGRAM MANAGER</p>
+                <p className='text-lg my-5 text-start text-red-600 font-bold'>Assistant Director (IEC)   </p>
                 <p className='text-lg my-5  text-red-600 underline font-bold'>EDUCATION QUALIFICATION & EXPERIENCE</p>
 
 
@@ -1131,4 +1130,4 @@ function ClusterManagerForm() {
 
 }
 
-export default ClusterManagerForm;
+export default AssistantDirectorIEC;

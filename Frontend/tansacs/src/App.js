@@ -4,6 +4,11 @@ import DeputyDirectorForm from './components/user/deputydirectorform';
 import ClusterManagerForm from './components/user/clustermanagerform';
 import ClinicalServiceOfficer from './components/user/ClinicalServiceOfficer';
 import DataMonitoringDocumentationOfficer from './components/user/datamonitor';
+import DeputyDirectorLS from './components/user/deputydirectorls';
+import DeputyDirectorSI from './components/user/deputydirectorsi';
+import AssistantDirectorBSD from './components/user/assistantdirectorbsd';
+import AssistantDirectorTI from './components/user/assistantdirectorti';
+import AssistantDirectorIEC from './components/user/assistantdirectoriec';
 
 import SignIn from './components/user/signin';
 import Signup from './components/user/signup';
@@ -55,6 +60,12 @@ function App() {
         <Route path='/job1/apply' element={<ClusterManagerForm />} />
         <Route path="/job2/apply" element={<ClinicalServiceOfficer />} />
         <Route path="/job3/apply" element={<DataMonitoringDocumentationOfficer />} />
+        <Route path="/job4/apply" element={<DeputyDirectorLS />} />
+        <Route path="/job5/apply" element={<DeputyDirectorSI />} />
+        <Route path="/job6/apply" element={<AssistantDirectorBSD />} />
+        <Route path="/job7/apply" element={<AssistantDirectorTI />} />
+        <Route path="/job8/apply" element={<AssistantDirectorIEC />} />
+
         <Route path='/admin' element={<AdminHome />} />
         <Route path='/admin/post' element={<Detail />} />
 

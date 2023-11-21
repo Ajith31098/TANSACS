@@ -303,8 +303,8 @@ function DataMonitoringDocumentationOfficer() {
 
     const ugDegreeOptions = [
         { key: 'SELECT DEGREE', value: '' },
-        { key: 'Medical ', value: 'option1' },
-        { key: 'Allied Health Sciences', value: 'option2' },
+        { key: 'Any ', value: 'option1' },
+        // { key: 'Allied Health Sciences', value: 'option2' },
         // { key: 'Option 3', value: 'option3' }
     ]
 
@@ -314,11 +314,13 @@ function DataMonitoringDocumentationOfficer() {
         { key: 'Healthcare Management ', value: 'option2' },
         { key: 'Healthcare Administration ', value: 'option3' },
         { key: 'Social Science ', value: 'option4' },
-        { key: 'Psychology ', value: 'option5' },
+        { key: 'Bio Statistics ', value: 'option5' },
         { key: 'Applied Epidemiology ', value: 'option6' },
         { key: 'Demography  ', value: 'option7' },
         { key: 'Statistics ', value: 'option8' },
         { key: 'Population Sciences ', value: 'option9' },
+        { key: 'Mathematics ', value: 'option10' },
+        { key: 'Economics ', value: 'option11' },
     ]
 
     const experienceOptions = [

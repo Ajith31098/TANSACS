@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
 
 
-function ClusterManagerForm() {
+function DeputyDirectorSI() {
 
     const initialValues = {
         sslcfirstname: '',
@@ -297,21 +297,22 @@ function ClusterManagerForm() {
         { key: 'Select', value: '' },
         { key: 'STATE', value: 'state' },
         { key: 'CBSE', value: 'cbse' },
-        { key: 'ICSE', value: 'icse' },
-        { key: 'MATRIC', value: 'matrics' }
+        { key: 'ICIC', value: 'icic' },
+        { key: 'MATRICS', value: 'matrics' }
     ]
 
     const ugDegreeOptions = [
         { key: 'SELECT DEGREE', value: '' },
-        { key: 'Medical ', value: 'option1' },
-        { key: 'Allied Health Sciences', value: 'option2' },
-        // { key: 'Option 3', value: 'option3' }
+        { key: 'Medical Sciences ', value: 'option1' },
+        { key: 'MD/DNB ', value: 'option2' },
+        { key: 'Community Medicine', value: 'option3' },
+        { key: 'Community Epidemiology', value: 'option4' },
     ]
 
     const pgDegreeOptions = [
         { key: 'Select', value: '' },
         { key: 'Public Health ', value: 'option1' },
-        { key: 'Healthcare Management ', value: 'option2' },
+        { key: 'Computer Application ', value: 'option2' },
         { key: 'Healthcare Administration ', value: 'option3' },
         { key: 'Social Science ', value: 'option4' },
         { key: 'Psychology ', value: 'option5' },
@@ -319,7 +320,6 @@ function ClusterManagerForm() {
         { key: 'Demography  ', value: 'option7' },
         { key: 'Statistics ', value: 'option8' },
         { key: 'Population Sciences ', value: 'option9' },
-        { key: 'Similar fields', value: 'option10' },
     ]
 
     const experienceOptions = [
@@ -337,7 +337,7 @@ function ClusterManagerForm() {
                 <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
 
 
-                <p className='text-lg my-5 text-start text-red-600 font-bold'>CLUSTER PROGRAM MANAGER</p>
+                <p className='text-lg my-5 text-start text-red-600 font-bold'>DEPUTY DIRECTOR (SI) </p>
                 <p className='text-lg my-5  text-red-600 underline font-bold'>EDUCATION QUALIFICATION & EXPERIENCE</p>
 
 
@@ -1131,4 +1131,4 @@ function ClusterManagerForm() {
 
 }
 
-export default ClusterManagerForm;
+export default DeputyDirectorSI;
