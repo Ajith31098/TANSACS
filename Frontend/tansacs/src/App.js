@@ -34,8 +34,8 @@ import Detail from './components/admin/detail';
 import Header from './components/basecomponents/header';
 import { Routes, Route } from 'react-router-dom'
 
-import {Provider} from 'react-redux'
-import  store  from './redux/Store';
+import { Provider } from 'react-redux'
+import store from './redux/Store';
 import ValidaterLogin from './components/Validater/ValidaterLogin';
 import ValidaterLogout from './components/Validater/ValidaterLogout';
 
@@ -49,11 +49,11 @@ function App() {
         {/* <DeputyDirectorForm/> */}
 
         <Routes>
-          
 
-          <Route path="/" element={<ValidaterLogout/>}>
 
-            <Route path='/signin' element={<SignIn />} />
+          <Route path="/" element={<ValidaterLogout />}>
+
+            <Route path='/' element={<SignIn />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/forgot' element={<ForgotPassword />} />
             <Route path='/reset' element={<ResetPassword />} />
@@ -61,32 +61,32 @@ function App() {
 
           </Route>
 
-          <Route path="/" element={<ValidaterLogin/>}>
+          <Route path="/" element={<ValidaterLogin />}>
 
-             <Route path='/jobs' element={<Jobs />} />
-             <Route path='/cluster_manager' element={<Job1 />} />
-              <Route path='/cluster_manager/apply' element={<ClusterManagerForm/>}/>
+            <Route path='/jobs' element={<Jobs />} />
+            <Route path='/cluster_manager' element={<Job1 />} />
+            <Route path='/cluster_manager/apply' element={<ClusterManagerForm />} />
 
-             <Route path='/clinical_officer' element={<Job2 />} />
-             <Route path='/clinical_officer/apply' element={<ClinicalServiceOfficer/>}/>
+            <Route path='/clinical_officer' element={<Job2 />} />
+            <Route path='/clinical_officer/apply' element={<ClinicalServiceOfficer />} />
 
-             <Route path='/data_monitoring_officer' element={<Job3 />} />
-              <Route path='/data_monitoring_officer/apply' element={<DataMonitoringDocumentationOfficer/>}/>
+            <Route path='/data_monitoring_officer' element={<Job3 />} />
+            <Route path='/data_monitoring_officer/apply' element={<DataMonitoringDocumentationOfficer />} />
 
-             <Route path='/deputy_director_ls' element={<Job4 />} />
-              <Route path='/deputy_director_ls/apply' element={<DeputyDirectorLS/>}/>
+            <Route path='/deputy_director_ls' element={<Job4 />} />
+            <Route path='/deputy_director_ls/apply' element={<DeputyDirectorLS />} />
 
-             <Route path='/deputy_director_si' element={<Job5 />} />
-              <Route path='/deputy_director_si/apply' element={<DeputyDirectorSI/>}/>
+            <Route path='/deputy_director_si' element={<Job5 />} />
+            <Route path='/deputy_director_si/apply' element={<DeputyDirectorSI />} />
 
-             <Route path='/assistant_director_ictc' element={<Job6 />} />
-              <Route path='/assistant_director_ictc/apply' element={<AssistantDirectorBSD/>}/>
+            <Route path='/assistant_director_ictc' element={<Job6 />} />
+            <Route path='/assistant_director_ictc/apply' element={<AssistantDirectorBSD />} />
 
-             <Route path='/assistant_director_ti' element={<Job7 />} />
-              <Route path='/assistant_director_ti/apply' element={<AssistantDirectorTI/>}/>
+            <Route path='/assistant_director_ti' element={<Job7 />} />
+            <Route path='/assistant_director_ti/apply' element={<AssistantDirectorTI />} />
 
-             <Route path='/assistant_director_iec' element={<Job8 />} />
-             <Route path='/assistant_director_iec/apply' element={<AssistantDirectorIEC/>}/>
+            <Route path='/assistant_director_iec' element={<Job8 />} />
+            <Route path='/assistant_director_iec/apply' element={<AssistantDirectorIEC />} />
 
           </Route>
 

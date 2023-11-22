@@ -1,23 +1,23 @@
-import { LOGIN,LOGOUT } from "./TypeLogin"
+import { LOGIN, LOGOUT } from "./TypeLogin"
 
 const initialState = {
-    isLogin : true 
+    isLogin: true
 }
 
-export const ReducerLogin = (state = initialState , action)=>{
+export const ReducerLogin = (state = initialState, action) => {
 
-    switch(action.type){
+    switch (action.type) {
 
-        case LOGIN:return{
+        case LOGIN: return {
             ...state,
-            isLogin : true
+            isLogin: true
         }
 
-        case LOGOUT:return{
+        case LOGOUT: return {
             ...state,
-            isLogin : false
+            isLogin: false
         }
 
-        default:return state
+        default: return state
     }
 }
