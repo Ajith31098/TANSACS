@@ -26,7 +26,7 @@ function Select(props) {
               <MuiSelect
                 {...field}
                 {...rest}
-                className={'shadow-md font-bold border border-2 w-full py-1 px-2 rounded focus:outline-none focus:border-sky-400  border-gray-300 '}
+                className={'shadow-md font-bold border border-2 w-full py-0 px-2 rounded focus:outline-none focus:border-sky-400  border-gray-300 '}
                 displayEmpty
                 input={<OutlinedInput sx={{ fontSize: '12px', padding: '0px' }} />}
 

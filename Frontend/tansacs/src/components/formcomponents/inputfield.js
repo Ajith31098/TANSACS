@@ -1,5 +1,5 @@
 import React ,{ useState } from 'react'
-import {useField, Field, ErrorMessage } from 'formik'
+import {useField, Field,FastField, ErrorMessage } from 'formik'
 import TextError from './texterror'
 // import TextField from '@material-ui/core/TextField';
 import TextField from '@mui/material/TextField';
@@ -11,7 +11,7 @@ function Input (props) {
   
   return (
       <>
-    <Field name={name}>
+    <FastField name={name}>
       {({ field, meta }) => (
        
         <>
@@ -33,7 +33,7 @@ function Input (props) {
           />
         </>
       )}
-    </Field>
+    </FastField>
     <ErrorMessage component={TextError} name={name} />
    
 

@@ -2,7 +2,9 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
-
+import { Login } from '../../redux'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 const initialvalues = {
     username: '',
@@ -18,7 +20,14 @@ const validationSchema = Yup.object({
 
 const onSubmit = values => console.log('Form Data', values)
 
-function SignIn() {
+function SignIn(props) {
+
+    if(props.isLogin){
+
+        return(
+            <h1>login</h1>
+        )
+    }
 
 
     return (
@@ -68,11 +77,14 @@ function SignIn() {
                                             </a>
                                         </div>
                                         <div className='w-max'>
-                                            <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Register
-                                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                            </a>
+                                            <Link to={'/signup'} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                                                Register
+                                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                                            </Link>
+                                            
                                         </div>
-                                        <a href="#" className="text-red-600 font-semibold block text-sm underline mt-2">forgot password?</a>
+                                        <Link to={'/forgot'} className="text-red-600 font-semibold block text-sm underline mt-2">forgot password?</Link>
 
                                     </div>
 
@@ -95,4 +107,20 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+
+const mapStateToProps =  state =>{
+
+    return {
+
+        isLogin : state.isLogin
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+
+    return {
+        Login : ()=> dispatch(Login())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn);

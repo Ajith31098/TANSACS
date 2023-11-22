@@ -2,6 +2,7 @@ import React from 'react'
 import { Formik, Form, useFormik, FieldArray } from 'formik';
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
+import {Link} from 'react-router-dom'
 
 
 function AssistantDirectorBSD() {
@@ -582,29 +583,7 @@ function AssistantDirectorBSD() {
                                 <div className='w-full  border-solid border border-gray-400 rounded-md gap-1 grid grid-cols-11 p-4'>
 
                                     <div className='lg:col-span-4 col-span-11'>
-                                        <p className='text-start text-xs font-bold mb-2'>As per U.G Certificate</p>
                                         <div className="grid grid-cols-4 gap-1">
-
-                                            <div className='col-span-3'>
-                                                <FormikControl
-                                                    control='input'
-                                                    type='text'
-                                                    name='ugfirstname'
-                                                    label="NAME OF APPLICANT"
-                                                    placeholder="NAME OF APPLICANT"
-                                                />
-                                            </div>
-
-                                            <div className='col-span-1'>
-                                                <FormikControl
-                                                    control='input'
-                                                    type='text'
-                                                    name='uglastname'
-                                                    label="INITAL"
-                                                    placeholder="INITAL"
-                                                />
-
-                                            </div>
                                             <div className="col-span-4">
                                                 <p className='text-start text-xs font-bold mb-2'>Degree</p>
                                                 <FormikControl
@@ -615,6 +594,36 @@ function AssistantDirectorBSD() {
                                                 />
 
                                             </div>
+                                            <div className="col-span-4 ">
+                                                <p className='text-start text-xs font-bold mb-2'>As per U.G Certificate</p>
+
+                                                <div className="grid grid-cols-4 gap-1">
+                                                    <div className='col-span-3'>
+                                                        <FormikControl
+                                                            control='input'
+                                                            type='text'
+                                                            name='ugfirstname'
+                                                            label="NAME OF APPLICANT"
+                                                            placeholder="NAME OF APPLICANT"
+                                                        />
+                                                    </div>
+
+                                                    <div className='col-span-1'>
+                                                        <FormikControl
+                                                            control='input'
+                                                            type='text'
+                                                            name='uglastname'
+                                                            label="INITAL"
+                                                            placeholder="INITAL"
+                                                    />
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            
+                                            
                                         </div>
                                     </div>
 
@@ -722,32 +731,8 @@ function AssistantDirectorBSD() {
                                                         pg.map((pgdegree, index) => (
                                                             <div key={index} className='w-full   gap-1 grid grid-cols-12'>
                                                                 <div className='lg:col-span-4 col-span-12'>
-                                                                    <p className='text-start text-xs font-bold mb-2'>As per P.G Certificate</p>
 
                                                                     <div className="grid grid-cols-4 gap-1">
-
-                                                                        <div className='col-span-3'>
-                                                                            <FormikControl
-                                                                                control='input'
-                                                                                type='text'
-                                                                                name={`pg[${index}].firstname`}
-                                                                                label="NAME OF APPLICANT"
-                                                                                placeholder="NAME OF APPLICANT"
-                                                                            />
-
-                                                                        </div>
-
-                                                                        <div className='col-span-1'>
-                                                                            <FormikControl
-                                                                                control='input'
-                                                                                type='text'
-                                                                                name={`pg[${index}].lastname`}
-                                                                                label="INITAL"
-                                                                                placeholder="INITAL"
-                                                                            />
-
-                                                                        </div>
-
                                                                         <div className="col-span-4">
                                                                             <p className='text-start text-xs font-bold mb-2'>Degree</p>
                                                                             <FormikControl
@@ -758,6 +743,37 @@ function AssistantDirectorBSD() {
                                                                             />
 
                                                                         </div>
+                                                                        <div className="col-span-4">
+                                                                            <p className='text-start text-xs font-bold mb-2'>As per P.G Certificate</p>
+
+                                                                            <div className="grid grid-cols-4 gap-1">
+                                                                            <div className='col-span-3'>
+
+                                                                                <FormikControl
+                                                                                    control='input'
+                                                                                    type='text'
+                                                                                    name={`pg[${index}].firstname`}
+                                                                                    label="NAME OF APPLICANT"
+                                                                                    placeholder="NAME OF APPLICANT"
+                                                                                />
+
+                                                                                </div>
+
+                                                                                <div className='col-span-1'>
+                                                                                <FormikControl
+                                                                                    control='input'
+                                                                                    type='text'
+                                                                                    name={`pg[${index}].lastname`}
+                                                                                    label="INITAL"
+                                                                                    placeholder="INITAL"
+                                                                                />
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+
+                                                                        
                                                                     </div>
                                                                 </div>
 
@@ -1110,9 +1126,12 @@ function AssistantDirectorBSD() {
                         </div>
 
                         <div className='w-full flex justify-around'>
-                            <button type='submit' className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Cancel
+                            <Link to={'/jobs'} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                                Cancel
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                            </button>
+                            </Link>
+
+                           
 
                             <button type='submit' className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Submit
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>

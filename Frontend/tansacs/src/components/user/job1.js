@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 function Job1() {
     return (
         <>
@@ -153,9 +155,12 @@ function Job1() {
             </div>
 
             <div className='flex justify-center'>
-                <a href="#" className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Apply
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                </a>
+                    <Link to={'/cluster_manager/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                        Apply
+                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                    </Link>
+                
             </div>
 
         </>
