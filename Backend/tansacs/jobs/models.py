@@ -87,9 +87,9 @@ class Job(models.Model):
     sslc = models.OneToOneField(SSLC , on_delete=models.PROTECT , related_name='detailOfJob_sslc')
     hsc = models.OneToOneField(HSC , on_delete=models.PROTECT , related_name='detailOfJob_hsc')
     ug = models.OneToOneField(UG , on_delete=models.PROTECT , related_name='detailOfJob_ug')
-    pg = models.ManyToManyField(PG , on_delete=models.PROTECT , related_name='detailOfJob_pg')
-    experience = models.ManyToManyField(Experience , on_delete=models.PROTECT , related_name='detailOfJob_experience')
-    prefered_experience = models.ManyToManyField(PreferedExperience , on_delete=models.PROTECT , related_name='detailOfJob_prefered_experience')
+    pg = models.ManyToManyField(PG , related_name='detailOfJob_pg')
+    experience = models.ManyToManyField(Experience , related_name='detailOfJob_experience')
+    prefered_experience = models.ManyToManyField(PreferedExperience , related_name='detailOfJob_prefered_experience')
     mark  =  models.IntegerField(validators=[MaxValueValidator(100)])
 
 

@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'user',
     'jobs',
 ]
@@ -75,11 +77,17 @@ WSGI_APPLICATION = 'tansacs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tansacs',
+        'USER': 'tansacs',
+        'PASSWORD': 'tansacs',
+        'HOST': 'localhost',          # If PostgreSQL is running on localhost
+        'PORT': '5432', 
+   }
 }
 
 
@@ -123,3 +131,33 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+
+AWS_ACCESS_KEY_ID = 'AKIARX56MWFDJPTMTRPZ'
+AWS_SECRET_ACCESS_KEY = 'cPcsJBwSVendfsV30LEneJF4oEdJj5MOj/gJ1b4w'
+AWS_STORAGE_BUCKET_NAME = 'tansac-s3'
+AWS_S3_REGION_NAME = 'ap-south-1'  # e.g., 'us-east-1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+# Configure static and media file URLs
+# STATIC_URL = 'https://tansac-s3.s3.amazonaws.com/static/'
+MEDIA_URL = 'https://tansac-s3.s3.amazonaws.com/media/'
+
+# Optional: Override default storage class for media files (uploaded files)
+# Custom storage classes for static and media files
+# DEFAULT_FILE_STORAGE = 'tansacs.custom_storage.MediaStorage'
+# STATICFILES_STORAGE = 'tansacs.custom_storage.StaticStorage'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  # The default port is often 587 or 25
+EMAIL_USE_TLS = True  # Use TLS encryption
+EMAIL_HOST_USER = 'ssnazarenesrs@gmail.com'
+EMAIL_HOST_PASSWORD = 'lcjcsgffunxbzkhr'
