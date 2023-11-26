@@ -25,17 +25,18 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=10, validators=[validate_phone_number])
     alternate_phone_number = models.CharField(max_length=10, validators=[validate_phone_number])
     email =  models.EmailField(max_length=50,unique=True)
-    profile_image = models.ImageField(upload_to="profile/")
+    profile_image = models.ImageField(upload_to="profile/" ,blank=True , null=True)
 
 
     guardian_name = models.CharField(max_length=50)
+    guardian_name_initial = models.CharField(max_length=50)
 
     # Add other fields as needed for your user profile
 
     @property
     def age_job(self):
         specific_date = date(2023, 6, 30)
-        age = specific_date.year - self.birthdate.year - ((specific_date.month, specific_date.day) < (self.birthdate.month, self.birthdate.day))
+        age = specific_date.year - self.DOB.year - ((specific_date.month, specific_date.day) < (self.DOB.month, self.DOB.day))
         return age
 
 
@@ -57,3 +58,19 @@ class Address(models.Model):
     state = models.CharField(max_length=30 , default="Tamil Nadu")
     district = models.CharField(max_length=50)
     pincode = models.CharField(validators=[validate_pincode])
+
+# {
+#    "user": 1,
+#    "is_verified": true,
+#    "first_name": "John",
+#    "last_name": "Doe",
+#    "gender": "male",
+#    "DOB": "2000-01-01",
+#    "age": 23,
+#    "aadhar": "123456789012",
+#    "phone_number": "1234567890",
+#    "alternate_phone_number": "0987654321",
+#    "email": "john.doe@example.com",
+#    "profile_image": "profile/image.jpg",
+#    "guardian_name": "Jane Doe"
+# }

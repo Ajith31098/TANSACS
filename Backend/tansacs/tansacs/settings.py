@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'user',
     'jobs',
 ]
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'tansacs.urls'
@@ -148,7 +150,7 @@ AWS_DEFAULT_ACL = None
 
 # Configure static and media file URLs
 # STATIC_URL = 'https://tansac-s3.s3.amazonaws.com/static/'
-MEDIA_URL = 'https://tansac-s3.s3.amazonaws.com/media/'
+# MEDIA_URL = 'https://tansac-s3.s3.amazonaws.com/media/'
 
 # Optional: Override default storage class for media files (uploaded files)
 # Custom storage classes for static and media files
@@ -161,3 +163,11 @@ EMAIL_PORT = 587  # The default port is often 587 or 25
 EMAIL_USE_TLS = True  # Use TLS encryption
 EMAIL_HOST_USER = 'ssnazarenesrs@gmail.com'
 EMAIL_HOST_PASSWORD = 'lcjcsgffunxbzkhr'
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+   "http://localhost:3000",
+   "http://127.0.0.1:9000"
+]

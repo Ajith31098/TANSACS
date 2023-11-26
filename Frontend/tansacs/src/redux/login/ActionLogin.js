@@ -1,10 +1,11 @@
 import { LOGIN , LOGOUT } from "./TypeLogin"
 
 
-export const Login = ()=>{
+export const Login = (data)=>{
 
     return {
-        type:LOGIN
+        type:LOGIN,
+        data:data
     }
 
 }

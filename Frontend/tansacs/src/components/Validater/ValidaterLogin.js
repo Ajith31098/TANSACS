@@ -8,9 +8,9 @@ function ValidaterLogin(props) {
     useEffect(() => {
         // If user is not logged in, redirect to 'signin'
         if (!props.isLogin) {
-            navigate('/signin');
+            navigate('/');
         }
-    }, [props.isLogin, navigate]);
+    }, [props.isLogin]);
 
     // Render nothing here, as the redirect will happen via useEffect
     return props.isLogin ? <Outlet /> : null;

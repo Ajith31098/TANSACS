@@ -4,11 +4,13 @@ from user.models import Profile
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 import re
+from django.db import models
+from user.models import Address
 
-class UserSerializer(serializers.ModelSerializer):
-   class Meta:
-       model = User
-       fields = ['id', 'username', 'email', 'first_name', 'last_name']
+# class UserSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = User
+#        fields = ['id', 'username', 'email', 'first_name', 'last_name']
 
 
 class CustomUserSerializer(serializers.Serializer):
@@ -24,46 +26,164 @@ class CustomUserSerializer(serializers.Serializer):
        user = User.objects.filter(username=self.initial_data['username']).first()
        if not user or not user.check_password(value):
            raise serializers.ValidationError("Invalid password")
-       return value
+       return value     
    
-   def validate(self, data):
-    user = User.objects.filter(username=data['username']).first()
-    if not user or not user.is_active:
-        raise serializers.ValidationError("User is not active")
-    return data
    
+   
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [ 'username', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username = validated_data['username'] ,
+            password=validated_data['password'],
+            is_active = False  
+            )
+        return user
+
+# class AddressSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Address
+#         fields = ['address_type', 'address_line1', 'address_line2', 'city', 'state', 'district', 'pincode']
+
+# class ProfileSerializer(serializers.ModelSerializer):
+
+
+#     class Meta:
+#         model = Profile
+#         exclude = ('user','DOB') 
+
+
+
+#     def validate_email(self, value):
+#         """
+#         Custom validation to check if email is unique.
+#         """
+#         if Profile.objects.filter(email=value).exists():
+#             raise serializers.ValidationError("This email is already in use.")
+#         return value
+
+#     def create(self, validated_data):
+#         # user_data = validated_data.pop('user')
+#         print(validated_data)
+#         address_data = validated_data.pop('address')
+#         permanent_address_data = validated_data.pop('permanent_address')
+
+#         user_serializer = UserSerializer(data={'username': validated_data['email'], 'password' : validated_data['password']})
+#         if user_serializer.is_valid():
+#             user = user_serializer.save()
+#             profile = Profile.objects.create(user=user, **validated_data)
+
+#             Address.objects.create(user=profile, **address_data)
+
+            
+#             Address.objects.create(user=profile, **permanent_address_data)
+
+#             return profile
+#         else:
+#             raise serializers.ValidationError(user_serializer.errors)
+        
+# class ProfileCustomSerializer(serializers.ModelSerializer):
+
+#     address = AddressSerializer()
+# `  permanent_address = AddressSerializer()
+
+#     class Meta:
+#         model = Profile
+#         exclude = ('user','DOB') 
+
+
+class AddressSerializer(serializers.ModelSerializer):
+   class Meta:
+       model = Address
+       fields = ['address_line1', 'address_line2', 'city', 'state', 'district', 'pincode', 'address_type']
 
 class ProfileSerializer(serializers.ModelSerializer):
-   class Meta:
-       model = Profile
-       fields = ['first_name', 'last_name', 'gender', 'DOB', 'age', 'aadhar', 'phone_number', 'alternate_phone_number', 'email', 'profile_image', 'guardian_name']
+  address = AddressSerializer(many = True , required = False)
+  permanent_address = AddressSerializer(many = True , required = False)
+  password = serializers.CharField(write_only=True)
 
-   def validate_email(self, value):
-       if User.objects.filter(email=value).exists():
-           raise serializers.ValidationError("There is already a user with this email")
-       try:
-           validate_email(value)
-       except ValidationError:
-           raise serializers.ValidationError("Enter a valid email address")
-       return value
-   
+  class Meta:
+      model = Profile
+      fields = ['first_name', 'last_name', 'gender', 'DOB', 'age', 'aadhar', 'phone_number', 'alternate_phone_number', 'email', 'guardian_name', 'guardian_name_initial', 'address', 'permanent_address', 'password']
 
-class UserRegisterSerializer(serializers.ModelSerializer):
-   class Meta:
-       model = User
-       fields = ['username', 'password']
+  def create(self, validated_data):
+      address_data = validated_data.pop('address' , [])
+      permanent_address_data = validated_data.pop('permanent_address' , [])
+      password = validated_data.pop('password')
+      user = User.objects.create_user(
+       username=validated_data['email'],
+       email=validated_data['email'],
+       password=password,
+       is_active=False
+       )
+      profile = Profile.objects.create(user=user, **validated_data)
+      for address in address_data:
+        print(address)
+        Address.objects.create(user=profile, **address)
+      for address in permanent_address_data:
+        Address.objects.create(user=profile, **address)
+      return profile
 
-   def validate_password(self, value):
-       if not re.search(r'[a-z]', value):
-           raise serializers.ValidationError("Password must contain at least one lowercase letter")
-       if not re.search(r'[A-Z]', value):
-           raise serializers.ValidationError("Password must contain at least one uppercase letter")
-       if not re.search(r'[0-9]', value):
-           raise serializers.ValidationError("Password must contain at least one digit")
-       if not re.search(r'[!@#$%^&*(),.?":{}|<>]', value):
-           raise serializers.ValidationError("Password must contain at least one special character")
-       return value
 
+
+# from rest_framework import serializers
+
+# class ProfileSerializer(serializers.ModelSerializer):
+#   address = AddressSerializer()
+#   permanent_address = AddressSerializer()
+
+#   class Meta:
+#       model = Profile
+#       fields = ['aadhar', 'first_name', 'last_name', 'gender', 'age', 'email', 'guardian_name', 'guardian_name_initial', 'phone_number', 'alternate_phone_number'] 
+
+#   def validate_email(self, value):
+#       """
+#       Custom validation to check if email is unique.
+#       """
+#       if Profile.objects.filter(email=value).exists():
+#           raise serializers.ValidationError("This email is already in use.")
+#       return value
+
+#   def to_internal_value(self, data):
+#       # Manually parse the incoming data
+#       parsed_data = {}
+#       for key, value in data.items():
+#           if key.startswith('address['):
+#               parsed_data['address'] = value
+#           elif key.startswith('permanent_address['):
+#               parsed_data['permanent_address'] = value
+#           else:
+#               parsed_data[key] = value
+#       return parsed_data
+
+
+    
+
+
+# class ProfileSerializer(serializers.ModelSerializer):
+#     address = AddressSerializer()
+#     permanent_address = AddressSerializer()
+
+#     class Meta:
+#         model = Profile
+#         exclude = ('user','DOB') 
+
+#     def validate_email(self, value):
+#         """
+#         Custom validation to check if email is unique.
+#         """
+#         if Profile.objects.filter(email=value).exists():
+#             raise serializers.ValidationError("This email is already in use.")
+#         return value
+
+
+
+
+    
 
 
 

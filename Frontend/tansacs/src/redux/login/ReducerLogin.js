@@ -1,7 +1,10 @@
 import { LOGIN, LOGOUT } from "./TypeLogin"
 
 const initialState = {
-    isLogin: true
+    isLogin: false,
+    token:'',
+    is_active:false,
+    user_age:0
 }
 
 export const ReducerLogin = (state = initialState, action) => {
@@ -10,12 +13,15 @@ export const ReducerLogin = (state = initialState, action) => {
 
         case LOGIN: return {
             ...state,
-            isLogin: true
+            isLogin: true,
+            token:action.data.token,
+            is_active:action.data.is_active,
+            user_age:action.data.user_age
+
         }
 
         case LOGOUT: return {
-            ...state,
-            isLogin: false
+            ...initialState
         }
 
         default: return state

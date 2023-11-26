@@ -1,10 +1,15 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage  } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
 import { Login } from '../../redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {useMutation ,useQuery} from 'react-query'
+import axios from 'axios'
+import LoadingComponent from '../basecomponents/loading'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const initialvalues = {
     username: '',
@@ -17,26 +22,83 @@ const validationSchema = Yup.object({
     password: Yup.string().required("Enter Password")
 })
 
+async function loginUser(values) {
+    const response = await  axios.post('http://127.0.0.1:8000/login', values);
+    return response.data;
+}
 
-const onSubmit = values => console.log('Form Data', values)
+
 
 function SignIn(props) {
+  
+    const navigate = useNavigate()
 
-    if(props.isLogin){
+    const [loading, setLoading] = React.useState(false);
 
-        return(
-            <h1>login</h1>
+
+    const mutation = useMutation(loginUser)
+
+    const onSubmit = (values, { setFieldError }) => {
+        setLoading(true)
+
+        setTimeout(()=>{
+
+            mutation.mutate(values, {
+
+          
+                onSuccess:(data)=>{
+
+                        setLoading(false)
+
+
+                        props.login(data)
+                },
+                onError: (error) => {
+                    
+        
+                    const errorData = error.response.data;
+                    if (errorData.username) {
+                      setFieldError('username', errorData.username[0]);
+                    }
+                    if (errorData.password) {
+                      setFieldError('password', errorData.password[0]);
+                    }
+                        setLoading(false)
+
+                  },
+             })
+
+
+        } , 2000
+
+            
         )
-    }
+            
+       };
+       
+       useEffect(() => {
+
+        if(props.isLogin){
+            navigate('tansacs/jobs')
+        }
+
+       }, [props.isLogin]);
+   
+    
+
+   
 
 
     return (
         <>
-            <div className="grid grid-cols-5 mt-5 gap-20">
-
+        
+        
+            <div className="grid grid-cols-5 mt-5 gap-20 relative">
+            {loading ? ( <LoadingComponent/>) : null }
                 <div className="col-span-5 flex flex-col justify-center items-center">
                     <h4 className='text-5xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
                     <h4 className='text-2xl font-semibold'>TANSACS RECRUITMENT PROTAL</h4>
+                    <p>{props.isLogin}</p>
                     <div className='w-2/5'>
                         <Formik
                             initialValues={initialvalues}
@@ -72,9 +134,12 @@ function SignIn(props) {
 
                                     <div className="w-2/3 flex justify-between items-center">
                                         <div className='w-max'>
-                                            <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Login
+                                        <button type='submit' className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Login
+                                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                                        </button>
+                                            {/* <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Login
                                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                            </a>
+                                            </a> */}
                                         </div>
                                         <div className='w-max'>
                                             <Link to={'/signup'} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
@@ -110,16 +175,17 @@ function SignIn(props) {
 
 const mapStateToProps =  state =>{
 
+
     return {
 
-        isLogin : state.isLogin
+        isLogin : state.isLogin,
     }
 }
 
 const mapDispatchToProps = dispatch =>{
 
     return {
-        Login : ()=> dispatch(Login())
+        login : (data)=> dispatch(Login(data))
     }
 }
 

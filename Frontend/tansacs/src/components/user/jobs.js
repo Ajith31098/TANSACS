@@ -1,13 +1,28 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import { Logout } from '../../redux'
+import { useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Jobs() {
+
+
+
+function Jobs(props) {
+
+    const navigate  = useNavigate()
+
+    // useEffect(()=>{
+    //     if (! props.isLogin){
+    //         navigate('/')
+    //     }
+    // },[props.isLogin])
+
   return (
     <>
     <div className='mt-5'>
         <h4 className='text-4xl text-red-600 font-bold mb-5'>Tamil Nadu State AIDS Control Society</h4>
 
-        
         <div className='flex flex-col gap-2 mb-3'>
             <p className='font-semibold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
              fuga placeat magnam aliquam debitis amet? Tenetur, voluptatibus molestiae. Provident possimus ex 
@@ -17,6 +32,8 @@ function Jobs() {
              dolorum eius commodi.</p>
   
         </div>
+
+        <p onClick={props.logout}>logout</p>
         
     </div>
     <div className='flex flex-col items-center'>
@@ -99,4 +116,23 @@ function Jobs() {
   );
 }
 
-export default Jobs;
+const mapStateToProps =  state =>{
+
+
+    return {
+
+        isLogin : state.isLogin,
+        state:state
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+
+    return {
+        logout : ()=> dispatch(Logout())
+    }
+}
+
+
+
+export default connect(mapStateToProps , mapDispatchToProps)( Jobs);
