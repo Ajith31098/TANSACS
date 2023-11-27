@@ -121,7 +121,7 @@ const mapStateToProps =  state =>{
 
     return {
 
-        isLogin : state.isLogin,
+        isLogin : state.login.isLogin,
         state:state
     }
 }

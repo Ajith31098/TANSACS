@@ -26,6 +26,7 @@ const PasswordField = ({ label, name, ...rest }) => {
             type={showPassword ? 'text' : 'password'}
             size="small"
             error={meta.touched && meta.error ? true : false}
+            autoComplete="new-password"
             className = { `text-sm shadow-md border border-2 w-full py-1 px-2 rounded focus:outline-none focus:border-sky-400 ${meta.touched && meta.error ? ' border-red-400 ' : 'border-gray-300 '}`}
             InputProps={{
               endAdornment: (

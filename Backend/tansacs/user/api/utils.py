@@ -12,6 +12,6 @@ def sendOTP(email):
     subject = 'OTP verification'
     message  = f"Your OTP is {otp}"   
     send_mail(subject , message , settings.EMAIL_HOST_USER , [email])
-    return (otp , True , 'success')
+    return otp 
 
 

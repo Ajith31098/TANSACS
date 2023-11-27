@@ -108,7 +108,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
   class Meta:
       model = Profile
-      fields = ['first_name', 'last_name', 'gender', 'DOB', 'age', 'aadhar', 'phone_number', 'alternate_phone_number', 'email', 'guardian_name', 'guardian_name_initial', 'address', 'permanent_address', 'password']
+      fields = ['first_name'  ,'last_name', 'gender', 'DOB', 'age', 'aadhar', 'phone_number', 'alternate_phone_number', 'email', 'guardian_name', 'guardian_name_initial', 'address', 'permanent_address', 'password']
 
   def create(self, validated_data):
       address_data = validated_data.pop('address' , [])
@@ -127,6 +127,11 @@ class ProfileSerializer(serializers.ModelSerializer):
       for address in permanent_address_data:
         Address.objects.create(user=profile, **address)
       return profile
+  
+class ProfileImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['profile_image']
 
 
 

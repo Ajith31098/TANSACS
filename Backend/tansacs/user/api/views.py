@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions, status
-from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import MultiPartParser , FormParser
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
@@ -7,10 +7,11 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from user.models import Profile
 
+from rest_framework.decorators import api_view
 from smtplib import  SMTPException, SMTPRecipientsRefused
 
 
-from .serializer import UserSerializer,CustomUserSerializer,ProfileSerializer , AddressSerializer
+from .serializer import UserSerializer,CustomUserSerializer,ProfileSerializer , ProfileImageSerializer
 from .permissions import IsUnauthenticated
 from .utils import sendOTP
 
@@ -79,15 +80,49 @@ class RegistrationView(APIView):
 
 class SignUpView(APIView):
    def post(self, request, format=None):
-    #    print(request.data)
+       print(request.data)
        serializer = ProfileSerializer(data=request.data)
     #    parser_classes = [FileUploadParser]
        if serializer.is_valid():
            profile = serializer.save()
-           return Response(serializer.data, status=status.HTTP_201_CREATED)
+           print(profile)
+           sendOTP(profile.email)
+           return Response({'profile_id' : profile.id }, status=status.HTTP_201_CREATED)
        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+   
+
+class UpdateProfileImageView(APIView):
+
+    parser_classes = (MultiPartParser , FormParser)
+
+    def patch(self, request, id):
+        print(id)
+        profile = Profile.objects.get(id=id)
+        serializer = ProfileImageSerializer(profile, data=request.data, partial=True)
+        print(request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'email' : profile.email}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class send_otp(APIView):
+    def post(self, request, format=None):
+        email = request.data.get('email')
+        if email:           
+            otp = sendOTP(email)
+          
+            return Response({'otp': otp}, status=status.HTTP_201_CREATED)
+
+class verified(APIView):
+    def post(self, request, format=None):
+        email = request.data.get('email')  # Use request.data to access POST data
+        user = User.objects.get(email=email)
+        user.is_active = True
+        user.save()
+        return Response(status=status.HTTP_201_CREATED)
 
 
+   
 # class SignUpView(CreateAPIView):
 #  queryset = Profile.objects.all()
 #  serializer_class = ProfileSerializer

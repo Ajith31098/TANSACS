@@ -8,10 +8,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import axios from 'axios'
-import {useMutation ,useQuery} from 'react-query'
+import {useMutation } from 'react-query'
 
 
-import { format } from 'date-fns';
+import { format , parseISO} from 'date-fns';
+import { Register } from '../../redux'
+import {connect} from 'react-redux'
+
 
 
 
@@ -21,34 +24,50 @@ const addressSchema = Yup.object().shape({
     state: Yup.string().required('State is required'),
     district: Yup.string().required('District is required'),
     city: Yup.string().required('City is required'),
-    pincode: Yup.number().typeError("Enter valid Pin Code").required('Required').positive('Enter valid Pin Code').test('len', 'Enter valid Pin Code', (val) => val && val.toString().length === 6),
+    pincode: Yup.number().typeError("Enter valid Pin Code")
+        .required('Required')
+        .positive('Enter valid Pin Code')
+        .test('len', 'Enter valid Pin Code', (val) => val && val.toString().length === 6),
 });
 
 const validationSchema = Yup.object({
-    profile_image: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
-    //   return value && value.size <= 5000000;
-    // }),
-
+    profile_image: Yup.mixed().required('Required'),
     first_name: Yup.string().required("Required"),
     last_name: Yup.string().required("Required"),
     gender: Yup.string().required("Required"),
-    // DOB: Yup.date().required("Required"),
-    age: Yup.number().typeError("Invalid Age").required('Required').positive('Invalid Age').test('age limit', 'Enter valid Age', (val) => val && val <= 100),
-    aadhar: Yup.number().typeError("Invalid Aadhaar Number").required('Required').positive('Invalid Aadhaar Number').test('len', 'Enter valid Aadhaar number', (val) => val && val.toString().length === 12),
+    age: Yup.number().typeError("Invalid Age")
+        .required('Required')
+        .positive('Invalid Age')
+        .test('age limit', 'Enter valid Age', (val) => val && val <= 100),
+    aadhar: Yup.number().typeError("Invalid Aadhaar Number")
+        .required('Required')
+        .positive('Invalid Aadhaar Number')
+        .test('len', 'Enter valid Aadhaar number', (val) => val && val.toString().length === 12),
     email: Yup.string().required("Required").email(),
     confrim_email: Yup.string().oneOf([Yup.ref('email'), ''], 'email not matched').required('Required'),
     guardian_name: Yup.string().required("Required"),
     guardian_name_initial: Yup.string().required("Required"),
-    phone_number: Yup.number().typeError("Enter valid Phone number").required('Required').positive('Enter valid Phone number').test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
-    alternate_phone_number: Yup.number().typeError("Enter valid Phone number").required('Required').positive('Enter valid Phone number').test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
-    password: Yup.string().required("Enter Password"),
-    confrim_password: Yup.string().oneOf([Yup.ref('password'), ''], 'password not matched').required('Required'),
-
-    address: addressSchema,
-    permanent_address:addressSchema
-
-
-})
+    phone_number: Yup.number().typeError("Enter valid Phone number")
+        .required('Required')
+        .positive('Enter valid Phone number')
+        .test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
+    alternate_phone_number: Yup.number().typeError("Enter valid Phone number")
+        .required('Required')
+        .positive('Enter valid Phone number')
+        .test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
+    password: Yup.string()
+        .required("Enter Password")
+        // .matches(
+        //     /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[\W_]).{8,}$/,
+        //     "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+        // ),
+        ,
+    confrim_password: Yup.string()
+        .oneOf([Yup.ref('password'), ''], 'Password not matched')
+        .required('Required'),
+    address: Yup.array().of(addressSchema).required('Address is required'),
+    permanent_address: Yup.array().of(addressSchema).required('Permanent address is required'),
+});
 
 const initialvalues = {
     profile_image: '',
@@ -67,7 +86,8 @@ const initialvalues = {
     password: '',
     confrim_password: '',
 
-    address: {
+    address: [{
+        
         address_line1: '',
         address_line2: '',
         state: '',
@@ -76,8 +96,8 @@ const initialvalues = {
         pincode: '',
         address_type:'communication'
 
-    },
-    permanent_address: {
+    }],
+    permanent_address:[ {
         address_line1: '',
         address_line2: '',
         state: '',
@@ -87,7 +107,7 @@ const initialvalues = {
         address_type:'communication'
 
 
-    },
+    }],
 }
 
 const genderOptions = [
@@ -107,19 +127,27 @@ const districtOptions = [
 ]
 
 async function signUpUser(values) {
-    const response = await  axios.post('http://127.0.0.1:8000/signup', values,  {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-       });
-    return response.data;
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/signup', values, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        return response.data;
+    } catch (error) {
+        // Handle errors here if needed
+        console.error('Error:', error);
+        throw error; // Re-throw the error to be caught by the caller
+    }
 }
+
+
 
 
 // const onSubmit = values => console.log('Form Data', values)
 
 // console.log();
-function Signup() {
+function Signup(props) {
 
     const navigate = useNavigate()
 
@@ -127,8 +155,15 @@ function Signup() {
 
     const mutation = useMutation(signUpUser)
 
+
     const onSubmit = (values, { setFieldError }) => {
-        console.log('submited',values);
+
+        const  formattedvalue = {
+            ...values,
+            address:values.address[0],
+            permanent_address:values.permanent_address[0]
+        }
+        console.log('submited',formattedvalue);
         setLoading(true
             )
 
@@ -140,7 +175,26 @@ function Signup() {
                 onSuccess:(data)=>{
 
                         setLoading(false)
-                        console.log(data);
+                        console.log('success',values.profile_image , data.profile_id);
+                        const id = data.profile_id
+                        
+                        const formData = new FormData();
+                        formData.append('profile_image', values.profile_image);
+                        axios.patch(`http://127.0.0.1:8000/profile/${id}`,formData,{
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                        })
+                        .then(function(response){
+                            console.log(response , values.email);
+                            // const data = {
+                            //     'email' : values.email
+                            // }
+                            props.register(response.data)
+                        })
+                        .catch(function(error){
+                            console.error(error);
+                        })
 
                 },
                 onError: (error) => {
@@ -148,11 +202,10 @@ function Signup() {
                     console.log(error.response.data);
                     const errorData = error.response.data;
                     if (errorData.email) {
-                      setFieldError('email', errorData.username[0]);
+                        console.log('yes');
+                      setFieldError('email', errorData.email[0]);
                     }
-                    if (errorData.password) {
-                      setFieldError('password', errorData.password[0]);
-                    }
+                    
                         setLoading(false)
 
                   },
@@ -169,9 +222,11 @@ function Signup() {
        
        useEffect(() => {
 
-        console.log("isdjsadj");
+        if(props.isRegister ){
+            navigate('/verify')
+        }
 
-       }, []);
+       }, [props.isRegister]);
 
 
     return (
@@ -267,7 +322,7 @@ function Signup() {
 
                                     </div>
 
-                                    {/* <div className="col-span-1">
+                                    <div className="col-span-1">
                                         <Field
                                             name="DOB"
                                             placeholder="DOB"
@@ -282,12 +337,14 @@ function Signup() {
                                                         name='DOB'
                                                         {...field}
                                                         placeholderText='DOB'
-                                                        selected={value}
+                                                        selected={value ? parseISO(value) : null}
 
                                                         showIcon
                                                         className={touched.DOB && errors.DOB ? ' border border shadow-md py-1 px-2 border-red-400 w-full rounded text-sm focus:outline-none focus:border-sky-400' : ' border border shadow-md py-1 px-2 text-sm border-gray-400 w-full rounded focus:outline-none focus:border-sky-400'}
 
-                                                        onChange={val => setFieldValue('DOB', val)}
+                                                        onChange={val => setFieldValue('DOB', format(val, 'yyyy-MM-dd'))}
+                                                        // onChange={val => setFieldValue('DOB', val)}
+
                                                     />
                                                 }
 
@@ -301,7 +358,7 @@ function Signup() {
                                             </p>
 
                                         </div>
-                                    </div> */}
+                                    </div>
                                     <div className="col-span-1">
                                         <FormikControl
                                             control='input'
@@ -421,7 +478,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='address.address_line1'
+                                        name='address[0].address_line1'
                                         label="LINE 1"
                                         placeholder="LINE 1"
                                     />
@@ -432,7 +489,7 @@ function Signup() {
                                     <FormikControl
                                         control='select'
                                         type='select'
-                                        name='address.state'
+                                        name='address[0].state'
                                         options={stateOptions}
                                     />
 
@@ -442,7 +499,7 @@ function Signup() {
                                     <FormikControl
                                         control='select'
                                         type='select'
-                                        name='address.district'
+                                        name='address[0].district'
                                         options={districtOptions}
                                     />
 
@@ -452,7 +509,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='address.address_line2'
+                                        name='address[0].address_line2'
                                         label="LINE 2"
                                         placeholder="LINE 2"
                                     />
@@ -463,7 +520,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='address.city'
+                                        name='address[0].city'
                                         label="TOWN/VILLAGE/CITY"
                                         placeholder="TOWN/VILLAGE/CITY"
                                     />
@@ -473,7 +530,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='address.pincode'
+                                        name='address[0].pincode'
                                         label="PINCODE"
                                         placeholder="PINCODE"
                                     />
@@ -494,7 +551,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='permanent_address.address_line1'
+                                        name='permanent_address[0].address_line1'
                                         label="LINE 1"
                                         placeholder="LINE 1"
                                     />
@@ -505,7 +562,7 @@ function Signup() {
                                     <FormikControl
                                         control='select'
                                         type='select'
-                                        name='permanent_address.state'
+                                        name='permanent_address[0].state'
                                         options={stateOptions}
                                     />
 
@@ -514,7 +571,7 @@ function Signup() {
                                     <FormikControl
                                         control='select'
                                         type='select'
-                                        name='permanent_address.district'
+                                        name='permanent_address[0].district'
                                         options={districtOptions}
                                     />
 
@@ -524,7 +581,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='permanent_address.address_line2'
+                                        name='permanent_address[0].address_line2'
                                         label="LINE 2"
                                         placeholder="LINE 2"
                                     />
@@ -535,7 +592,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='permanent_address.city'
+                                        name='permanent_address[0].city'
                                         label="TOWN/VILLAGE/CITY"
                                         placeholder="TOWN/VILLAGE/CITY"
                                     />
@@ -545,7 +602,7 @@ function Signup() {
                                     <FormikControl
                                         control='input'
                                         type='text'
-                                        name='permanent_address.pincode'
+                                        name='permanent_address[0].pincode'
                                         label="PINCODE"
                                         placeholder="PINCODE"
                                     />
@@ -587,4 +644,21 @@ function Signup() {
     );
 }
 
-export default Signup;
+
+const mapStateToProps =  state =>{
+
+
+    return {
+
+        isRegister : state.register.isRegister,
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+
+    return {
+        register : (data)=> dispatch(Register(data))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Signup);

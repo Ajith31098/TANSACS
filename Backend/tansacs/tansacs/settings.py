@@ -150,12 +150,12 @@ AWS_DEFAULT_ACL = None
 
 # Configure static and media file URLs
 # STATIC_URL = 'https://tansac-s3.s3.amazonaws.com/static/'
-# MEDIA_URL = 'https://tansac-s3.s3.amazonaws.com/media/'
+MEDIA_URL = 'https://tansac-s3.s3.amazonaws.com/media/'
 
 # Optional: Override default storage class for media files (uploaded files)
 # Custom storage classes for static and media files
-# DEFAULT_FILE_STORAGE = 'tansacs.custom_storage.MediaStorage'
-# STATICFILES_STORAGE = 'tansacs.custom_storage.StaticStorage'
+DEFAULT_FILE_STORAGE = 'tansacs.custom_storage.MediaStorage'
+STATICFILES_STORAGE = 'tansacs.custom_storage.StaticStorage'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
