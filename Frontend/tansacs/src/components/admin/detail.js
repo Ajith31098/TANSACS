@@ -18,6 +18,12 @@ import Select from '@mui/material/Select';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 
+import { LIST_APPLICANT } from '../endpoints/admin/AdminEndPoints';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import LoadingComponent from '../basecomponents/loading';
+import {connect} from 'react-redux'
+import { Link } from "react-router-dom";
 
 
 function createData(id, name, email, score) {
@@ -39,7 +45,20 @@ const initialRows = [
   createData('TAN1012', 'Anjali', 'anjali@gmail.com', 10),
 ].sort((a, b) => (a.score < b.score ? 1 : -1));
 
-export default function Detail() {
+function Detail(props) {
+
+  const {isLoading , data} = useQuery("applicants_by_position" ,()=>{
+    return axios.get(LIST_APPLICANT(props.data_position) , {
+      headers:{
+          'Content-Type' : 'application/json',
+          'Authorization' : `token ${props.token}`
+      }
+     })
+  })
+
+
+
+
   const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [searchvalue, setsearchvalue] = React.useState('');
@@ -72,16 +91,24 @@ export default function Detail() {
     setsearchvalue('')
   }
 
+  if (isLoading){
+    return <LoadingComponent/>
+}
+
   return (
     <>
+    {console.log(data?.data)}
       <div>
         <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <p className='text-red-600 font-semibold '>CLUSTER PROGRAM MANAGER</p>
+          <p className='text-red-600 font-semibold '>{props.position }</p>
           <div className='w-max'>
-            <button type='submit' className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Back
-              <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-            </button>
+          <Link to={"/admin/home"} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+               Back
+            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+            </Link>
+            
           </div>
 
         </Box>
@@ -182,3 +209,17 @@ export default function Detail() {
 
   );
 }
+
+const mapStateToProps =  state =>{
+
+
+  return {
+
+      // isLogin : state.login.isLogin,
+      // isSuperuser:state.login.is_superuser,
+      token : state.login.token
+  }
+}
+
+
+export default connect(mapStateToProps) (Detail);

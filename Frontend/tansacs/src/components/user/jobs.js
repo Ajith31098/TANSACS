@@ -40,7 +40,7 @@ function Jobs(props) {
         <div className='w-10/12 m-auto grid lg:grid-cols-10 grid-cols-1 justify-center  gap-4'>
             <div className="col-span-4 flex flex-col gap-4 lg:mt-14 mt-0 order-2 lg:order-2">
                 <div className='w-full'>
-                    <Link to={'/cluster_manager'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/cluster_manager'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Cluster Program Manager ( Post-7 )
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 

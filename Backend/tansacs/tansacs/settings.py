@@ -42,17 +42,19 @@ INSTALLED_APPS = [
     'corsheaders',
     'user',
     'jobs',
+    'superadmin',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'tansacs.urls'
@@ -127,18 +129,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
 
 
 AWS_ACCESS_KEY_ID = 'AKIARX56MWFDJPTMTRPZ'
@@ -149,7 +146,7 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 # Configure static and media file URLs
-# STATIC_URL = 'https://tansac-s3.s3.amazonaws.com/static/'
+STATIC_URL = 'https://tansac-s3.s3.amazonaws.com/static/'
 MEDIA_URL = 'https://tansac-s3.s3.amazonaws.com/media/'
 
 # Optional: Override default storage class for media files (uploaded files)
@@ -165,9 +162,17 @@ EMAIL_HOST_USER = 'ssnazarenesrs@gmail.com'
 EMAIL_HOST_PASSWORD = 'lcjcsgffunxbzkhr'
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 CORS_ALLOWED_ORIGINS = [
    "http://localhost:3000",
    "http://127.0.0.1:9000"
 ]
+
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': [
+       'rest_framework.authentication.TokenAuthentication',
+   ],
+}

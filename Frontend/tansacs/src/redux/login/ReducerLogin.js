@@ -8,7 +8,6 @@ const initialState = {
 }
 
 export const ReducerLogin = (state = initialState, action) => {
-console.log(action);
     switch (action.type) {
 
         case LOGIN: return {
@@ -16,7 +15,8 @@ console.log(action);
             isLogin: true,
             token:action.data.token,
             is_active:action.data.is_active,
-            user_age:action.data.user_age
+            user_age:action.data.user_age,
+            is_superuser:action.data.is_superuser
 
         }
 

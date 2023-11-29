@@ -50,18 +50,19 @@ function SignIn(props) {
 
                         setLoading(false)
 
-
+                        console.log(data);
                         props.login(data)
                 },
                 onError: (error) => {
                     
         
                     const errorData = error.response.data;
+                    console.log(errorData);
                     if (errorData.username) {
-                      setFieldError('username', errorData.username[0]);
+                      setFieldError('username', errorData.username);
                     }
                     if (errorData.password) {
-                      setFieldError('password', errorData.password[0]);
+                      setFieldError('password', errorData.password);
                     }
                         setLoading(false)
 
@@ -78,7 +79,11 @@ function SignIn(props) {
        
        useEffect(() => {
 
-        if(props.isLogin){
+        if(props.isSuperuser){
+            navigate('admin/home')
+        }
+
+        else if(props.isLogin){
             navigate('tansacs/jobs')
         }
 
@@ -179,6 +184,7 @@ const mapStateToProps =  state =>{
     return {
 
         isLogin : state.login.isLogin,
+        isSuperuser:state.login.is_superuser,
     }
 }
 

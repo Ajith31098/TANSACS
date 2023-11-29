@@ -1,0 +1,13 @@
+
+
+
+
+body { font-family: Arial, sans-serif; }
+.form-container { margin: 20px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px; text-align: left; }
+/* th { background-color: #f2f2f2; } */
+h1 { color: #e60000; text-align: center; }
+.input-field { width: 100%; }
+.section-header { background-color: #e60000; color: white; text-align: center; }
+.p{background-color: #e60000; color: white; text-align: center; }

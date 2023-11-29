@@ -1,7 +1,8 @@
 import {createStore} from 'redux'
 // import { ReducerLogin } from './login/ReducerLogin'
-import {rootReducer} from './rootReducer'
+import persistedReducer from './rootReducer'
+import { persistStore } from 'redux-persist';
 
-const store = createStore(rootReducer)
-
-export default store
+// const store = createStore(persistedReducer)
+export const store = createStore(persistedReducer);
+export const persistor = persistStore(store);

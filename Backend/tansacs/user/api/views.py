@@ -6,9 +6,12 @@ from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from user.models import Profile
+from django.contrib.auth import login
+from rest_framework.authtoken.views import ObtainAuthToken
 
 from rest_framework.decorators import api_view
 from smtplib import  SMTPException, SMTPRecipientsRefused
+from rest_framework.authentication import TokenAuthentication
 
 
 from .serializer import UserSerializer,CustomUserSerializer,ProfileSerializer , ProfileImageSerializer
@@ -16,22 +19,49 @@ from .permissions import IsUnauthenticated
 from .utils import sendOTP
 
 
-class LoginView(APIView):
-  permission_classes = [IsUnauthenticated]
+class LoginView(ObtainAuthToken):
+    permission_classes = [IsUnauthenticated]
 
-  def post(self, request, *args, **kwargs):
-      serializer = CustomUserSerializer(data=request.data)
-      if serializer.is_valid():
-          user = User.objects.get(username=serializer.validated_data['username'])
-          token, created = Token.objects.get_or_create(user=user)
-          print(token, created)
-          return Response({
-              'token': token.key,
-              'user_age':  user.profile.age_job,
-              'is_active': user.is_active,
-              'message': 'Success'
-          }, status=status.HTTP_200_OK)
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        serializer = CustomUserSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = self.authenticate_user(username, password)
+        if user.get("valid"):
+            print(user)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+            user_age = user.profile.age_job if not user.is_superuser else 0  
+            return Response({
+                    'token': token.key,
+                    'user_age':  user_age,
+                    'is_active': user.is_active,
+                    'is_superuser':user.is_superuser,
+                    'message': 'Success'
+                }, status=status.HTTP_200_OK)
+
+        return Response(user, status=status.HTTP_400_BAD_REQUEST)
+    
+    def authenticate_user(self, username, password):
+        if not username or not password:
+            return {'valid' : False ,"username":"invalid" , "password" : "invalid"}
+
+        try:
+            if not User.objects.filter(username=username).exists():
+                return {'valid' : False ,"username":"invalid username" }
+
+            user = User.objects.get(username=username)
+            if user.check_password(password):
+                return {'valid' : True }
+            else:
+                return {'valid' : False , "password" : "invalid password"}
+
+        except:
+            return None
 
 
 # class SignupView(APIView):
@@ -121,7 +151,23 @@ class verified(APIView):
         user.save()
         return Response(status=status.HTTP_201_CREATED)
 
+from rest_framework.permissions import IsAuthenticated
 
+class LogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        # Get the token associated with the current user
+        try:
+            token = request.auth
+            print(token )
+            token = Token.objects.get(user=request.user)
+            # Delete the token
+            token.delete()
+            return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
+        except Token.DoesNotExist:
+            return Response({"detail": "User does not have an active token."}, status=status.HTTP_400_BAD_REQUEST)
    
 # class SignUpView(CreateAPIView):
 #  queryset = Profile.objects.all()

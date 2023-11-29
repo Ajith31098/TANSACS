@@ -31,14 +31,20 @@ class PreferedExperienceSerializer(serializers.ModelSerializer):
        model = PreferedExperience
        fields = '__all__'
 
-class JobSerializer(serializers.ModelSerializer):
-   sslc = SSLCSerializer()
-   hsc = HSCSerializer()
-   ug = UGSerializer()
-   pg = PGSerializer(many=True)
-   experience = ExperienceSerializer(many=True)
-   prefered_experience = PreferedExperienceSerializer(many=True)
+from django.core.files.base import ContentFile
+import base64
 
-   class Meta:
-       model = Job
-       fields = '__all__'
+
+
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields = ['position' , 'sslc' , 'hsc' , 'ug' ,'user'] # No fields are included in the serializer
+
+
+
+    
+    
+
+
+

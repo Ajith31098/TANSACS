@@ -6,7 +6,6 @@ const initialState = {
 }
 
 export const ReducerRegister = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
 
         case REGISTER: return {

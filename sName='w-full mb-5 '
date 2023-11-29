@@ -1,0 +1,83 @@
+[33mcommit a74dddfafa64b0fc712ca20e9d780fd832c8c2c9[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfrontend[m[33m)[m
+Author: Nazarene12 <140137691+Nazarene12@users.noreply.github.com>
+Date:   Mon Nov 27 09:29:43 2023 +0530
+
+    login and signup with otp is completed
+
+[33mcommit 1afb150a47330e10824e989ad19854742584fa57[m
+Author: Nazarene12 <140137691+Nazarene12@users.noreply.github.com>
+Date:   Mon Nov 27 00:16:59 2023 +0530
+
+    add the signup api
+
+[33mcommit 761d05402f25c766498ff0162889e20be4184b7c[m[33m ([m[1;32mbackend[m[33m)[m
+Author: Nazarene12 <140137691+Nazarene12@users.noreply.github.com>
+Date:   Sat Nov 25 10:16:58 2023 +0530
+
+    completed all three api
+
+[33mcommit dd8af8947a57f6edb0951f7708b237daa31889a7[m
+Author: Nazarene12 <140137691+Nazarene12@users.noreply.github.com>
+Date:   Fri Nov 24 04:26:25 2023 +0530
+
+    models of job created
+
+[33mcommit 0b2aa88d9b71441d7a1a01a81243244a235a2af4[m
+Author: Nazarene12 <140137691+Nazarene12@users.noreply.github.com>
+Date:   Fri Nov 24 02:48:30 2023 +0530
+
+    user models has been finished
+
+[33mcommit 16029490415223c7e8d0cdf2b9be4456c043ec0f[m
+Author: Ajith Kumar R <ajithkumardotr@gmail.com>
+Date:   Wed Nov 22 18:24:01 2023 +0530
+
+    admin post detail was changed
+
+[33mcommit 6ae0054e017ae4daaa950385d44b1501827dc2c6[m
+Author: Nazarene12 <140137691+Nazarene12@users.noreply.github.com>
+Date:   Wed Nov 22 17:16:23 2023 +0530
+
+    stared backend and frontend small changes
+
+[33mcommit c8c026e1bb11fcc805d70fe3be1efb9825b592ca[m
+Author: Ajith Kumar R <ajithkumardotr@gmail.com>
+Date:   Tue Nov 21 18:39:15 2023 +0530
+
+    complete eight job apply page
+
+[33mcommit 0915faf881d2235750138bd5f79d3efbe938866b[m
+Author: Ajith Kumar R <ajithkumardotr@gmail.com>
+Date:   Tue Nov 21 02:46:17 2023 +0530
+
+    complete eight job forms
+
+[33mcommit 76a3e3d563f288553eb8193151dde6da59ee6233[m
+Author: Ajith Kumar R <ajithkumardotr@gmail.com>
+Date:   Fri Nov 17 13:59:03 2023 +0530
+
+    login page font ans size has been change
+
+[33mcommit 8d74c1c35368778c05c8bc2ace2fe03c558379a0[m
+Author: Ajith Kumar R <ajithkumardotr@gmail.com>
+Date:   Thu Nov 16 16:36:00 2023 +0530
+
+    job1 lorem has been change
+
+[33mcommit f366a4f8c70322983429e1f77bb223072ebc7439[m
+Author: Ajith Kumar R <ajithkumardotr@gmail.com>
+Date:   Wed Nov 15 01:31:42 2023 +0530
+
+    must be required has been change
+
+[33mcommit aaa8dff3f0c53a4485af2566d13fef8b2eb9105d[m
+Author: Nazarene <ssnazarenesrs@gmail.com>
+Date:   Wed Nov 15 00:52:45 2023 +0530
+
+    optimized the job apply form
+
+[33mcommit addde14beafeb1b4988265065e252ece4b2e415e[m
+Author: Nazarene <ssnazarenesrs@gmail.com>
+Date:   Tue Nov 14 10:18:54 2023 +0530
+
+    initial commit

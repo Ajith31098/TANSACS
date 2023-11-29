@@ -1,4 +1,6 @@
 import './App.css';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
 import DeputyDirectorForm from './components/user/deputydirectorform';
 import ClusterManagerForm from './components/user/clustermanagerform';
@@ -37,87 +39,100 @@ import { QueryClientProvider,QueryClient } from 'react-query';
 import {ReactQueryDevtools} from 'react-query/devtools'
 
 import { Provider } from 'react-redux'
-import store from './redux/Store';
+import { store, persistor } from './redux/Store';
 import ValidaterLogin from './components/Validater/ValidaterLogin';
+import Preview from './components/admin/Preview';
+
+import AdminCPM from './components/admin/AdminCPM';
 
 const queryClient = new QueryClient()
+
 function App() {
   return (
 
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <div className="App lg:px-20 md:px-20 px-5 py-10">
-          <Header />
-          {/* <DeputyDirectorForm/> */}
+      <PersistGate loading={null} persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <div className="App lg:px-20 md:px-20 px-5 py-10">
+            <Header />
+            {/* <DeputyDirectorForm/> */}
 
-          <Routes>
-
-
-
-              <Route path='/' element={<SignIn />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/forgot' element={<ForgotPassword />} />
-              <Route path='/reset' element={<ResetPassword />} />
-              <Route path='/verify' element={<VerifyOTP />} />
+            <Routes>
 
 
-            <Route path="/tansacs" element={<ValidaterLogin />}>
 
-              <Route path='jobs' element={<Jobs />} />
-              <Route path='cluster_manager' element={<Job1 />} />
-              <Route path='cluster_manager/apply' element={<ClusterManagerForm />} />
+                <Route path='/' element={<SignIn />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/forgot' element={<ForgotPassword />} />
+                <Route path='/reset' element={<ResetPassword />} />
+                <Route path='/verify' element={<VerifyOTP />} />
 
-              <Route path='clinical_officer' element={<Job2 />} />
-              <Route path='clinical_officer/apply' element={<ClinicalServiceOfficer />} />
 
-              <Route path='data_monitoring_officer' element={<Job3 />} />
-              <Route path='data_monitoring_officer/apply' element={<DataMonitoringDocumentationOfficer />} />
+              <Route path="/tansacs" element={<ValidaterLogin />}>
 
-              <Route path='deputy_director_ls' element={<Job4 />} />
-              <Route path='deputy_director_ls/apply' element={<DeputyDirectorLS />} />
+                <Route path='jobs' element={<Jobs />} />
+                <Route path='cluster_manager' element={<Job1 />} />
+                <Route path='cluster_manager/apply' element={<ClusterManagerForm  position= "Cluster Program Manager" />} />
 
-              <Route path='deputy_director_si' element={<Job5 />} />
-              <Route path='deputy_director_si/apply' element={<DeputyDirectorSI />} />
+                <Route path='clinical_officer' element={<Job2 />} />
+                <Route path='clinical_officer/apply' element={<ClinicalServiceOfficer />} />
 
-              <Route path='assistant_director_ictc' element={<Job6 />} />
-              <Route path='assistant_director_ictc/apply' element={<AssistantDirectorBSD />} />
+                <Route path='data_monitoring_officer' element={<Job3 />} />
+                <Route path='data_monitoring_officer/apply' element={<DataMonitoringDocumentationOfficer />} />
 
-              <Route path='assistant_director_ti' element={<Job7 />} />
-              <Route path='assistant_director_ti/apply' element={<AssistantDirectorTI />} />
+                <Route path='deputy_director_ls' element={<Job4 />} />
+                <Route path='deputy_director_ls/apply' element={<DeputyDirectorLS />} />
 
-              <Route path='assistant_director_iec' element={<Job8 />} />
-              <Route path='assistant_director_iec/apply' element={<AssistantDirectorIEC />} />
+                <Route path='deputy_director_si' element={<Job5 />} />
+                <Route path='deputy_director_si/apply' element={<DeputyDirectorSI />} />
 
-            </Route>
+                <Route path='assistant_director_ictc' element={<Job6 />} />
+                <Route path='assistant_director_ictc/apply' element={<AssistantDirectorBSD />} />
 
-            <Route path='/admin' element={<AdminHome />} />
-            <Route path='/admin/post' element={<Detail />} />
+                <Route path='assistant_director_ti' element={<Job7 />} />
+                <Route path='assistant_director_ti/apply' element={<AssistantDirectorTI />} />
 
-            {/* 
-            <Route path='/job1' element={<Job1 />} />
-            <Route path='/job2' element={<Job2 />} />
-            <Route path='/job3' element={<Job3 />} />
-            <Route path='/job4' element={<Job4 />} />
-            <Route path='/job5' element={<Job5 />} />
-            <Route path='/job6' element={<Job6 />} />
-            <Route path='/job7' element={<Job7 />} />
-            <Route path='/job8' element={<Job8 />} />
+                <Route path='assistant_director_iec' element={<Job8 />} />
+                <Route path='assistant_director_iec/apply' element={<AssistantDirectorIEC />} />
 
-            <Route path='/job1/apply' element={<ClusterManagerForm />} />
-            <Route path="/job2/apply" element={<ClinicalServiceOfficer />} />
-            <Route path="/job3/apply" element={<DataMonitoringDocumentationOfficer />} />
-            <Route path="/job4/apply" element={<DeputyDirectorLS />} />
-            <Route path="/job5/apply" element={<DeputyDirectorSI />} />
-            <Route path="/job6/apply" element={<AssistantDirectorBSD />} />
-            <Route path="/job7/apply" element={<AssistantDirectorTI />} />
-            <Route path="/job8/apply" element={<AssistantDirectorIEC />} />
+              </Route>
 
-            */}
+              <Route path='/admin'>
+                <Route path='home' element={<AdminHome />} />
+                <Route path='home/CPM' element={<AdminCPM />} />
 
-          </Routes>
-        </div>
-        <ReactQueryDevtools initialIsOpen = {false} position="bottom-right" />
-      </QueryClientProvider>
+
+              </Route>
+
+              {/* <Route path='/admin/post' element={<Detail />} />
+              <Route path='/preview' element={<Preview/>} /> */}
+
+              {/* 
+              <Route path='/job1' element={<Job1 />} />
+              <Route path='/job2' element={<Job2 />} />
+              <Route path='/job3' element={<Job3 />} />
+              <Route path='/job4' element={<Job4 />} />
+              <Route path='/job5' element={<Job5 />} />
+              <Route path='/job6' element={<Job6 />} />
+              <Route path='/job7' element={<Job7 />} />
+              <Route path='/job8' element={<Job8 />} />
+
+              <Route path='/job1/apply' element={<ClusterManagerForm />} />
+              <Route path="/job2/apply" element={<ClinicalServiceOfficer />} />
+              <Route path="/job3/apply" element={<DataMonitoringDocumentationOfficer />} />
+              <Route path="/job4/apply" element={<DeputyDirectorLS />} />
+              <Route path="/job5/apply" element={<DeputyDirectorSI />} />
+              <Route path="/job6/apply" element={<AssistantDirectorBSD />} />
+              <Route path="/job7/apply" element={<AssistantDirectorTI />} />
+              <Route path="/job8/apply" element={<AssistantDirectorIEC />} />
+
+              */}
+
+            </Routes>
+          </div>
+          <ReactQueryDevtools initialIsOpen = {false} position="bottom-right" />
+        </QueryClientProvider>
+      </PersistGate>
     </Provider>
   );
 }

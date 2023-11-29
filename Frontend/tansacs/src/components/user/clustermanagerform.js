@@ -1,278 +1,274 @@
 import React from 'react'
-import { Formik, Form, useFormik, FieldArray } from 'formik';
+import { Formik, Form,Field,  FieldArray } from 'formik';
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
 import {Link} from 'react-router-dom'
+import {useMutation } from 'react-query'
+import axios from 'axios'
+import LoadingComponent from '../basecomponents/loading'
+import {connect} from 'react-redux'
 
 
-function ClusterManagerForm() {
+
+
+function ClusterManagerForm(props) {
+
+    async function ApplicationForm(values) {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/jobs/job', values, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `token ${props.token}`
+                },
+            });
+    
+            return response.data;
+        } catch (error) {
+            // Handle errors here if needed
+            console.error('Error:', error);
+            // Re-throw the error to be caught by the caller
+            throw error
+        }
+    }
+
+    const [loading, setLoading] = React.useState(false);
+
+
+    const mutation = useMutation(ApplicationForm)
+
 
     const initialValues = {
-        sslcfirstname: '',
-        sslclastname: '',
-        sslcregisternumber: '',
-        sslcpercentage: '',
-        sslcfile: '',
-        sslcmonth: '',
-        sslcyear: '',
-        sslcboard: '',
-        hscfirstname: '',
-        hsclastname: '',
-        hscregisternumber: '',
-        hscpercentage: '',
-        hscfile: '',
-        hscmonth: '',
-        hscyear: '',
-        hscboard: '',
-        ugdegree: '',
-        ugfirstname: '',
-        uglastname: '',
-        ugregisternumber: '',
-        ugpercentage: '',
-        ugdeparment: '',
-        ugfile: '',
-        ugmonth: '',
-        ugyear: '',
+        sslc :{
+            first_name:'',
+            last_name:'',
+            register_number:'',
+            month:'',
+            year:'',
+            percentage:'',
+            board:'',
+            marksheet:''
+        }
+        ,
+        hsc:{
+            first_name:'',
+            last_name:'',
+            register_number:'',
+            month:'',
+            year:'',
+            percentage:'',
+            board:'',
+            marksheet:''
+        },
+        ug:{
+            first_name:'',
+            last_name:'',
+            register_number:'',
+            degree:'',
+            department:'',
+            month:'',
+            year:'',
+            percentage:'',
+            marksheet:''
+        },
+       
         pg: [
             {
-                degree: '',
-                firstname: '',
-                lastname: '',
-                registernumber: '',
-                deparment: '',
-                percentage: '',
-                file: '',
-                month: '',
-                year: '',
+                first_name:'',
+                last_name:'',
+                register_number:'',
+                degree:'',
+                department:'',
+                month:'',
+                year:'',
+                percentage:'',
+                marksheet:''
             },
         ],
         experience: [
             {
-                field: '', companyname: '', experience: '', document: ''
+                degree: '', company: '', year: '', certificate: ''
             }
         ],
-        naco: {
-            year: '',
-            file: ''
-        },
-        tansacs: {
-            year: '',
-            file: ''
-        },
-        tsu: {
-            year: '',
-            file: ''
-        }
-
+        prefered_experience:[
+            {
+                company:'NACO',
+                year:'',
+                certificate:'',
+                NOC:''
+            },
+            {
+                company:'TANSACS',
+                year:'',
+                certificate:'',
+                NOC:''
+            },
+            {
+                company:'TSU',
+                year:'',
+                certificate:'',
+                NOC:''
+            }
+        ],
+        position:props.position
+       
     }
 
-    const validationSchema = Yup.object({
-        sslcfirstname: Yup.string().required('Must be Required'),
-        sslclastname: Yup.string().required('Required'),
-        sslcregisternumber: Yup.number().typeError('invalid').required('Required').positive('invalid'),
-        sslcpercentage: Yup.number().required('Required').positive('Must be positive'),
-        sslcfile: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
+    const sslc_hsc_Scheme = Yup.object().shape({
+        first_name: Yup.string().required('Must be Required'),
+        last_name: Yup.string().required('Required'),
+        register_number: Yup.number().typeError('invalid').required('Required').positive('invalid'),
+        percentage: Yup.number().required('Required').positive('Must be positive'),
+        marksheet: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
         //   return value && value.size <= 5000000;
         // }),
-        sslcmonth: Yup.string().required('Required'),
-        sslcyear: Yup.string().required('Required'),
+        month: Yup.string().required('Required'),
+        year: Yup.string().required('Required'),
 
-        sslcboard: Yup.string().required('Required'),
-        hscfirstname: Yup.string().required('Required'),
-        hsclastname: Yup.string().required('Required'),
-        hscregisternumber: Yup.number().required('Required').positive('Must be positive'),
-        hscpercentage: Yup.number().required('Required').positive('Must be positive'),
-        hscfile: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
-        //   return value && value.size <= 5000000;
-        // }),
-        hscmonth: Yup.string().required('Required'),
-        hscyear: Yup.string().required('Required'),
-        hscboard: Yup.string().required('Required'),
-        ugdegree: Yup.string().required('Required'),
-        ugfirstname: Yup.string().required('Required'),
-        uglastname: Yup.string().required('Required'),
-        ugdeparment: Yup.string().required('Required'),
-        ugregisternumber: Yup.number().required('Required').positive('Must be positive'),
-        ugpercentage: Yup.number().required('Required').positive('Must be positive'),
-        ugfile: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
-        //   return value && value.size <= 5000000;
-        // }),
-        ugmonth: Yup.string().required('Required'),
-        ugyear: Yup.string().required('Required'),
-        pg: Yup.array().of(
-            Yup.object().shape({
-                degree: Yup.string().required('Required'),
-                deparment: Yup.string().required('Required'),
-                firstname: Yup.string().required('Required'),
-                lastname: Yup.string().required('Required'),
-                registernumber: Yup.number().required('Required').positive('Must be positive'),
-                percentage: Yup.number().required('Required').positive('Must be positive'),
-                file: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
-                //   return value && value.size <= 5000000;
-                // }),
-                month: Yup.string().required('Required'),
-                year: Yup.string().required('Required'),
-
-            })
-
-        ),
-        experience: Yup.array().of(
-            Yup.object().shape({
-                field: Yup.string().when(['companyname', 'experience', 'document'], {
-                    is: (companyname, experience, document) =>
-                        !!companyname || !!experience || !!document,
-                    then: () => Yup.string().required('Field is required'),
-                    otherwise: () => Yup.string(),
-                }),
-                companyname: Yup.string().when(['field', 'experience', 'document'], {
-                    is: (field, experience, document) =>
-                        !!field || !!experience || !!document,
-                    then: () => Yup.string().required('Company Name is required'),
-                    otherwise: () => Yup.string(),
-                }),
-                experience: Yup.number().when(['field', 'companyname', 'document'], {
-                    is: (field, companyname, document) =>
-                        !!field || !!companyname || !!document,
-                    then: () => Yup.number().typeError('Enter Years')
-                        .required('Experience is required')
-                        .positive('Enter a valid number of years')
-                        .test('length', 'Enter a valid number of years', (val) => val && val.toString().length < 3),
-                    otherwise: () => Yup.string(),
-                }),
-                document: Yup.mixed().when(['field', 'companyname', 'experience'], {
-                    is: (field, companyname, experience) =>
-                        !!field || !!companyname || !!experience,
-                    then: () => Yup.mixed().required('Document is required'),
-                    otherwise: () => Yup.string(),
-                }),
-            }, [
-                ['field', 'companyname'],
-                ['field', 'experience'],
-                ['field', 'document'],
-                ['companyname', 'experience'],
-                ['companyname', 'document'],
-                ['experience', 'document'],
-            ])
-        ),
-
-        naco: Yup.object().shape({
-            year: Yup.number().typeError('Year must be a number')
-        }).test('fill-all-or-none', 'Fill all fields or none', function (value) {
-            const { year, file } = value;
-
-            // Check if at least one field is filled
-            if (year || file) {
-                // Check if all fields are filled, if not, show an error
-                if (year && year < 1) {
-                    return this.createError({
-                        message: 'Year must be a positive number',
-                        path: 'naco.year',
-                    });
-                }
-
-                if (!(file)) {
-                    return this.createError({
-                        message: 'Add the required document for naco',
-                        path: 'naco.file',
-                    });
-                }
-                if (!(year)) {
-                    return this.createError({
-                        message: 'Enter the year of experience for naco',
-                        path: 'naco.year',
-                    });
-                }
-
-
-
-            }
-
-            return true;
-        }),
-        tansacs: Yup.object().shape({
-            year: Yup.number().typeError('Year must be a number')
-        }).test('fill-all-or-none', 'Fill all fields or none', function (value) {
-            const { year, file } = value;
-
-            // Check if at least one field is filled
-            if (year || file) {
-                // Check if all fields are filled, if not, show an error
-                if (year && year < 1) {
-                    return this.createError({
-                        message: 'Year must be a positive number',
-                        path: 'naco.year',
-                    });
-                }
-
-                if (!(file)) {
-                    return this.createError({
-                        message: 'Add the required document for naco',
-                        path: 'naco.file',
-                    });
-                }
-                if (!(year)) {
-                    return this.createError({
-                        message: 'Enter the year of experience for naco',
-                        path: 'naco.year',
-                    });
-                }
-
-
-
-            }
-
-            return true;
-        }),
-
-        tsu: Yup.object().shape({
-            year: Yup.number().typeError('Year must be a number')
-        }).test('fill-all-or-none', 'Fill all fields or none', function (value) {
-            const { year, file } = value;
-
-            // Check if at least one field is filled
-            if (year || file) {
-                // Check if all fields are filled, if not, show an error
-                if (year && year < 1) {
-                    return this.createError({
-                        message: 'Year must be a positive number',
-                        path: 'naco.year',
-                    });
-                }
-
-                if (!(file)) {
-                    return this.createError({
-                        message: 'Add the required document for naco',
-                        path: 'naco.file',
-                    });
-                }
-                if (!(year)) {
-                    return this.createError({
-                        message: 'Enter the year of experience for naco',
-                        path: 'naco.year',
-                    });
-                }
-
-
-
-            }
-
-            return true;
-        }),
-
-
-
+        board: Yup.string().required('Required'),
     })
 
-    const onSubmit = values => console.log('Form Data', values)
+    const ug_pg_Schema = Yup.object().shape({
+        first_name: Yup.string().required('Required'),
+        last_name: Yup.string().required('Required'),
+        degree: Yup.string().required('Required'),
+        department: Yup.string().required('Required'),
+        register_number: Yup.number().required('Required').positive('Must be positive'),
+        percentage: Yup.number().required('Required').positive('Must be positive'),
+        marksheet: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
+        //   return value && value.size <= 5000000;
+        // }),
+        month: Yup.string().required('Required'),
+        year: Yup.string().required('Required'),
+    })
+
+    const experienceSchema = Yup.object().shape({
+        degree: Yup.string().when(['company', 'year', 'certificate'], {
+            is: (company, year, certificate) =>
+                !!company || !!year || !!certificate,
+            then: () => Yup.string().required('degree is required'),
+            otherwise: () => Yup.string(),
+        }),
+        company: Yup.string().when(['degree', 'year', 'certificate'], {
+            is: (degree, year, certificate) =>
+                !!degree || !!year || !!certificate,
+            then: () => Yup.string().required('Company Name is required'),
+            otherwise: () => Yup.string(),
+        }),
+        year: Yup.number().when(['degree', 'company', 'certificate'], {
+            is: (degree, company, certificate) =>
+                !!degree || !!company || !!certificate,
+            then: () => Yup.number().typeError('Enter Years')
+                .required('year is required')
+                .positive('Enter a valid number of years')
+                .test('length', 'Enter a valid number of years', (val) => val && val.toString().length < 3),
+            otherwise: () => Yup.string(),
+        }),
+        certificate: Yup.mixed().when(['degree', 'company', 'year'], {
+            is: (degree, company, year) =>
+                !!degree || !!company || !!year,
+            then: () => Yup.mixed().required('certificate is required'),
+            otherwise: () => Yup.string(),
+        }),
+    }, [
+        ['degree', 'company'],
+        ['degree', 'year'],
+        ['degree', 'certificate'],
+        ['company', 'year'],
+        ['company', 'certificate'],
+        ['year', 'certificate'],
+    ])
 
 
-    const formik = useFormik({
-        initialValues,
-        onSubmit,
-        validationSchema,
-        validateOnChange: false,
-        validateOnBlur: false
-    });
+    const prefered_expereinceSchema = Yup.object().shape({
+        year: Yup.number().typeError('Year must be a number')
+    }).test('fill-all-or-none', 'Fill all fields or none', function (value) {
+        const { year, certificate } = value;
+
+        // Check if at least one field is filled
+        if (year || certificate) {
+            // Check if all fields are filled, if not, show an error
+            if (year && year < 1) {
+                return this.createError({
+                    message: 'Year must be a positive number',
+                    path: 'prefered_experience.year',
+                });
+            }
+
+            if (!(certificate)) {
+                return this.createError({
+                    message: 'Add the required document for naco',
+                    path: 'prefered_experience.certificate',
+                });
+            }
+            if (!(year)) {
+                return this.createError({
+                    message: 'Enter the year of experience for naco',
+                    path: 'prefered_experience.year',
+                });
+            }
+
+
+
+        }
+
+        return true;
+    })
+
+
+
+    const validationSchema = Yup.object({
+        
+        sslc:sslc_hsc_Scheme,
+        hsc:sslc_hsc_Scheme,
+        ug:ug_pg_Schema,
+        pg: Yup.array().of(
+            ug_pg_Schema
+        ),
+        experience: Yup.array().of(
+            experienceSchema
+        ),
+
+        prefered_experience:Yup.array().of(
+            prefered_expereinceSchema
+        )
+    })
+
+    const onSubmit = values => {
+        setLoading(true)
+        console.log('submited',values , props.token);
+        // setLoading(true)
+        const sslcformData = {}
+        console.log(values.sslc);
+        Object.entries(values.sslc).forEach(([key, value]) => {
+            console.log(key ,value);
+            sslcformData[key] = value;
+        });
+
+        const formData = new FormData()
+
+        formData.append('sslc' , sslcformData)
+
+        mutation.mutate(values, {
+
+          
+            onSuccess:(data)=>{
+
+                   console.log("success")
+                   setLoading(false)
+
+            },
+            onError: (error) => {
+                
+                console.log(error.response.data);
+                
+                    // setLoading(false)
+
+              },
+         })
+    }
+
+
+   
 
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
@@ -296,10 +292,10 @@ function ClusterManagerForm() {
 
     const boardOptions = [
         { key: 'Select', value: '' },
-        { key: 'STATE', value: 'state' },
-        { key: 'CBSE', value: 'cbse' },
-        { key: 'ICSE', value: 'icse' },
-        { key: 'MATRIC', value: 'matrics' }
+        { key: 'STATE', value: 'State Board' },
+        { key: 'CBSE', value: 'CBSE' },
+        { key: 'ICSE', value: 'ICSE' },
+        { key: 'MATRIC', value: 'Matric' }
     ]
 
     const ugDegreeOptions = [
@@ -331,12 +327,13 @@ function ClusterManagerForm() {
         { key: 'Applied Epidemiology', value: 'option4' },
     ]
 
-    return (
-        <>
 
+
+    return (
+        <div>
+            {loading ? ( <LoadingComponent/>) : null}
             <div className='mt-5'>
                 <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
-
 
                 <p className='text-lg my-5 text-start text-red-600 font-bold'>CLUSTER PROGRAM MANAGER</p>
                 <p className='text-lg my-5  text-red-600 underline font-bold'>EDUCATION QUALIFICATION & EXPERIENCE</p>
@@ -357,6 +354,13 @@ function ClusterManagerForm() {
 
                     >
 
+                    <Field 
+
+                    type="hidden"
+                    name="position"
+                    
+                    />
+
                         <div className="container font-sans">
 
                             <div className='w-full mb-5 '>
@@ -370,7 +374,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='sslcfirstname'
+                                                    name='sslc.first_name'
                                                     label="NAME OF THE APPLICANT"
                                                     placeholder="NAME OF THE APPLICANT"
                                                 />
@@ -382,7 +386,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='sslclastname'
+                                                    name='sslc.last_name'
                                                     label="INITAL"
                                                     placeholder="INITAL"
                                                 />
@@ -397,7 +401,7 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='input'
                                             type='text'
-                                            name='sslcregisternumber'
+                                            name='sslc.register_number'
                                             label="ENTER YOUR REGISTER NUMBER"
                                             placeholder="ENTER YOUR REGISTER NUMBER"
                                         />
@@ -412,7 +416,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='select'
                                                     type='select'
-                                                    name='sslcmonth'
+                                                    name='sslc.month'
                                                     options={monthOptions}
                                                 />
 
@@ -423,7 +427,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='select'
                                                     type='select'
-                                                    name='sslcyear'
+                                                    name='sslc.year'
                                                     options={yearOptions}
                                                 />
 
@@ -435,7 +439,7 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='select'
                                             type='select'
-                                            name='sslcboard'
+                                            name='sslc.board'
                                             options={boardOptions}
                                         />
 
@@ -445,7 +449,7 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='input'
                                             type='text'
-                                            name='sslcpercentage'
+                                            name='sslc.percentage'
                                             label="PERCENTAGE"
                                             placeholder="%"
                                         />
@@ -457,8 +461,8 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='file'
                                             type='file'
-                                            id='sslcfile'
-                                            name='sslcfile'
+                                            id='sslc.marksheet'
+                                            name='sslc.marksheet'
                                             formik={formik}
                                             label="upload"
                                         />
@@ -481,7 +485,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='hscfirstname'
+                                                    name='hsc.first_name'
                                                     label="NAME OF THE APPLICANT"
                                                     placeholder="NAME OF THE APPLICANT"
                                                 />
@@ -491,7 +495,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='hsclastname'
+                                                    name='hsc.last_name'
                                                     label="INITAL"
                                                     placeholder="INITAL"
                                                 />
@@ -506,7 +510,7 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='input'
                                             type='text'
-                                            name='hscregisternumber'
+                                            name='hsc.register_number'
                                             label="ENTER YOUR REGISTER NUMBER"
                                             placeholder="ENTER YOUR REGISTER NUMBER"
                                         />
@@ -521,7 +525,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='select'
                                                     type='text'
-                                                    name='hscmonth'
+                                                    name='hsc.month'
                                                     options={monthOptions}
                                                 />
 
@@ -532,7 +536,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='select'
                                                     type='text'
-                                                    name='hscyear'
+                                                    name='hsc.year'
                                                     options={yearOptions}
                                                 />
 
@@ -544,7 +548,7 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='select'
                                             type='text'
-                                            name='hscboard'
+                                            name='hsc.board'
                                             options={boardOptions}
                                         />
 
@@ -554,7 +558,7 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='input'
                                             type='text'
-                                            name='hscpercentage'
+                                            name='hsc.percentage'
                                             label="ENTER PERCENTAGE"
                                             placeholder="%"
                                         />
@@ -566,8 +570,8 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='file'
                                             type='file'
-                                            id='hscfile'
-                                            name='hscfile'
+                                            id='hsc.marksheet'
+                                            name='hsc.marksheet'
                                             formik={formik}
                                             label="upload"
                                         />
@@ -591,7 +595,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='select'
                                                     type='text'
-                                                    name='ugdegree'
+                                                    name='ug.degree'
                                                     options={ugDegreeOptions}
                                                 />
 
@@ -604,7 +608,7 @@ function ClusterManagerForm() {
                                                         <FormikControl
                                                             control='input'
                                                             type='text'
-                                                            name='ugfirstname'
+                                                            name='ug.first_name'
                                                             label="NAME OF APPLICANT"
                                                             placeholder="NAME OF APPLICANT"
                                                         />
@@ -614,7 +618,7 @@ function ClusterManagerForm() {
                                                         <FormikControl
                                                             control='input'
                                                             type='text'
-                                                            name='uglastname'
+                                                            name='ug.last_name'
                                                             label="INITAL"
                                                             placeholder="INITAL"
                                                     />
@@ -638,7 +642,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='ugdepartment'
+                                                    name='ug.department'
                                                     label="ENTER YOUR DEPARTMENT NAME"
                                                     placeholder="ENTER YOUR DEPARTMENT NAME"
                                                 />
@@ -648,7 +652,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='ugregisternumber'
+                                                    name='ug.register_number'
                                                     label="ENTER YOUR REGISTER NUMBER"
                                                     placeholder="ENTER YOUR REGISTER NUMBER"
                                                 />
@@ -663,7 +667,7 @@ function ClusterManagerForm() {
                                                         <FormikControl
                                                             control='select'
                                                             type='text'
-                                                            name='ugmonth'
+                                                            name='ug.month'
                                                             options={monthOptions}
                                                         />
 
@@ -674,7 +678,7 @@ function ClusterManagerForm() {
                                                         <FormikControl
                                                             control='select'
                                                             type='text'
-                                                            name='ugyear'
+                                                            name='ug.year'
                                                             options={yearOptions}
                                                         />
 
@@ -689,7 +693,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='ugpercentage'
+                                                    name='ug.percentage'
                                                     label="PERCENTAGE"
                                                     placeholder="%"
                                                 />
@@ -704,8 +708,8 @@ function ClusterManagerForm() {
                                         <FormikControl
                                             control='file'
                                             type='file'
-                                            id='ugfile'
-                                            name='ugfile'
+                                            id='ug.marksheet'
+                                            name='ug.marksheet'
                                             formik={formik}
                                             label="upload"
                                         />
@@ -754,7 +758,7 @@ function ClusterManagerForm() {
                                                                                 <FormikControl
                                                                                     control='input'
                                                                                     type='text'
-                                                                                    name={`pg[${index}].firstname`}
+                                                                                    name={`pg[${index}].first_name`}
                                                                                     label="NAME OF APPLICANT"
                                                                                     placeholder="NAME OF APPLICANT"
                                                                                 />
@@ -765,7 +769,7 @@ function ClusterManagerForm() {
                                                                                 <FormikControl
                                                                                     control='input'
                                                                                     type='text'
-                                                                                    name={`pg[${index}].lastname`}
+                                                                                    name={`pg[${index}].last_name`}
                                                                                     label="INITAL"
                                                                                     placeholder="INITAL"
                                                                                 />
@@ -786,7 +790,7 @@ function ClusterManagerForm() {
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
-                                                                            name={`pg[${index}].deparment`}
+                                                                            name={`pg[${index}].department`}
                                                                             label="ENTER YOUR DEPARTMENT NAME"
                                                                             placeholder="ENTER YOUR DEPARTMENT NAME"
                                                                         />
@@ -799,7 +803,7 @@ function ClusterManagerForm() {
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
-                                                                            name={`pg[${index}].registernumber`}
+                                                                            name={`pg[${index}].register_number`}
                                                                             label="ENTER YOUR REGISTER NUMBER"
                                                                             placeholder="ENTER YOUR REGISTER NUMBER"
                                                                         />
@@ -856,8 +860,8 @@ function ClusterManagerForm() {
                                                                             <FormikControl
                                                                                 control='file'
                                                                                 type='file'
-                                                                                id={`pg[${index}].file`}
-                                                                                name={`pg[${index}].file`}
+                                                                                id={`pg[${index}].marksheet`}
+                                                                                name={`pg[${index}].marksheet`}
                                                                                 formik={formik}
                                                                                 label="upload"
                                                                             />
@@ -926,7 +930,7 @@ function ClusterManagerForm() {
                                                                         <FormikControl
                                                                             control='select'
                                                                             type='text'
-                                                                            name={`experience[${index}].field`}
+                                                                            name={`experience[${index}].degree`}
                                                                             options={experienceOptions}
                                                                         />
 
@@ -939,7 +943,7 @@ function ClusterManagerForm() {
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
-                                                                            name={`experience[${index}].companyname`}
+                                                                            name={`experience[${index}].company`}
                                                                             label="COMPANY NAME"
                                                                             placeholder="COMPANY NAME"
                                                                         />
@@ -951,7 +955,7 @@ function ClusterManagerForm() {
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
-                                                                            name={`experience[${index}].experience`}
+                                                                            name={`experience[${index}].year`}
                                                                             label="YEARS"
                                                                             placeholder="YEARS"
                                                                         />
@@ -965,8 +969,8 @@ function ClusterManagerForm() {
                                                                                 <FormikControl
                                                                                     control='file'
                                                                                     type='file'
-                                                                                    id={`experience[${index}].document`}
-                                                                                    name={`experience[${index}].document`}
+                                                                                    id={`experience[${index}].certificate`}
+                                                                                    name={`experience[${index}].certificate`}
                                                                                     formik={formik}
                                                                                     label="upload"
                                                                                 />
@@ -1030,7 +1034,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='naco.year'
+                                                    name='prefered_experience[0].year'
                                                     label="NO OF YEARS"
                                                     placeholder="NO OF YEARS"
                                                 />
@@ -1042,8 +1046,8 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='file'
                                                     type='file'
-                                                    id="naco.file"
-                                                    name="naco.file"
+                                                    id="prefered_experience[0].certificate"
+                                                    name="prefered_experience[0].certificate"
                                                     formik={formik}
                                                     label="upload"
                                                 />
@@ -1063,7 +1067,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='tansacs.year'
+                                                    name='prefered_experience[1].year'
                                                     label="NO OF YEARS"
                                                     placeholder="NO OF YEARS"
                                                 />
@@ -1075,8 +1079,8 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='file'
                                                     type='file'
-                                                    id="tansacs.file"
-                                                    name="tansacs.file"
+                                                    id="prefered_experience[1].certificate"
+                                                    name="prefered_experience[1].certificate"
                                                     formik={formik}
                                                     label="upload"
                                                 />
@@ -1097,7 +1101,7 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
-                                                    name='tsu.year'
+                                                    name='prefered_experience[2].year'
                                                     label="NO OF YEARS"
                                                     placeholder="NO OF YEARS"
                                                 />
@@ -1108,8 +1112,8 @@ function ClusterManagerForm() {
                                                 <FormikControl
                                                     control='file'
                                                     type='file'
-                                                    id="tsu.file"
-                                                    name="tsu.file"
+                                                    id="prefered_experience[2].certificate"
+                                                    name="prefered_experience[2].certificate"
                                                     formik={formik}
                                                     label="upload"
                                                 />
@@ -1142,9 +1146,20 @@ function ClusterManagerForm() {
 
 
             </Formik>
-        </>
+        </div>
     );
 
 }
 
-export default ClusterManagerForm;
+const mapStateToProps =  state =>{
+
+
+    return {
+
+        token : state.login.token,
+    }
+
+}
+
+
+export default connect(mapStateToProps) (ClusterManagerForm);
