@@ -14,7 +14,7 @@ class Profile(models.Model):
         FEMALE = 'female'
         OTHER = 'other'
 
-    user = models.OneToOneField(User, on_delete=models.PROTECT, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     is_verified = models.BooleanField(default=False)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=30)
@@ -50,7 +50,7 @@ class Address(models.Model):
         PERMANENT = 'permanent'
         COMMUNICATION = 'communication'
 
-    user = models.ForeignKey(Profile , on_delete=models.PROTECT, related_name="address")
+    user = models.ForeignKey(Profile , on_delete=models.CASCADE, related_name="address")
     address_type = models.CharField(choices=AddressType.choices)
     address_line1 = models.TextField(max_length=250)
     address_line2 = models.TextField(max_length=250 ,  blank=True , null=True)

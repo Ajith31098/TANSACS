@@ -4,7 +4,8 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import {useMutation ,useQuery} from 'react-query'
+import {useMutation } from 'react-query'
+import { Verified } from '../../redux'
 
 
 const initialValues = {
@@ -49,8 +50,9 @@ function VerifyOTP(props) {
 
     const [timer, setTimer] = useState(150); 
     const [disableInput, setDisableInput] = useState(false);
+    let interval
     const startTimer = () => {
-        const interval = setInterval(() => {
+        interval = setInterval(() => {
           setTimer(prevTime => {
             if (prevTime > 0) {
               return prevTime - 1;
@@ -73,8 +75,10 @@ function VerifyOTP(props) {
 
       const handleResendClick = () => {
         setTimer(150); // Reset timer to initial value
+        if (timer == 0){
+            startTimer()
+        }
         setDisableInput(false); // Enable input field
-        startTimer();
         sendotp() // Start the timer again
         // Add logic to resend OTP here
       };
@@ -90,6 +94,7 @@ function VerifyOTP(props) {
 
           
                     onSuccess:(data)=>{
+                        props.verified()
                         navigate('/')
                     },
                     onError: (error) => {
@@ -118,7 +123,6 @@ function VerifyOTP(props) {
         <p className='text-red-600 text-sm mt-10 mt-10 mb-5 font-semibold underline'>Please enter the otp send to +9187******87</p>
 
         <div>
-            <p>jkgjkgk</p>
             <h1>{props.email}</h1>
 
         </div>
@@ -214,5 +218,13 @@ const mapStateToProps =  state =>{
 }
 
 
+const mapDispatchToProps = dispatch =>{
 
-export default  connect(mapStateToProps)  (VerifyOTP);
+    return {
+        verified : ()=> dispatch(Verified())
+    }
+}
+
+
+
+export default  connect(mapStateToProps,mapDispatchToProps)  (VerifyOTP);

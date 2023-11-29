@@ -15,6 +15,8 @@ import { format , parseISO} from 'date-fns';
 import { Register } from '../../redux'
 import {connect} from 'react-redux'
 
+import LoadingComponent from '../basecomponents/loading'
+
 
 
 
@@ -158,14 +160,7 @@ function Signup(props) {
 
     const onSubmit = (values, { setFieldError }) => {
 
-        const  formattedvalue = {
-            ...values,
-            address:values.address[0],
-            permanent_address:values.permanent_address[0]
-        }
-        console.log('submited',formattedvalue);
-        setLoading(true
-            )
+        setLoading(true)
 
         // setTimeout(()=>{
 
@@ -186,11 +181,9 @@ function Signup(props) {
                             },
                         })
                         .then(function(response){
-                            console.log(response , values.email);
-                            // const data = {
-                            //     'email' : values.email
-                            // }
+                            
                             props.register(response.data)
+                            navigate('/verify')
                         })
                         .catch(function(error){
                             console.error(error);
@@ -199,14 +192,13 @@ function Signup(props) {
                 },
                 onError: (error) => {
                     
-                    console.log(error.response.data);
                     const errorData = error.response.data;
                     if (errorData.email) {
-                        console.log('yes');
+                        console.log('email already in use');
                       setFieldError('email', errorData.email[0]);
                     }
                     
-                        setLoading(false)
+                    setLoading(false)
 
                   },
              })
@@ -231,6 +223,7 @@ function Signup(props) {
 
     return (
         <>
+        {loading ? <LoadingComponent/> : null}
             <div className='mt-5 mb-14'>
                 <h4 className='text-4xl text-red-600 font-bold '>Tamil Nadu State AIDS Control Society</h4>
 
@@ -272,8 +265,8 @@ function Signup(props) {
                                             <p className='text-sm font-semibold'>
                                                 upload a photo
                                             </p>
-                                            {values.profile && <p className='mt-2 text-sm'>{values.profile.name}</p>}
-                                            {touched.profile && errors.profile ? <p className='text-red-600 text-sm text-center font-bold'>{errors.profile}</p> : null}
+                                            {values.profile_image && <p className='mt-2 text-sm'>{values.profile_image.name}</p>}
+                                            {touched.profile_image && errors.profile_image ? <p className='text-red-600 text-sm text-center font-bold'>{errors.profile_image}</p> : null}
 
                                         </label>
 
@@ -281,13 +274,7 @@ function Signup(props) {
 
                                 </div>
                             </div>
-                            {/* <div className='flex justify-end '>
-                                <p className='text-xs font-semibold text-start'>
-                                    Note:Uploaded file
-                                    to be less than 200kb
-                                </p>
-
-                            </div> */}
+                          
 
                             <div className="grid grid-cols-2 mb-3 gap-10 border border-black border-solid rounded p-2">
 

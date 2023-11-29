@@ -31,7 +31,6 @@ class LoginView(ObtainAuthToken):
         password = request.data.get('password')
         user = self.authenticate_user(username, password)
         if user.get("valid"):
-            print(user)
             serializer.is_valid(raise_exception=True)
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
@@ -109,16 +108,15 @@ class RegistrationView(APIView):
 
 
 class SignUpView(APIView):
-   def post(self, request, format=None):
-       print(request.data)
-       serializer = ProfileSerializer(data=request.data)
-    #    parser_classes = [FileUploadParser]
-       if serializer.is_valid():
-           profile = serializer.save()
-           print(profile)
-           sendOTP(profile.email)
-           return Response({'profile_id' : profile.id }, status=status.HTTP_201_CREATED)
-       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        try:
+            serializer = ProfileSerializer(data=request.data)
+            if serializer.is_valid():
+                profile = serializer.save()
+                return Response({'profile_id' : profile.id }, status=status.HTTP_201_CREATED)
+        except:
+           
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
 
 class UpdateProfileImageView(APIView):
@@ -126,10 +124,8 @@ class UpdateProfileImageView(APIView):
     parser_classes = (MultiPartParser , FormParser)
 
     def patch(self, request, id):
-        print(id)
         profile = Profile.objects.get(id=id)
         serializer = ProfileImageSerializer(profile, data=request.data, partial=True)
-        print(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'email' : profile.email}, status=status.HTTP_200_OK)

@@ -90,16 +90,16 @@ class Job(models.Model):
         ASSISTANT_TI_DIRECTOR = 'Assistent Director (TI)'
         ASSISTANT_IEC_DIRECTOR = 'Assistent Director (IEC)'
 
-    user  = models.ForeignKey(User, on_delete=models.PROTECT, related_name="jobs")
+    user  = models.ForeignKey(User, on_delete=models.CASCADE, related_name="jobs")
     application_id = models.CharField(max_length=50 , default="TAN00000")
-    sslc = models.OneToOneField(SSLC , on_delete=models.PROTECT , related_name='detailOfJob_sslc')
-    hsc = models.OneToOneField(HSC , on_delete=models.PROTECT , related_name='detailOfJob_hsc')
-    ug = models.OneToOneField(UG , on_delete=models.PROTECT , related_name='detailOfJob_ug')
+    sslc = models.OneToOneField(SSLC , on_delete=models.CASCADE , related_name='detailOfJob_sslc')
+    hsc = models.OneToOneField(HSC , on_delete=models.CASCADE , related_name='detailOfJob_hsc')
+    ug = models.OneToOneField(UG , on_delete=models.CASCADE , related_name='detailOfJob_ug')
     pg = models.ManyToManyField(PG , related_name='detailOfJob_pg')
     experience = models.ManyToManyField(Experience , related_name='detailOfJob_experience')
     prefered_experience = models.ManyToManyField(PreferedExperience , related_name='detailOfJob_prefered_experience')
     mark  =  models.IntegerField(validators=[MaxValueValidator(100)] , default=0)
-    position = models.CharField(max_length=50 , choices=POSITION.choices)
+    position = models.CharField(max_length=100 , choices=POSITION.choices)
     objects = models.Manager()
     c_objects = JobManager() 
 
