@@ -11,7 +11,7 @@ import { Verified } from '../../redux'
 const initialValues = {
 
     otp:''
-    
+
 }
 
 const validationSchema =Yup.object({
@@ -40,7 +40,6 @@ function VerifyOTP(props) {
         
             const response = await axios.post('http://127.0.0.1:8000/send-otp', formData);
             const receivedOTP = response.data.otp; // Extract OTP from response
-            console.log(receivedOTP);
             setOtp(receivedOTP);
           } catch (error) {
             console.error('Error sending OTP:', error);
@@ -66,15 +65,15 @@ function VerifyOTP(props) {
         }, 1000);
       };
 
-      useEffect(() => {
-        startTimer();
-        sendotp()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
+      
 
       useEffect(() => {
 
-        
+        if( ! props.isSuperuser && !props.isLogin && (props.isRegister || props.forgot)){
+            startTimer();
+            sendotp()
+            console.log("hi");
+        }
 
         if(props.isSuperuser){
             navigate('admin/home')
@@ -112,7 +111,6 @@ function VerifyOTP(props) {
       };
 
         const onSubmit = (values ,{ setFieldError })=> {
-            console.log('Form Data' ,  values);
 
             if (otp == values.otp){
 
@@ -128,7 +126,7 @@ function VerifyOTP(props) {
           
                     onSuccess:(data)=>{
                         props.verified()
-                        navigate('/')
+                        navigate('/',{replace:true})
                     },
                     onError: (error) => {
                         

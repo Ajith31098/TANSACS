@@ -30,20 +30,20 @@ function createData(id, name, email, score) {
   return { id, name, email, score };
 }
 
-const initialRows = [
-  createData('TAN1000', 'Ajith', 'ajith@gmail.com', 94),
-  createData('TAN1001', 'Nazrene', 'naz@gmail.com', 87),
-  createData('TAN1002', 'Deepan', 'deep@gmail.com', 45),
-  createData('TAN1003', 'Rahul', 'rahul@gmail.com', 34),
-  createData('TAN1004', 'Jeeva', 'jeeva@gmail.com', 56),
-  createData('TAN1005', 'Jagan', 'jagan@gmail.com', 32),
-  createData('TAN1006', 'Amar', 'amar@gmail.com', 90),
-  createData('TAN1007', 'Ani', 'ani@gmail.com', 20),
-  createData('TAN1009+', 'Viswa', 'viswa@gmail.com', 2),
-  createData('TAN1010', 'Kathir', 'kathir@gmail.com', 0),
-  createData('TAN1011', 'Cristy', 'crist@gmail.com', 10),
-  createData('TAN1012', 'Anjali', 'anjali@gmail.com', 10),
-].sort((a, b) => (a.score < b.score ? 1 : -1));
+// const initialRows = [
+//   createData('TAN1000', 'Ajith', 'ajith@gmail.com', 94),
+//   createData('TAN1001', 'Nazrene', 'naz@gmail.com', 87),
+//   createData('TAN1002', 'Deepan', 'deep@gmail.com', 45),
+//   createData('TAN1003', 'Rahul', 'rahul@gmail.com', 34),
+//   createData('TAN1004', 'Jeeva', 'jeeva@gmail.com', 56),
+//   createData('TAN1005', 'Jagan', 'jagan@gmail.com', 32),
+//   createData('TAN1006', 'Amar', 'amar@gmail.com', 90),
+//   createData('TAN1007', 'Ani', 'ani@gmail.com', 20),
+//   createData('TAN1009+', 'Viswa', 'viswa@gmail.com', 2),
+//   createData('TAN1010', 'Kathir', 'kathir@gmail.com', 0),
+//   createData('TAN1011', 'Cristy', 'crist@gmail.com', 10),
+//   createData('TAN1012', 'Anjali', 'anjali@gmail.com', 10),
+// ]
 
 function Detail(props) {
 
@@ -56,6 +56,16 @@ function Detail(props) {
      })
   })
 
+  const [initialRows, setInitialRows] = React.useState([]);
+
+
+  React.useEffect(() => {
+    if (!isLoading && data) {
+      setInitialRows(data.data); // Update initialRows with fetched data
+    }
+  }, [isLoading, data]);
+
+
 
 
 
@@ -65,7 +75,7 @@ function Detail(props) {
 
 
   const rows = searchvalue
-    ? initialRows.filter((row) => row.id.toLowerCase().startsWith(searchvalue.toLowerCase()))
+    ? initialRows.filter((row) => row.application_id.toLowerCase().startsWith(searchvalue.toLowerCase()))
     : initialRows;
 
 
@@ -83,6 +93,7 @@ function Detail(props) {
   };
 
   const searchHandler = (event) => {
+    console.log(event.target.value);
     setsearchvalue(event.target.value)
 
   }
@@ -103,11 +114,11 @@ function Detail(props) {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <p className='text-red-600 font-semibold '>{props.position }</p>
           <div className='w-max'>
-          <Link to={"/admin/home"} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
-               Back
-            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+              <Link to={"/admin/home"} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                  Back
+                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-            </Link>
+              </Link>
             
           </div>
 
@@ -173,19 +184,21 @@ function Detail(props) {
               ).map((row) => (
                 <TableRow hover key={row.name}>
                   <TableCell>
-                    {row.id}
+                    {row.application_id}
                   </TableCell>
                   <TableCell >
-                    {row.name}
+                    {row.user_full_name}
                   </TableCell>
                   <TableCell  >
-                    {row.email}
+                    {row.username}
                   </TableCell>
                   <TableCell  >
                     {row.score}
                   </TableCell>
                   <TableCell  >
-                    view
+                    <Link to={`/admin/applicant/${row.job_id}`} className="link-style">
+                      View
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}

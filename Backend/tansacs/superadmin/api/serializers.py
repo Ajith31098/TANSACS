@@ -1,5 +1,6 @@
 from rest_framework import serializers
-
+from jobs.models import Job
+from jobs.api.serializers import SSLCSerializer ,HSCSerializer , UGSerializer,PGSerializer,ExperienceSerializer,PreferedExperienceSerializer
 
 POSITION_ABBREVIATIONS = {
     'Cluster Program Manager': 'CPM',
@@ -29,3 +30,33 @@ class ApplicantSerializer(serializers.Serializer):
     name = serializers.CharField()
     email = serializers.EmailField()
     mark = serializers.IntegerField()
+
+
+
+
+class JobDataSerializer(serializers.ModelSerializer):
+    user_full_name = serializers.SerializerMethodField()
+    username = serializers.CharField(source='user.username')
+    application_id = serializers.CharField()
+    score = serializers.IntegerField(source='mark')
+    job_id = serializers.IntegerField(source='id')
+
+    class Meta:
+        model = Job
+        fields = ['user_full_name', 'username', 'application_id', 'score', 'job_id']
+
+    def get_user_full_name(self, obj):
+        return f"{obj.user.profile.first_name} {obj.user.profile.last_name}"
+    
+class JobSerializer(serializers.ModelSerializer):
+    sslc = SSLCSerializer()
+    hsc = HSCSerializer()
+    ug = UGSerializer()
+    pg = PGSerializer(many=True)
+    experience = ExperienceSerializer(many=True)
+    prefered_experience = PreferedExperienceSerializer(many=True)
+
+    class Meta:
+        model = Job
+        fields = '__all__'
+

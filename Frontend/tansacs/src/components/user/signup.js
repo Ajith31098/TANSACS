@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage, replace } from 'formik'
 import FormikControl from '../formcomponents/formcontrol'
 
 import * as Yup from 'yup'
@@ -181,7 +181,7 @@ function Signup(props) {
                             setLoading(false)
                             
                             props.register(response.data)
-                            navigate('/verify')
+                            navigate('/verify' , {replace:true})
                         })
                         .catch(function(error){
                             navigate('/server_error_500')
@@ -224,6 +224,8 @@ function Signup(props) {
         else if(props.isLogin){
             navigate('tansacs/jobs')
         }
+
+        
 
        }, [props.isLogin]);
 

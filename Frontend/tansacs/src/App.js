@@ -101,7 +101,7 @@ function App() {
                 <Route path='home' element={<AdminHome />} />
                 <Route path='home/CPM' element={<AdminCPM />} />
 
-
+                <Route path='applicant/:userId' element={<Preview />} />
               </Route>
 
               <Route path='/server_error_500' element={<ServerError500/>}/>
