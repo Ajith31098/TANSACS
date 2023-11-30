@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom'
+import ApplyButton from '../basecomponents/ApplySuggestion';
 
 
 function job6() {
@@ -101,11 +102,13 @@ function job6() {
             </div>
 
             <div className='flex justify-center'>
-                    <Link to={'/assistant_director_ictc/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                    <ApplyButton position="Assistent Director (ICTC)" min_age ={60} emin_age = {60} link = {'/tansacs/assistant_director_ictc/apply'} />
+
+                    {/* <Link to={'/assistant_director_ictc/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                    </Link>
+                    </Link> */}
             </div>
 
         </>

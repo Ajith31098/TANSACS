@@ -14,9 +14,25 @@ from smtplib import  SMTPException, SMTPRecipientsRefused
 from rest_framework.authentication import TokenAuthentication
 
 
-from .serializer import UserSerializer,CustomUserSerializer,ProfileSerializer , ProfileImageSerializer
+from .serializer import UserSerializer,CustomUserSerializer,ProfileSerializer , ProfileImageSerializer , VerifyPhoneNumberSerializer
 from .permissions import IsUnauthenticated
 from .utils import sendOTP
+from jobs.models import Job
+
+class JobVerification(APIView):
+    # permission_classes = [IsAuthenticated]
+
+    def post(self, request,  *args, **kwargs):
+        # Get the user from the request
+        # user = request.user
+        token = Token.objects.get(key=request.auth)
+        position = request.data.get('position')        
+
+        # Check if the user has applied for the job
+        has_applied = Job.objects.filter( user=token.user , position = position).exists()
+
+        return Response({'has_applied': has_applied}, status=status.HTTP_200_OK)
+
 
 
 class LoginView(ObtainAuthToken):
@@ -54,6 +70,8 @@ class LoginView(ObtainAuthToken):
                 return {'valid' : False ,"username":"invalid username" }
 
             user = User.objects.get(username=username)
+            if not user.is_active:
+                return{'valid':False , 'email' : user.username , 'active' : False}
             if user.check_password(password):
                 return {'valid' : True }
             else:
@@ -63,48 +81,22 @@ class LoginView(ObtainAuthToken):
             return None
 
 
-# class SignupView(APIView):
-#     permission_classes = [IsUnauthenticated]
+class SetPassword(APIView):
 
-#     def post(self, request, *args, **kwargs):
-#         user_serializer = UserRegisterSerializer(data=request.data)
-#         profile_serializer = ProfileSerializer(data=request.data)
-#         if user_serializer.is_valid() and profile_serializer.is_valid():
-#             user = user_serializer.save(is_active=False)
-#             profile = profile_serializer.save(user=user, is_verified=False)
-#             try:
-#                 sendOTP(profile.email)
-#             except SMTPRecipientsRefused:
-#                 print("invalid email")
-#                 return Response({'error' : 'invalid email'})
-#             except SMTPException:
-#                 return Response({'error' : 'Server issue'})
-
-#             except Exception:
-#                 return Response({'error' : 'error occured'})
-
-#             return Response({
-#                 'user': UserSerializer(user).data,
-#                 'profile': ProfileSerializer(profile).data,
-#                 'message': 'Success'
-#             }, status=status.HTTP_200_OK)
-#         else:
-#             return Response({
-#                 'user_errors': user_serializer.errors if not user_serializer.is_valid() else None,
-#                 'profile_errors': profile_serializer.errors if not profile_serializer.is_valid() else None
-#             }, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-class RegistrationView(APIView):
-    def post(self, request):
-        print(request.data)
-        serializer = ProfileSerializer(data=request.data)
-        # address_serializer = AddressSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'success':True}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post (self,request,email,format =  None):
+        try:
+            print(email , self.kwargs['email'])
+            user = User.objects.get(username=email)
+        except User.DoesNotExist:
+            return Response("User does not exist", status=status.HTTP_404_NOT_FOUND)
+        
+        new_password = request.data.get('password' )
+        if new_password:
+            user.set_password(new_password)
+            user.save()
+            return Response("Password reset successfully", status=status.HTTP_200_OK)
+        else:
+            return Response("New password not provided",  status=status.HTTP_404_NOT_FOUND)
 
 
 class SignUpView(APIView):
@@ -114,9 +106,11 @@ class SignUpView(APIView):
             if serializer.is_valid():
                 profile = serializer.save()
                 return Response({'profile_id' : profile.id }, status=status.HTTP_201_CREATED)
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except:
            
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_503_SERVICE_UNAVAILABLE)
    
 
 class UpdateProfileImageView(APIView):
@@ -149,6 +143,23 @@ class verified(APIView):
 
 from rest_framework.permissions import IsAuthenticated
 
+
+class ForgotView(APIView):
+    def post(self, request, format=None):
+        
+        try:
+            serializer = VerifyPhoneNumberSerializer(data=request.data)  # Pass 'data=' argument here
+            
+            if serializer.is_valid():
+                return Response({'email': serializer.validated_data['username']}, status=status.HTTP_200_OK)
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response(serializer.errors, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+
+
+
 class LogoutView(APIView):
     authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
@@ -175,5 +186,19 @@ class LogoutView(APIView):
     
 #     profile = serializer.save(user=user)
 #     return profile
+
+
+import boto3
+from django.http import FileResponse
+
+from django.conf import settings
+
+def download_file(request, file_name):
+    s3 = boto3.client('s3', aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+    s3.download_file(settings.AWS_STORAGE_BUCKET_NAME,  f'static/{file_name}', '/tmp/tempfile')
+    with open('/tmp/tempfile', 'rb') as f:
+        return FileResponse(f)
+
+
 
 

@@ -11,6 +11,7 @@ import { Verified } from '../../redux'
 const initialValues = {
 
     otp:''
+    
 }
 
 const validationSchema =Yup.object({
@@ -68,25 +69,57 @@ function VerifyOTP(props) {
       useEffect(() => {
         startTimer();
         sendotp()
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
+      useEffect(() => {
+
+        
+
+        if(props.isSuperuser){
+            navigate('admin/home')
+        }
+
+        else if(props.isLogin){
+            navigate('tansacs/jobs')
+        }
+
+        else if (!(props.isRegister || props.forgot)){
+            navigate('/')
+        }
+
+       }, [props.isLogin]);
+
+      const redirectLogin = ()=>{
+
+        props.verified()
+
+        navigate('/');
+      }
+
 
       const handleResendClick = () => {
-        setTimer(150); // Reset timer to initial value
+         // Reset timer to initial value
         if (timer == 0){
+            setTimer(150);
             startTimer()
         }
-        setDisableInput(false); // Enable input field
-        sendotp() // Start the timer again
-        // Add logic to resend OTP here
+        else{
+            setTimer(150);
+        }
+        setDisableInput(false); 
+        sendotp()// Enable input field
       };
 
         const onSubmit = (values ,{ setFieldError })=> {
             console.log('Form Data' ,  values);
 
             if (otp == values.otp){
+
+                if(props.forgot){
+
+                    navigate('/reset')
+                }
 
                 const formData = new FormData()
                 formData.append('email' , props.email)
@@ -166,9 +199,13 @@ function VerifyOTP(props) {
 
                                     <div className="mt-10 flex justify-around items-center">
                                         <div className='w-max'>
-                                            <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Cancel
-                                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                            </a>
+                                            <button
+                                                type='button'
+                                                className='px-3 py-1 block group relative w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white'
+                                                onClick={redirectLogin} // Handle resend click
+                                            >
+                                                Cancel
+                                            </button>
                                         </div>
                                         <div className='w-max'>
                                             <button
@@ -213,7 +250,9 @@ const mapStateToProps =  state =>{
     return {
 
         isRegister : state.register.isRegister,
-        email : state.register.email
+        email : state.register.email,
+        forgot : state.forgot.approval
+        
     }
 }
 

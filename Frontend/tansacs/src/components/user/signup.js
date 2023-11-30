@@ -16,8 +16,9 @@ import { Register } from '../../redux'
 import {connect} from 'react-redux'
 
 import LoadingComponent from '../basecomponents/loading'
-
-
+import { Link } from 'react-router-dom'
+import {district} from '../initialValues/InitialDropdown'
+import calender from '../../logo/icon-8.png'
 
 
 const addressSchema = Yup.object().shape({
@@ -59,11 +60,12 @@ const validationSchema = Yup.object({
         .test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
     password: Yup.string()
         .required("Enter Password")
-        // .matches(
-        //     /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[\W_]).{8,}$/,
-        //     "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-        // ),
-        ,
+        .min(8, 'Password is too short - should be 8 chars minimum.')
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
+            "Password must contain at least one capital,small and number."
+        ),
+        
     confrim_password: Yup.string()
         .oneOf([Yup.ref('password'), ''], 'Password not matched')
         .required('Required'),
@@ -116,17 +118,14 @@ const genderOptions = [
     { key: 'Gender', value: '' },
     { key: 'Male', value: 'male' },
     { key: 'Female', value: 'female' },
+    { key: 'other', value: 'other' },
 ]
 const stateOptions = [
     { key: 'State', value: '' },
-    { key: 'State1', value: 'State1' },
-    { key: 'State2', value: 'State2' },
+    { key: 'Tamil Nadu', value: 'Tamil Nadu' },
 ]
-const districtOptions = [
-    { key: 'District', value: '' },
-    { key: 'District1', value: 'District1' },
-    { key: 'District2', value: 'District2' },
-]
+
+const districtOptions = district
 
 async function signUpUser(values) {
     try {
@@ -162,14 +161,12 @@ function Signup(props) {
 
         setLoading(true)
 
-        // setTimeout(()=>{
 
             mutation.mutate(values, {
 
           
                 onSuccess:(data)=>{
 
-                        setLoading(false)
                         console.log('success',values.profile_image , data.profile_id);
                         const id = data.profile_id
                         
@@ -181,44 +178,54 @@ function Signup(props) {
                             },
                         })
                         .then(function(response){
+                            setLoading(false)
                             
                             props.register(response.data)
                             navigate('/verify')
                         })
                         .catch(function(error){
-                            console.error(error);
+                            navigate('/server_error_500')
                         })
 
                 },
                 onError: (error) => {
-                    
-                    const errorData = error.response.data;
-                    if (errorData.email) {
-                        console.log('email already in use');
-                      setFieldError('email', errorData.email[0]);
-                    }
-                    
                     setLoading(false)
+
+                    const errorData = error.response;
+
+                    if (errorData.status == 400 ){
+                        if (errorData.data.email) {
+                            setFieldError('email', errorData.data.email[0]);
+                        }
+                    }
+                    if (errorData.status == 500){
+                        navigate('/server_error_500')
+                    }    
+                    
 
                   },
              })
 
 
-        // } , 2000
 
             
-        // )
             
         console.log(values);
        };
        
        useEffect(() => {
 
-        if(props.isRegister ){
-            navigate('/verify')
+        
+
+        if(props.isSuperuser){
+            navigate('admin/home')
         }
 
-       }, [props.isRegister]);
+        else if(props.isLogin){
+            navigate('tansacs/jobs')
+        }
+
+       }, [props.isLogin]);
 
 
     return (
@@ -262,9 +269,8 @@ function Signup(props) {
                                         />
 
                                         <label htmlFor="profile_image">
-                                            <p className='text-sm font-semibold'>
-                                                upload a photo
-                                            </p>
+                                            
+                                            {! values.profile_image && <p className='text-sm font-semibold'>upload a photo</p>}
                                             {values.profile_image && <p className='mt-2 text-sm'>{values.profile_image.name}</p>}
                                             {touched.profile_image && errors.profile_image ? <p className='text-red-600 text-sm text-center font-bold'>{errors.profile_image}</p> : null}
 
@@ -320,19 +326,27 @@ function Signup(props) {
                                                     const { value } = field
                                                    
                                                     // console.log(form , field , errors.dob);
-                                                    return <DateView
-                                                        name='DOB'
-                                                        {...field}
-                                                        placeholderText='DOB'
-                                                        selected={value ? parseISO(value) : null}
-
-                                                        showIcon
-                                                        className={touched.DOB && errors.DOB ? ' border border shadow-md py-1 px-2 border-red-400 w-full rounded text-sm focus:outline-none focus:border-sky-400' : ' border border shadow-md py-1 px-2 text-sm border-gray-400 w-full rounded focus:outline-none focus:border-sky-400'}
-
-                                                        onChange={val => setFieldValue('DOB', format(val, 'yyyy-MM-dd'))}
-                                                        // onChange={val => setFieldValue('DOB', val)}
-
+                                                    return  <div className="flex items-center"> {/* Container to hold icon and input */}
+                                                    <span className="mr-2"> {/* Icon container */}
+                                                      <img src={calender} alt="calender" />
+                                                    </span>
+                                                    <DateView
+                                                      name="DOB"
+                                                      {...field}
+                                                      placeholderText="DOB"
+                                                      selected={value ? parseISO(value) : null}
+                                                      showYearDropdown
+                                                      scrollableYearDropdown
+                                                      yearDropdownItemNumber={100}
+                                                      dateFormat="yyyy-MM-dd"
+                                                      className={
+                                                        touched.DOB && errors.DOB
+                                                          ? 'border border shadow-md py-1 px-2 border-red-400 w-full rounded text-sm focus:outline-none focus:border-sky-400'
+                                                          : 'border border shadow-md py-1 px-2 text-sm border-gray-400 w-full rounded focus:outline-none focus:border-sky-400'
+                                                      }
+                                                      onChange={(val) => setFieldValue('DOB', format(val, 'yyyy-MM-dd'))}
                                                     />
+                                                  </div>
                                                 }
 
                                             }
@@ -395,7 +409,7 @@ function Signup(props) {
                                             type='text'
                                             name='guardian_name'
                                             label="FATHER NAME"
-                                            placeholder="FATHER NAME"
+                                            placeholder="FATHER NAME OR MOTHER NAME"
                                         />
 
                                     </div>
@@ -605,9 +619,12 @@ function Signup(props) {
 
                             <div className=" flex justify-around items-center">
                                 <div className='w-max'>
-                                    <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Login
+                                    <Link to={'/'} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                                                Back to Login
                                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                    </a>
+
+                                    </Link>
+                                   
                                 </div>
                                 <div className='w-max'>
                                     <button type='submit' className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Register
@@ -636,6 +653,9 @@ const mapStateToProps =  state =>{
 
 
     return {
+
+        isLogin : state.login.isLogin,
+        isSuperuser:state.login.is_superuser,
 
         isRegister : state.register.isRegister,
     }

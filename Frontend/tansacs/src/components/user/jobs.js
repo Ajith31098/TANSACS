@@ -33,7 +33,6 @@ function Jobs(props) {
   
         </div>
 
-        <p onClick={props.logout}>logout</p>
         
     </div>
     <div className='flex flex-col items-center'>
@@ -48,7 +47,7 @@ function Jobs(props) {
                     
                 </div>
                 <div className='w-full'>
-                    <Link to={'/clinical_officer'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/clinical_officer'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Clinical Server Officer - 2 Post
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
@@ -56,7 +55,7 @@ function Jobs(props) {
                     
                 </div>
                 <div className='w-full'>
-                    <Link to={'/data_monitoring_officer'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/data_monitoring_officer'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Data Monitoring Documentation Officer - 1 Post
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
@@ -64,7 +63,7 @@ function Jobs(props) {
                     
                 </div>
                 <div className='w-full'>
-                    <Link to={'/deputy_director_ls'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/deputy_director_ls'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Deputy Director (LS) - 1 Post
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
@@ -78,25 +77,25 @@ function Jobs(props) {
 
             </div>
             <div className="col-span-4 flex flex-col gap-4 lg:mt-14 mt-0 order-3">
-                    <Link to={'/deputy_director_si'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/deputy_director_si'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Deputy Director (SI) - 1 Post
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                     </Link>
 
-                    <Link to={'/assistant_director_ictc'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/assistant_director_ictc'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Assistant Director (ICTC) / (BSD) - 1 Post
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                     </Link>
 
-                    <Link to={'/assistant_director_ti'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/assistant_director_ti'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Assistant Director (Prevention) / (TI) - 2 Post
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                     </Link>
 
-                    <Link to={'/assistant_director_iec'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
+                    <Link to={'/tansacs/assistant_director_iec'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-md font-semibold text-white">
                         Assistant Director (IEC) - 1 Post
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
@@ -111,6 +110,10 @@ function Jobs(props) {
         </div>
 
         
+    </div>
+    <div className='text-center'>
+        <p className='text-red-600 font-semibold text-lg my-5 underline' onClick={props.logout}>logout</p>
+
     </div>
     </>
   );

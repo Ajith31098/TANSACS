@@ -63,11 +63,10 @@ def calculate_mark(sender, instance, **kwargs):
     instance.mark = mark
 
 
-@receiver(pre_save, sender=Job )
-def calculate_mark_and_application_id(sender, instance,created, **kwargs):
+@receiver(post_save, sender=Job )
+def calculate_mark_and_application_id(sender, instance,created ,  **kwargs):
    
     if created:
-
         random_number = generate_unique_random_number()
 
         # Get the abbreviation based on position

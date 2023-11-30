@@ -26,7 +26,25 @@ class CustomUserSerializer(serializers.Serializer):
        user = User.objects.filter(username=self.initial_data['username']).first()
        if not user or not user.check_password(value):
            raise serializers.ValidationError("Invalid password")
-       return value     
+       return value   
+
+class VerifyPhoneNumberSerializer(serializers.Serializer):
+    username = serializers.EmailField()
+    number = serializers.CharField(max_length=20)
+
+    def validate(self, data):
+        username = data.get('username')
+        number = data.get('number')
+
+        try:
+            profile = Profile.objects.get(user__username=username)
+        except Profile.DoesNotExist:
+            raise serializers.ValidationError({'username': ['Profile with this username does not exist']})
+
+        if profile.phone_number != number:
+            raise serializers.ValidationError({'number': ['Phone number does not match with the provided username']})
+
+        return data 
    
    
    
@@ -44,56 +62,6 @@ class UserSerializer(serializers.ModelSerializer):
             )
         return user
 
-# class AddressSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Address
-#         fields = ['address_type', 'address_line1', 'address_line2', 'city', 'state', 'district', 'pincode']
-
-# class ProfileSerializer(serializers.ModelSerializer):
-
-
-#     class Meta:
-#         model = Profile
-#         exclude = ('user','DOB') 
-
-
-
-#     def validate_email(self, value):
-#         """
-#         Custom validation to check if email is unique.
-#         """
-#         if Profile.objects.filter(email=value).exists():
-#             raise serializers.ValidationError("This email is already in use.")
-#         return value
-
-#     def create(self, validated_data):
-#         # user_data = validated_data.pop('user')
-#         print(validated_data)
-#         address_data = validated_data.pop('address')
-#         permanent_address_data = validated_data.pop('permanent_address')
-
-#         user_serializer = UserSerializer(data={'username': validated_data['email'], 'password' : validated_data['password']})
-#         if user_serializer.is_valid():
-#             user = user_serializer.save()
-#             profile = Profile.objects.create(user=user, **validated_data)
-
-#             Address.objects.create(user=profile, **address_data)
-
-            
-#             Address.objects.create(user=profile, **permanent_address_data)
-
-#             return profile
-#         else:
-#             raise serializers.ValidationError(user_serializer.errors)
-        
-# class ProfileCustomSerializer(serializers.ModelSerializer):
-
-#     address = AddressSerializer()
-# `  permanent_address = AddressSerializer()
-
-#     class Meta:
-#         model = Profile
-#         exclude = ('user','DOB') 
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -122,7 +90,7 @@ class ProfileSerializer(serializers.ModelSerializer):
        )
       profile = Profile.objects.create(user=user, **validated_data)
       for address in address_data:
-        print(address)
+        # print(address)
         Address.objects.create(user=profile, **address)
       for address in permanent_address_data:
         Address.objects.create(user=profile, **address)

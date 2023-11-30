@@ -10,6 +10,9 @@ from rest_framework.parsers import MultiPartParser , FormParser
 from django.core.files.base import ContentFile
 import base64
 from .utils import get_list_dict
+from user.api.utils import sendOTP
+from rest_framework.authtoken.models import Token
+
 
 class JobView(APIView):
     parser_classes = (MultiPartParser , FormParser)
@@ -17,7 +20,7 @@ class JobView(APIView):
    
     def post(self, request, format=None):
         token = request.auth
-        print(token , token.user)
+       
         validated_data = request.data
         sslc_data = {k.replace('sslc[', '').replace(']', ''): v for k, v in validated_data.items() if k.startswith('sslc[')}
         hsc_data = {k.replace('hsc[', '').replace(']', ''): v for k, v in validated_data.items() if k.startswith('hsc[')}
@@ -25,8 +28,13 @@ class JobView(APIView):
         pg_data =get_list_dict(validated_data , 'pg')
         experience_data = get_list_dict(validated_data,'experience','degree')
         prefered_experience_data =get_list_dict(validated_data,'prefered_experience','year')
+        token = Token.objects.get(key=request.auth)
 
         position = validated_data['position']
+
+        # NOC = validated_data['NOC']
+
+        
 
         sslc_serializer = SSLCSerializer(data = sslc_data)
         hsc_serializer = HSCSerializer(data = hsc_data)
@@ -35,21 +43,25 @@ class JobView(APIView):
         experience_serializer = ExperienceSerializer(data = experience_data,many = True)
         prefered_experience_serializer = PreferedExperienceSerializer(data = prefered_experience_data,many = True)
         if sslc_serializer.is_valid() and hsc_serializer.is_valid() and ug_serializer.is_valid() and  pg_serializer.is_valid() and experience_serializer.is_valid() and  prefered_experience_serializer.is_valid():
+            
             sslc , hsc , ug , pg , experience , prefered_experience = sslc_serializer.save(),hsc_serializer.save(),ug_serializer.save(),pg_serializer.save(),experience_serializer.save(),prefered_experience_serializer.save()
-            print(sslc , hsc , ug , pg , experience )
+           
+            
             job_serializer = JobSerializer(data = {'position' :position,'sslc': sslc.id,'hsc': hsc.id,'ug': ug.id , 'user' :token.user.id })
+            
             if job_serializer.is_valid():
                 
                 job = job_serializer.save()
                 job.pg.set(pg)
                 job.experience.set(experience)
                 job.prefered_experience.set(prefered_experience)
+                # job.NOC = NOC
+                # job.save()
+                sendOTP(token.user.username , True , position)
 
                 return Response (status= status.HTTP_200_OK)
 
-            print(job_serializer.errors)
-        
-            
+             
         return Response( status=status.HTTP_400_BAD_REQUEST)
 
 

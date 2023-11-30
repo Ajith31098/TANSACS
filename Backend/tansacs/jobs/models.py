@@ -76,7 +76,6 @@ class PreferedExperience(models.Model):
     company =  models.CharField(max_length=100 , choices=Company.choices)
     year = models.IntegerField()
     certificate =  models.ImageField(upload_to="PreferedExperience/" ,blank=True , null=True)
-    NOC =  models.ImageField(upload_to="NOC/" ,blank=True , null=True)
 
 class Job(models.Model):
 
@@ -102,5 +101,6 @@ class Job(models.Model):
     position = models.CharField(max_length=100 , choices=POSITION.choices)
     objects = models.Manager()
     c_objects = JobManager() 
+    NOC =  models.ImageField(upload_to="NOC/" ,blank=True , null=True)
 
     

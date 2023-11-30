@@ -1,6 +1,8 @@
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import ApplyButton from '../basecomponents/ApplySuggestion';
 
-function Job1() {
+function Job1(props) {
     return (
         <>
             <div className='mt-5'>
@@ -155,11 +157,10 @@ function Job1() {
             </div>
 
             <div className='flex justify-center'>
-                    <Link to={'/tansacs/cluster_manager/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
-                        Apply
-                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                    </Link>
+                
+                <ApplyButton position="Cluster Program Manager" min_age ={50} emin_age = {55} link = {'/tansacs/cluster_manager/apply'} />
+                    
+                   
                 
             </div>
 
@@ -167,4 +168,7 @@ function Job1() {
     );
 }
 
-export default Job1;
+
+
+
+export default  Job1;

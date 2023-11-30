@@ -44,7 +44,7 @@ import ValidaterLogin from './components/Validater/ValidaterLogin';
 import Preview from './components/admin/Preview';
 
 import AdminCPM from './components/admin/AdminCPM';
-
+import ServerError500 from './components/basecomponents/ServerError500';
 const queryClient = new QueryClient()
 
 function App() {
@@ -71,8 +71,8 @@ function App() {
               <Route path="/tansacs" element={<ValidaterLogin />}>
 
                 <Route path='jobs' element={<Jobs />} />
-                <Route path='cluster_manager' element={<Job1 />} />
-                <Route path='cluster_manager/apply' element={<ClusterManagerForm  position= "Cluster Program Manager" />} />
+                <Route path='cluster_manager' element={<Job1  />} />
+                <Route path='cluster_manager/apply' element={<ClusterManagerForm  />} />
 
                 <Route path='clinical_officer' element={<Job2 />} />
                 <Route path='clinical_officer/apply' element={<ClinicalServiceOfficer />} />
@@ -103,6 +103,10 @@ function App() {
 
 
               </Route>
+
+              <Route path='/server_error_500' element={<ServerError500/>}/>
+
+
 
               {/* <Route path='/admin/post' element={<Detail />} />
               <Route path='/preview' element={<Preview/>} /> */}

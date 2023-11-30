@@ -20,7 +20,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=30)
     gender = models.CharField(max_length=10, choices=Gender.choices)
     DOB = models.DateField()
-    age = models.IntegerField(validators=[MaxValueValidator(60)])   
+    age = models.IntegerField()   
     aadhar =  models.CharField(max_length=12)
     phone_number = models.CharField(max_length=10, validators=[validate_phone_number])
     alternate_phone_number = models.CharField(max_length=10, validators=[validate_phone_number])

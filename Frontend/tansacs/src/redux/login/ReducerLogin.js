@@ -1,10 +1,11 @@
-import { LOGIN, LOGOUT } from "./TypeLogin"
+import { LOGIN, LOGOUT ,EXP_AGE} from "./TypeLogin"
 
 const initialState = {
     isLogin: false,
     token:'',
     is_active:false,
-    user_age:0
+    user_age:0,
+    exp_user_age:false,
 }
 
 export const ReducerLogin = (state = initialState, action) => {
@@ -22,6 +23,11 @@ export const ReducerLogin = (state = initialState, action) => {
 
         case LOGOUT: return {
             ...initialState
+        }
+
+        case EXP_AGE:return {
+            ...state,
+            exp_user_age : true
         }
 
         default: return state
