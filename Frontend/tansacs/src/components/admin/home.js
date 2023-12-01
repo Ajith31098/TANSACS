@@ -105,9 +105,7 @@ function AdminHome(props) {
                     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                     </Link>
-                    <a href="#" className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+                   
                 </div>
                 <div className="flex justify-center">
                     <table className="items-center bg-transparent w-2/3 border rounded-lg">
@@ -143,9 +141,12 @@ function AdminHome(props) {
             </div>
             <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10'>
-                    <a href="#" className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >Deputy Director (SI) - 1 Post
+                    <Link to={'DD_SI'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
+                    Deputy Director (SI) - 1 Post
                     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+
+                    </Link>
+                    
                 </div>
                 <div className="flex justify-center">
                     <table className="items-center bg-transparent w-2/3 border rounded-lg">
@@ -182,9 +183,12 @@ function AdminHome(props) {
             </div>
             <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10'>
-                    <a href="#" className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >Deputy Director (LS) - 1 Post
+                    <Link to={'DD_LS'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
+                    Deputy Director (LS) - 1 Post
                     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+
+                    </Link>
+                    
                 </div>
                 <div className="flex justify-center">
                     <table className="items-center bg-transparent w-2/3 border rounded-lg">
@@ -221,9 +225,12 @@ function AdminHome(props) {
             </div>
            <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10'>
-                    <a href="#" className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >Clinical Server Officer - 2 Post
+                    <Link to={'CSO'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
+                        Clinical Server Officer - 2 Post
                     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+
+                    </Link>
+                    
                 </div>
                 <div className="flex justify-center">
                 <table className="items-center bg-transparent w-2/3 border rounded-lg">
@@ -260,9 +267,12 @@ function AdminHome(props) {
             </div>
            <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10'>
-                    <a href="#" className="truncate px-3 p-0 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >Assistant Director (ICTC) / (BSD) - 1 Post
+                    <Link to={'AD_ICTC'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
+                    Assistant Director (ICTC) / (BSD) - 1 Post
                     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+
+                    </Link>
+                    
                 </div>
                 <div className="flex justify-center">
                     <table className="items-center bg-transparent w-2/3 border rounded-lg">
@@ -299,9 +309,12 @@ function AdminHome(props) {
             </div>
             <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10'>
-                    <a href="#" className="truncate px-3 p-0 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >Assistant Director (IEC) - 1 Post
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+                    <Link to={'AD_IEC'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
+                        Assistant Director (IEC) - 1 Post
+                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                    </Link>
+                    
                 </div>
                 <div className="flex justify-center">
                     <table className="items-center bg-transparent w-2/3 border rounded-lg">
@@ -338,9 +351,13 @@ function AdminHome(props) {
             </div>
            <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10'>
-                    <a href="#" className="p-0 block truncate px-3 group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >Data Monitoring Documentation Officer - 1 Post
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+                    <Link to={'DMDO'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
+                    Data Monitoring Documentation Officer
+                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                    </Link>
+                    
+                    
                 </div>
                 <div className="flex justify-center">
                     <table className="items-center bg-transparent w-2/3 border rounded-lg">
@@ -377,9 +394,12 @@ function AdminHome(props) {
             </div>
            <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10 '>
-                    <a href="#" className="p-1 truncate block px-3 group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white" >Assistant Director (Prevention) / (TI) - 2 Post
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                    </a>
+                    <Link to={'AD_TI'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
+                        Assistant Director (Prevention) / (TI) - 2 Post
+                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                    </Link>
+                    
                 </div>
                 <div className="flex justify-center">
                     <table className="items-center bg-transparent w-2/3 border rounded-lg">

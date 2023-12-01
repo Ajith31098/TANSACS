@@ -9,7 +9,7 @@ function Header() {
     <>
     <div className='flex justify-between'>
       <div className='lg:h-28 lg:w-28 md:h-24 lg:w-24 h-20 w-20'>
-        <img className="h-full w-full object-contain" src={Aids} alt='Aids' />
+        <img className="h-full w-full object-contain " src={Aids} alt='Aids' />
         
       </div>
       <div className='lg:h-28 lg:w-28 md:h-24 lg:w-24 h-20 w-20'>

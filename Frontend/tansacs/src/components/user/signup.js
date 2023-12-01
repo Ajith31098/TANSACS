@@ -19,7 +19,7 @@ import LoadingComponent from '../basecomponents/loading'
 import { Link } from 'react-router-dom'
 import {district} from '../initialValues/InitialDropdown'
 import calender from '../../logo/icon-8.png'
-
+import '../../css/login.css'
 
 const addressSchema = Yup.object().shape({
     address_line1: Yup.string().required('Line 1 is required'),
@@ -50,6 +50,7 @@ const validationSchema = Yup.object({
     confrim_email: Yup.string().oneOf([Yup.ref('email'), ''], 'email not matched').required('Required'),
     guardian_name: Yup.string().required("Required"),
     guardian_name_initial: Yup.string().required("Required"),
+    DOB: Yup.string().required('required'),
     phone_number: Yup.number().typeError("Enter valid Phone number")
         .required('Required')
         .positive('Enter valid Phone number')
@@ -78,7 +79,7 @@ const initialvalues = {
     first_name: '',
     last_name: '',
     gender: '',
-    // DOB: null,
+    DOB: null,
     age: '',
     aadhar: '',
     email: "",
@@ -108,7 +109,7 @@ const initialvalues = {
         district: '',
         city: '',
         pincode: '',
-        address_type:'communication'
+        address_type:'permanent'
 
 
     }],
@@ -119,9 +120,10 @@ const genderOptions = [
     { key: 'Male', value: 'male' },
     { key: 'Female', value: 'female' },
     { key: 'other', value: 'other' },
+
 ]
 const stateOptions = [
-    { key: 'State', value: '' },
+    { key: 'STATE', value: '' },
     { key: 'Tamil Nadu', value: 'Tamil Nadu' },
 ]
 
@@ -233,14 +235,14 @@ function Signup(props) {
     return (
         <>
         {loading ? <LoadingComponent/> : null}
-            <div className='mt-5 mb-14'>
-                <h4 className='text-4xl text-red-600 font-bold '>Tamil Nadu State AIDS Control Society</h4>
+            <div className='mt-5 mb-14 font-IstokWeb'>
+                <h4 className='text-4xl text-red-600 font-bold font-roboto'>Tamil Nadu State AIDS Control Society</h4>
 
 
             </div>
-            <div className='mt-10 border rounded-lg py-5 px-10'>
+            <div className='mt-10 border rounded-lg py-5 px-10 font-IstokWeb'>
 
-                <h4 className='text-2xl font-semibold'>REGISTRATION FORM</h4>
+                <h4 className='text-2xl font-semibold font-roboto'>REGISTRATION FORM</h4>
                 <Formik
                     initialValues={initialvalues}
                     validationSchema={validationSchema}
@@ -252,7 +254,9 @@ function Signup(props) {
 
                         <Form >
                             <div className='flex justify-end p-2'>
-                                <div className='flex flex-col items-center'>
+                                <div className='flex flex-col items-center' style={{
+                                    width : "180px"
+                                }}>
                                     <div className='flex flex-col items-center  border-2 border-gray-400 p-2 border-solid '>
                                         <img className='w-20 h-20 object-cover'
                                             src={values.profile_image ? URL.createObjectURL(values.profile_image) : "https://imgs.search.brave.com/oB6fgT45DC10B0RQfk3kTBtZ0W-2p7udZUxPnfvKT3M/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzYyLzkzLzY2/LzM2MF9GXzQ2Mjkz/NjY4OV9CcEVFY3hm/Z011WVBmVGFJQU9D/MXRDRHVybXNubzdT/cC5qcGc"}
@@ -275,14 +279,16 @@ function Signup(props) {
                                             {! values.profile_image && <p className='text-sm font-semibold'>upload a photo</p>}
                                             {values.profile_image && <p className='mt-2 text-sm'>{values.profile_image.name}</p>}
                                             {touched.profile_image && errors.profile_image ? <p className='text-red-600 text-sm text-center font-bold'>{errors.profile_image}</p> : null}
-
                                         </label>
 
                                     </div>
+                                    <p className='font1 text-red-600 textb'>Uploaded file to be less than 100 than and only .jpg .jpeg formats are allowed</p>
+
 
                                 </div>
                             </div>
                           
+                            <p className='text-red-600 mb-2 text-start font-bold underline'>Personal Details</p>
 
                             <div className="grid grid-cols-2 mb-3 gap-10 border border-black border-solid rounded p-2">
 
@@ -303,11 +309,11 @@ function Signup(props) {
                                             type='text'
                                             name='last_name'
                                             label="INITIALS"
-                                            placeholder="INITIALS"
+                                            placeholder="INITIAL"
                                         />
 
                                     </div>
-                                    <div className="col-span-1">
+                                    <div className="col-span-2">
                                         <FormikControl
                                             control='select'
                                             type='select'
@@ -421,7 +427,7 @@ function Signup(props) {
                                             type='text'
                                             name='guardian_name_initial'
                                             label="INITIALS"
-                                            placeholder="INITIALS"
+                                            placeholder="INITIAL"
                                         />
 
                                     </div>
@@ -474,7 +480,7 @@ function Signup(props) {
 
                             </div>
 
-                            <p className='text-red-600 mb-2 text-start font-bold underline'>Address</p>
+                            <p className='text-red-600 mb-2 text-start font-bold underline'>Communication Address</p>
                             <div className="grid grid-cols-5 mb-3 gap-y-4 gap-x-10 border border-black border-solid rounded p-2">
 
                                 <div className="lg:col-span-3 col-span-5 lg:order-1">
@@ -494,6 +500,8 @@ function Signup(props) {
                                         type='select'
                                         name='address[0].state'
                                         options={stateOptions}
+                                        
+
                                     />
 
 

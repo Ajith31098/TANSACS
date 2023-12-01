@@ -11,3 +11,8 @@ h1 { color: #e60000; text-align: center; }
 .input-field { width: 100%; }
 .section-header { background-color: #e60000; color: white; text-align: center; }
 .p{background-color: #e60000; color: white; text-align: center; }
+
+
+.box-shadow{
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}

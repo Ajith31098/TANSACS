@@ -42,8 +42,16 @@ import { Provider } from 'react-redux'
 import { store, persistor } from './redux/Store';
 import ValidaterLogin from './components/Validater/ValidaterLogin';
 import Preview from './components/admin/Preview';
+import OTPVerificationModal from './components/basecomponents/otpField';
 
 import AdminCPM from './components/admin/AdminCPM';
+import AdminCSO from './components/admin/AdminCSO';
+import AdminDMDO from './components/admin/AdminDMDO';
+import AdminDDLS from './components/admin/AdminDDLS';
+import AdminDDSI from './components/admin/AdminDDSI';
+import AdminADIEC from './components/admin/AdminADIEC';
+import AdminADTI from './components/admin/AdminADTI';
+import AdminADICTC from './components/admin/AdminADICTC';
 import ServerError500 from './components/basecomponents/ServerError500';
 const queryClient = new QueryClient()
 
@@ -100,6 +108,13 @@ function App() {
               <Route path='/admin'>
                 <Route path='home' element={<AdminHome />} />
                 <Route path='home/CPM' element={<AdminCPM />} />
+                <Route path='home/CSO' element={<AdminCSO />} />
+                <Route path='home/AD_IEC' element={<AdminADIEC />} />
+                <Route path='home/AD_TI' element={<AdminADTI />} />
+                <Route path='home/AD_ICTC' element={<AdminADICTC />} />
+                <Route path='home/DD_LS' element={<AdminDDLS />} />
+                <Route path='home/DD_SI' element={<AdminDDSI />} />
+                <Route path='home/DMDO' element={<AdminDMDO />} />
 
                 <Route path='applicant/:userId' element={<Preview />} />
               </Route>

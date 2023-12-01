@@ -12,7 +12,8 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import DownloadButton from '../basecomponents/downloadButton'
 import Ribbon from '../../logo/ribbon.png' 
-import {style} from '../../css/ribbon.css'
+import '../../css/ribbon.css'
+import '../../css/login.css'
 
 const initialvalues = {
     username: '',
@@ -114,13 +115,13 @@ function SignIn(props) {
         <>
         
         
-            <div className="grid grid-cols-5 mt-5 gap-20 relative">
+            <div className="grid grid-cols-5 mt-5 gap-20 relative ribbon font-roboto">
             {loading ? ( <LoadingComponent/>) : null }
                 <div className="col-span-5 flex flex-col justify-center items-center">
-                    <h4 className='text-5xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
-                        <h4 className='text-2xl font-semibold'>TANSACS RECRUITMENT PROTAL</h4>
+                    <h4 className='lg:text-5xl text-3xl text-red-600 font-bold mb-8 font-roboto'>Tamil Nadu State AIDS Control Society</h4>
+                        <h4 className='lg:text-2xl text-xl font-semibold'>TANSACS RECRUITMENT PORTAL</h4>
                         <p>{props.isLogin}</p>
-                        <div className='w-2/5 image_ribbon'>
+                        <div className='lg:w-2/5  w-4/5 image_ribbon'>
                             <Formik
                                 initialValues={initialvalues}
                                 validationSchema={validationSchema}
@@ -130,13 +131,13 @@ function SignIn(props) {
                                     <Form className='flex flex-col justify-center items-center mt-5'>
 
                                         <div className='w-2/3 mb-4'>
-                                            <p className='text-red-600 font-bold mb-1 text-start'>User Name</p>
+                                            <p className='text-red-600 font-bold mb-1 text-start'>User name</p>
                                             <FormikControl
                                                 control='input'
                                                 type='text'
                                                 name='username'
                                                 label="User Name"
-                                                placeholder="Email Id"
+                                                placeholder="Email ID"
                                             />
 
                                         </div>
@@ -147,7 +148,7 @@ function SignIn(props) {
                                                 type='password'
                                                 name='password'
                                                 label="password"
-                                                placeholder="Password"
+                                                placeholder="Enter Your Password"
 
                                             />
                                         </div>
@@ -163,7 +164,7 @@ function SignIn(props) {
                                                 </a> */}
                                             </div>
                                             <div className='w-max'>
-                                                <Link to={'/signup'} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                                                <Link to={'/signup'} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-700 text-sm font-semibold text-white">
                                                     Register
                                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
@@ -182,8 +183,8 @@ function SignIn(props) {
                         </div>
 
                         <DownloadButton/>
-                        <p className='text-red-600 font-bold mb-3 text-xs'>Note:In  below TANSACS Job Posting Details are given please read before apply</p>
-                        <p className='font-semibold text-lg'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA</p>
+                        <p className='text-red-600 font-bold mb-3 text-xs'>Note: <small className='font1'>In  below TANSACS Job Posting Details are given please read before apply</small></p>
+                        <p className='font-semibold font2'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA</p>
 
                 </div>
             </div>

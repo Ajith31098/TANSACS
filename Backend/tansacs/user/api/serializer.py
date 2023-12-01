@@ -30,19 +30,19 @@ class CustomUserSerializer(serializers.Serializer):
 
 class VerifyPhoneNumberSerializer(serializers.Serializer):
     username = serializers.EmailField()
-    number = serializers.CharField(max_length=20)
+    # number = serializers.CharField(max_length=20)
 
     def validate(self, data):
         username = data.get('username')
-        number = data.get('number')
+        # number = data.get('number')
 
         try:
             profile = Profile.objects.get(user__username=username)
         except Profile.DoesNotExist:
             raise serializers.ValidationError({'username': ['Profile with this username does not exist']})
 
-        if profile.phone_number != number:
-            raise serializers.ValidationError({'number': ['Phone number does not match with the provided username']})
+        # if profile.phone_number != number:
+        #     raise serializers.ValidationError({'number': ['Phone number does not match with the provided username']})
 
         return data 
    

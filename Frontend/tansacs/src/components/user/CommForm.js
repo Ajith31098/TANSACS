@@ -1094,7 +1094,7 @@ function CommonForm
                                                 />
                                             </div>
 
-                                            <div className='col-span-3'>
+                                            {/* <div className='col-span-3'>
                                                 <p className='text-center text-xs font-bold mb-2'>NOC</p>
                                                 <FormikControl
                                                     control='file'
@@ -1105,7 +1105,7 @@ function CommonForm
                                                     label="upload"
                                                 />
 
-                                            </div>
+                                            </div> */}
                                             
                                         </div>
                                     </div>

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from jobs.models import Job
 from jobs.api.serializers import SSLCSerializer ,HSCSerializer , UGSerializer,PGSerializer,ExperienceSerializer,PreferedExperienceSerializer
-
+from user.models import Profile ,Address
 POSITION_ABBREVIATIONS = {
     'Cluster Program Manager': 'CPM',
     'Clinical Service Officer': 'CSO',
@@ -47,6 +47,18 @@ class JobDataSerializer(serializers.ModelSerializer):
 
     def get_user_full_name(self, obj):
         return f"{obj.user.profile.first_name} {obj.user.profile.last_name}"
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    # Define your UserProfileSerializer fields here
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = '__all__'
     
 class JobSerializer(serializers.ModelSerializer):
     sslc = SSLCSerializer()
@@ -55,7 +67,8 @@ class JobSerializer(serializers.ModelSerializer):
     pg = PGSerializer(many=True)
     experience = ExperienceSerializer(many=True)
     prefered_experience = PreferedExperienceSerializer(many=True)
-
+    user_profile = UserProfileSerializer(source='user.profile')
+    address = AddressSerializer( source = "user.profile.address.all" , many = True)
     class Meta:
         model = Job
         fields = '__all__'

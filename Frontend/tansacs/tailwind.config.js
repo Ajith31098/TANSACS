@@ -5,6 +5,13 @@ module.exports = {
   ],
 
   theme: {
+
+    extend: {
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
+        IstokWeb: ['IstokWeb', 'sans-serif'],
+      },
+    },
     
   },
   plugins: [],

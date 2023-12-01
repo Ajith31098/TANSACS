@@ -1,5 +1,5 @@
 export const district =  [
-    { key: 'District', value: '' },
+    { key: 'DISTRICT', value: '' },
 
     { key: 'Ariyalur', value: 'Ariyalur' },
     { key: 'Chengalpattu', value: 'Chengalpattu' },

@@ -12,6 +12,7 @@ import base64
 from .utils import get_list_dict
 from user.api.utils import sendOTP
 from rest_framework.authtoken.models import Token
+from django.conf import settings
 
 
 class JobView(APIView):
@@ -55,14 +56,42 @@ class JobView(APIView):
                 job.pg.set(pg)
                 job.experience.set(experience)
                 job.prefered_experience.set(prefered_experience)
+
+                applicant_email = job.user.username
+                applicant_name = job.user.profile.first_name
+                job_title = job.position
+                application_id = job.application_id
+                send_application_email(applicant_email,applicant_name,job_title,application_id)
                 # job.NOC = NOC
                 # job.save()
-                sendOTP(token.user.username , True , position)
+                # sendOTP(token.user.username , True , position)
 
                 return Response (status= status.HTTP_200_OK)
 
              
         return Response( status=status.HTTP_400_BAD_REQUEST)
+
+
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
+def send_application_email(applicant_email, applicant_name, job_title, application_id):
+    subject = "Your Application ID: Next Steps Await!"
+    html_content = render_to_string(
+        'email.html', 
+        {
+            'applicant_name': applicant_name,
+            'job_title': job_title,
+            'application_id': application_id,
+        }
+    )
+    send_mail(
+        subject,
+        '',
+         settings.EMAIL_HOST_USER ,# From email address (can be None or your sender address)
+        [applicant_email],  # To email address
+        html_message=html_content,
+    )
 
 
 

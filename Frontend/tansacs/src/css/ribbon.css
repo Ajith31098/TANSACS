@@ -1,0 +1,12 @@
+.ribbon::before{
+
+    content:'';
+    position: absolute;
+    top:50%;
+    left:0%;
+    width:30%;
+    height:50%;
+    background-image: url('../logo/ribbon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}

@@ -110,7 +110,7 @@ class SignUpView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except:
            
-            return Response(serializer.errors, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return Response( status=status.HTTP_503_SERVICE_UNAVAILABLE)
    
 
 class UpdateProfileImageView(APIView):
@@ -152,10 +152,10 @@ class ForgotView(APIView):
             
             if serializer.is_valid():
                 return Response({'email': serializer.validated_data['username']}, status=status.HTTP_200_OK)
-            print(serializer.errors)
+            # print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response(serializer.errors, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return Response( status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
 
 

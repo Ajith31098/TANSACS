@@ -14,12 +14,12 @@ import { useEffect } from 'react'
 const initialValues = {
 
     username : '',
-    number:''
+    // number:''
 }
 
 const validationSchema =Yup.object({
     username : Yup.string().required("Required").email("Invalid Email"),
-    number :Yup.number().typeError("Enter valid Phone number").required('Required').positive('Enter valid Phone number').test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
+    // number :Yup.number().typeError("Enter valid Phone number").required('Required').positive('Enter valid Phone number').test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
 
 })
 
@@ -80,9 +80,9 @@ function ForgotPassword(props) {
                     if (errorData.data.username) {
                       setFieldError('username', errorData.data.username);
                     }
-                    if (errorData.data.number) {
-                      setFieldError('number', errorData.data.number);
-                    }
+                    // if (errorData.data.number) {
+                    //   setFieldError('number', errorData.data.number);
+                    // }
                         setLoading(false)
 
                     }
@@ -108,7 +108,7 @@ function ForgotPassword(props) {
         {loading ? <LoadingComponent/> : null}
         <div className='mt-5'>
             <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
-            <p className='text-2xl mt-10 mb-5 font-semibold underline'>ENTER YOUR EMAIL AND NUMBER</p>
+            <p className='text-2xl mt-10 mb-5 font-semibold underline'>ENTER YOUR EMAIL</p>
         
         </div>
         <div className='mt-10'>
@@ -137,7 +137,7 @@ function ForgotPassword(props) {
                                         
                                         
                                     </div>
-                                    <div className='mb-5'>
+                                    {/* <div className='mb-5'>
                                     <FormikControl
                                         control='input'
                                         type='text'
@@ -146,7 +146,7 @@ function ForgotPassword(props) {
                                         placeholder="NUMBER"
                                     />
                                         
-                                    </div>
+                                    </div> */}
 
                                     <div className=" flex justify-around items-center my-10">
                                         <div className='w-max'>

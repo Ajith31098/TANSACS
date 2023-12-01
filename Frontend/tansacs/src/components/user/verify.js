@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from 'react'
+// import React, { useEffect , useState } from 'react'
 import {Formik , Form , Field , ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
@@ -6,18 +6,19 @@ import {connect} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {useMutation } from 'react-query'
 import { Verified } from '../../redux'
+import React, { useState, useRef, useEffect } from 'react';
 
 
-const initialValues = {
+// const initialValues = {
 
-    otp:''
+//     otp:''
 
-}
+// }
 
-const validationSchema =Yup.object({
-    otp :Yup.number().typeError("Invalid OTP").required('Enter OTP').positive('Invalid OTP', (val) => val && val.toString().length === 4),
+// const validationSchema =Yup.object({
+//     otp :Yup.number().typeError("Invalid OTP").required('Enter OTP').positive('Invalid OTP', (val) => val && val.toString().length === 4),
 
-})
+// })
 
 
 async function loginUser(values) {
@@ -27,11 +28,33 @@ async function loginUser(values) {
 
 
 function VerifyOTP(props) {
+
+
     const navigate = useNavigate()
     const mutation = useMutation(loginUser)
 
-    const [otp , setOtp ] = useState(0)
+    const [otps , setOtps ] = useState(0)
+    const [otp, setOtp] = useState(['', '', '', '']);
+    const [error , seterror] = useState(false)
 
+      useEffect(() => {
+    inputRefs[0]?.current?.focus();
+  }, []);
+
+  const handleChange = (e, index) => {
+        const value = e.target.value;
+        if (isNaN(value)) return; //
+        const updatedOtp = [...otp];
+            updatedOtp[index] = value;
+            setOtp(updatedOtp);
+        
+            if (value !== '' && index < otp.length - 1) {
+              inputRefs[index + 1]?.current?.focus();
+            }
+    };
+
+
+    const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
     const sendotp = async () =>  {
         
         try {
@@ -40,7 +63,7 @@ function VerifyOTP(props) {
         
             const response = await axios.post('http://127.0.0.1:8000/send-otp', formData);
             const receivedOTP = response.data.otp; // Extract OTP from response
-            setOtp(receivedOTP);
+            setOtps(receivedOTP);
           } catch (error) {
             console.error('Error sending OTP:', error);
             // Handle error, show error message, etc.
@@ -48,7 +71,7 @@ function VerifyOTP(props) {
     }
 
 
-    const [timer, setTimer] = useState(150); 
+    const [timer, setTimer] = useState(300); 
     const [disableInput, setDisableInput] = useState(false);
     let interval
     const startTimer = () => {
@@ -100,19 +123,22 @@ function VerifyOTP(props) {
       const handleResendClick = () => {
          // Reset timer to initial value
         if (timer == 0){
-            setTimer(150);
+            setTimer(300);
             startTimer()
         }
         else{
-            setTimer(150);
+            setTimer(300);
         }
         setDisableInput(false); 
         sendotp()// Enable input field
       };
 
-        const onSubmit = (values ,{ setFieldError })=> {
-
-            if (otp == values.otp){
+        const onSubmit = (event)=> {
+            console.log('enter');
+            event.preventDefault();
+            const otpValue = otp.join('');
+            console.log(otpValue , otps);
+            if (otps == parseInt(otpValue)){
 
                 if(props.forgot){
 
@@ -138,7 +164,8 @@ function VerifyOTP(props) {
                 
             }
             else{
-                setFieldError('otp' , 'worng otp')
+               seterror(true)
+               console.log('enter');
             }
         }
 
@@ -146,97 +173,80 @@ function VerifyOTP(props) {
     return ( 
         <>
         
+        <div className="flex flex-col justify-center items-center">
         <div className='mt-3'>
             <h4 className='text-4xl text-red-600 font-bold mb-5'>Tamil Nadu State AIDS Control Society</h4>
-            <p className='text-2xl mt-10 mb-5 font-semibold underline'>VERIFICATION OTP</p>
         
         </div>
-        <p className='text-red-600 text-sm mt-10 mt-10 mb-5 font-semibold underline'>Please enter the otp send to +9187******87</p>
+
+        <div className='p-5 w-max' style={{
+            boxShadow: "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
+        }}>
+        <p className='text-2xl mt-10 mb-5 font-semibold underline'>VERIFICATION OTP</p>
+
+<p className='text-red-600 text-sm mt-10 mt-5 mb-5 font-semibold underline'>Please enter the otp send to your email</p>
+
+
+<div className='mt-10'>
+
+    
+    <form onSubmit={ onSubmit}>
 
         <div>
-            <h1>{props.email}</h1>
+            {error && <p className='text-red-600 font-bold mb-3'>Worng OTP</p>}
+        </div>
+
+            <div className="flex gap-2 justify-center items-center">
+            {otp.map((digit, index) => (
+            <input
+                key={index}
+                ref={inputRefs[index]}
+                type="text"
+                className="bg-rose-200 border text-dark border-rose-600 text-center  text-sm rounded-lg focus:ring-0  focus:border-red-500 h-12 w-12 px-2.5 py-2 "
+                maxLength="1"
+                value={digit}
+                onChange={(e) => handleChange(e, index)}
+                disabled = {disableInput}
+            />
+            ))}
+        </div>
+
+        <div className='my-5'>
+             <p className='text-sm'>Did'nt recieve OTP <small className='text-red-600'>{Math.floor(timer / 60)}:{timer % 60}</small></p>
+        </div>
+
+    <div className="flex justify-center items-center gap-5">
+        <div className='w-max'>
+        <button
+            type='button'
+            className='px-3 py-1 block group relative w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white'
+            onClick={redirectLogin} // Handle resend click
+        >
+            Cancel
+        </button>
+        </div>
+        <div className='w-max'>
+        <button
+            type='button'
+            className='px-3 py-1 block group relative w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white'
+            onClick={handleResendClick} // Handle resend click
+        >
+            Resend
+        </button>
+        </div>
+        <div className='w-max'>
+                <button type='submit' className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Enter
+                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                </button>
+                
+        </div>
+    </div>
+    </form>
+   
+</div>
+
 
         </div>
-        <div className='mt-10'>
-
-            <Formik
-            
-                initialValues={ initialValues}
-                validationSchema={validationSchema}
-                onSubmit = {onSubmit}
-
-            >
-                    {
-                       ({ values, handleChange, handleBlur,setFieldValue, touched, errors })=>(
-
-                            <Form
-                            className='flex justify-center'>
-                                <div className='lg:w-1/5 w-full'>
-                                    
-                                    <div className='mb-5'>
-                                        <Field
-                                            id="otp"
-                                            name="otp"
-                                            type="text"
-                                            className= {touched.otp && errors.otp ? 'text-center text-xl border border-2 py-1 px-2 border-red-400 w-full rounded text-sm focus:outline-none focus:border-sky-400' : 'text-xl text-center border border-2 py-1 px-2 text-sm border-gray-400 w-full rounded focus:outline-none focus:border-sky-400'}
-                                            placeholder =" X X X X"
-                                            disabled={disableInput}
-                                        />
-                                        <div>
-                                            <p className='text-red-600 text-sm text-start font-bold'>
-
-                                                <ErrorMessage name='otp'/>
-
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                    <div className='my-5'>
-                                        <p className='text-sm'>Did'nt recieve OTP <small className='text-red-600'>{Math.floor(timer / 60)}:{timer % 60}</small></p>
-                                    </div>
-
-                                    <div className="mt-10 flex justify-around items-center">
-                                        <div className='w-max'>
-                                            <button
-                                                type='button'
-                                                className='px-3 py-1 block group relative w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white'
-                                                onClick={redirectLogin} // Handle resend click
-                                            >
-                                                Cancel
-                                            </button>
-                                        </div>
-                                        <div className='w-max'>
-                                            <button
-                                                type='button'
-                                                className='px-3 py-1 block group relative w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white'
-                                                onClick={handleResendClick} // Handle resend click
-                                            >
-                                                Resend
-                                            </button>
-                                            </div>
-                                        <div className='w-max'>
-                                            <button type='submit' className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Enter
-                                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                            </button>
-                                            {/* <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Enter
-                                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                            </a> */}
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                
-                            </Form>
-                            
-                       )
-                    }
-                
-            </Formik>
-
-           
-
-
         </div>
         </>
      );
