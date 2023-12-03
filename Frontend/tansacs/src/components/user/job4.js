@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ApplyButton from '../basecomponents/ApplySuggestion';
 
 
@@ -6,7 +6,7 @@ function job4() {
     return (
         <>
             <div className='mt-5'>
-                <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
+                <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
 
                 <h4 className='text-2xl my-5 underline font-semibold'> DEPUTY DIRECTOR (LS)- 1 POSTS</h4>
@@ -91,9 +91,9 @@ function job4() {
             </div>
 
             <div className='flex justify-center'>
-            <ApplyButton position="Deputy Director (LS)" min_age ={60} emin_age = {60} link = {'/tansacs/deputy_director_ls/apply'} />
+                <ApplyButton position="Deputy Director (LS)" min_age={60} emin_age={60} link={'/tansacs/deputy_director_ls/apply'} />
 
-                    {/* <Link to={'/deputy_director_ls/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                {/* <Link to={'/deputy_director_ls/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 

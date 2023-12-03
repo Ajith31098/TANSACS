@@ -1,41 +1,42 @@
-import React ,{ useState } from 'react'
-import {useField,FastField, ErrorMessage } from 'formik'
+import React, { useState } from 'react'
+import { useField, FastField, ErrorMessage } from 'formik'
 import TextError from './texterror'
 // import TextField from '@material-ui/core/TextField';
 import TextField from '@mui/material/TextField';
 
 
-function Input (props) {
+function Input(props) {
   const { label, name, ...rest } = props
   const [field, meta] = useField(name);
-  
+  const applyUppercase = rest.type !== 'email';
   return (
-      <>
-    <FastField name={name}>
-      {({ field, meta }) => (
-       
-        <>
-          <TextField
-            {...field}
-            {...rest}
-            size="small"
-            error={meta.touched && meta.error ? true : false}
-            className = { 'shadow-md font-bold border border-2 w-full py-1 px-2 rounded focus:outline-none focus:border-sky-400  border-gray-300 '}
-            InputProps={{
-              inputProps: {
-                // className: 'text-sm fond-bold',
-                style: {
-                  fontSize: '11px',
+    <>
+      <FastField name={name}>
+        {({ field, meta }) => (
+
+          <>
+            <TextField
+              {...field}
+              {...rest}
+              size="small"
+              error={meta.touched && meta.error ? true : false}
+              className={'font-IstokWeb shadow-md font-bold border border-2 w-full py-1 px-2 rounded focus:outline-none focus:border-sky-400  border-gray-300 '}
+              InputProps={{
+                inputProps: {
+                  // className: 'text-sm fond-bold',
+                  style: {
+                    fontSize: '11px',
+                    textTransform: applyUppercase ? 'uppercase' : 'none',
+                  },
                 },
-              },
-              
-            }}
-          />
-        </>
-      )}
-    </FastField>
-    <ErrorMessage component={TextError} name={name} />
-   
+
+              }}
+            />
+          </>
+        )}
+      </FastField>
+      <ErrorMessage component={TextError} name={name} className='text-[10px]' />
+
 
     </>
   )
@@ -43,10 +44,10 @@ function Input (props) {
 
 export default Input
 
-      {/* <Field id={name} name={name} type={type} {...rest}  className = { `text-sm shadow-md border border-2 w-full py-1 px-2 rounded focus:outline-none focus:border-sky-400 ${meta.touched && meta.error ? ' border-red-400 ' : 'border-gray-300 '}`} /> */}
+{/* <Field id={name} name={name} type={type} {...rest}  className = { `text-sm shadow-md border border-2 w-full py-1 px-2 rounded focus:outline-none focus:border-sky-400 ${meta.touched && meta.error ? ' border-red-400 ' : 'border-gray-300 '}`} /> */ }
 
 
-   {/* <TextField
+{/* <TextField
         id={name}
         name={name}
         label={label}

@@ -1,12 +1,12 @@
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import ApplyButton from '../basecomponents/ApplySuggestion';
 
 function Job1(props) {
     return (
         <>
             <div className='mt-5'>
-                <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
+                <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
 
                 <h4 className='text-2xl my-5 underline font-semibold'>CLUSTER PROGRAM MANAGER - 7 POSTS</h4>
@@ -26,11 +26,11 @@ function Job1(props) {
 
                         <p className="text-base font-bold">Experience:</p>
                         <ul className="list-disc mx-4">
-                            <li>Three years’ experience for candidates with Master’s Degree in Public Health / Healthcare Management / Healthcare Administration / Applied Epidemiology.</li>
-                            <li>Five years’ experience in Public Health for Bachelor’s Degree in Medical and Allied Sciences / Masters in Social Science / Psychology / Demography / Statistics / Population Sciences including a minimum two years of experience in HIV/AIDS sector.</li>
+                            <li>Three year's experience for candidates with Master’s Degree in Public Health / Healthcare Management / Healthcare Administration / Applied Epidemiology.</li>
+                            <li>Five year's experience in Public Health for Bachelor’s Degree in Medical and Allied Sciences / Masters in Social Science / Psychology / Demography / Statistics / Population Sciences including a minimum two years of experience in HIV/AIDS sector.</li>
                         </ul>
                         <p>
-                            <small className="text-base font-bold"> Age limit:</small>
+                            <small className="text-base font-bold"> Age limit: </small>
                             For the existing employees of NACO/TANSACS/TSU, the upper age limit is 55
                             years as on 30.06.2023. For other candidates,
                             upper age limit is 50 years as on 30.06.2023.
@@ -64,7 +64,7 @@ function Job1(props) {
 
                             <tbody>
                                 <tr>
-                                    <th className="border-2 border-gray-400 align-middle  text-xs whitespace-nowrap  px-7 py-2  ">
+                                    <th className="border-2 border-gray-400  text-xs whitespace-nowrap  px-7 py-2  ">
                                         1
                                     </th>
                                     <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
@@ -80,7 +80,7 @@ function Job1(props) {
                                         2
                                     </th>
                                     <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
-                                        NAMAKAL
+                                        NAMAKKAL
                                     </td>
                                     <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
@@ -157,11 +157,11 @@ function Job1(props) {
             </div>
 
             <div className='flex justify-center'>
-                
-                <ApplyButton position="Cluster Program Manager" min_age ={50} emin_age = {55} link = {'/tansacs/cluster_manager/apply'} />
-                    
-                   
-                
+
+                <ApplyButton position="Cluster Program Manager" min_age={50} emin_age={55} link={'/tansacs/cluster_manager/apply'} />
+
+
+
             </div>
 
         </>
@@ -171,4 +171,4 @@ function Job1(props) {
 
 
 
-export default  Job1;
+export default Job1;

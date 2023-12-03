@@ -2,21 +2,24 @@ import Input from "./inputfield";
 import Select from './selectfeild';
 import FileInput from './filefeild'
 import PasswordField from "./passwordfeild";
+import AddharInput from "./Addharcomponent";
 
 function FormikControl(props) {
 
     const { control, ...rest } = props
     switch (control) {
+        case 'addhar':
+            return <AddharInput />
         case 'input':
-        return <Input {...rest} />
+            return <Input {...rest} />
         case 'password':
-        return <PasswordField {...rest} />
+            return <PasswordField {...rest} />
         case 'file':
-        return <FileInput {...rest} />
+            return <FileInput {...rest} />
         // case 'textarea':
         // return <Textarea {...rest} />
         case 'select':
-        return <Select {...rest} />
+            return <Select {...rest} />
         // case 'radio':
         // return <RadioButtons {...rest} />
         // case 'checkbox':
@@ -26,7 +29,7 @@ function FormikControl(props) {
         // case 'chakraInput':
         // return <ChakraInput {...rest} />
         default:
-        return null
+            return null
     }
 }
 

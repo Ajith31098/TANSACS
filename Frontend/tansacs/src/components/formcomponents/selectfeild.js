@@ -6,6 +6,8 @@ import { FormControl, Select as MuiSelect, FormHelperText, MenuItem, OutlinedInp
 function Select(props) {
   const { label, name, options, ...rest } = props
   const [field, meta] = useField(name);
+  const isDefaultSelected = field.value === '';
+
   return (
     <>
 
@@ -26,9 +28,21 @@ function Select(props) {
               <MuiSelect
                 {...field}
                 {...rest}
-                className={'shadow-md font-bold border border-2 w-full py-0 px-2 rounded focus:outline-none focus:border-sky-400  border-gray-300 '}
+                className={'font-bold font-IstokWeb shadow-md text-sm  w-full py-[5px] px-3 rounded text-start  focus:outline-none focus:border-sky-400  border-gray-300 '}
                 displayEmpty
-                input={<OutlinedInput sx={{ fontSize: '12px', padding: '0px' }} />}
+                input={<OutlinedInput sx={{
+                  fontSize: '12px', padding: '0px'
+                }} />}
+                sx={{
+                  '& > div': { // Targeting the inner div
+                    padding: '0px',
+                    fontSize: "11px",
+                    color: isDefaultSelected ? 'gray' : 'inherit',
+                    border: "none",
+                    fontWeight: isDefaultSelected ? "200" : '400',
+                    textTransform: "uppercase"
+                  },
+                }}
 
 
               >
@@ -43,7 +57,7 @@ function Select(props) {
             </FormControl>
           )
         }}
-      </Field>
+      </Field >
       <ErrorMessage component={TextError} name={name} />
     </>
   )

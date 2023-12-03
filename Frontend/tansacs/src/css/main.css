@@ -1,0 +1,36 @@
+.font1 {
+    font-size: 50px;
+}
+
+.font2 {
+    font-size: 33px;
+}
+
+.font3 {
+    font-size: 20px;
+}
+
+.font4 {
+    font-size: 14px;
+}
+
+.font5 {
+    font-size: 24px;
+}
+
+.font6 {
+    font-size: 12px;
+}
+
+.react-datepicker-wrapper {
+    width: 100% !important;
+}
+
+
+.custom-datepicker-placeholder::placeholder {
+    font-size: 10px;
+    /* or use a specific size like '12px' */
+    color: grey;
+    /* Example: change color */
+    /* Add any other styles you want for the placeholder */
+}

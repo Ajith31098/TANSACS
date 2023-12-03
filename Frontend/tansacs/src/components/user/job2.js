@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ApplyButton from '../basecomponents/ApplySuggestion';
 
 
@@ -6,7 +6,7 @@ function job2() {
     return (
         <>
             <div className='mt-5'>
-                <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
+                <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
 
                 <h4 className='text-2xl my-5 underline font-semibold'>CLINICAL SERVICE OFFICER - 2 POSTS</h4>
@@ -26,12 +26,12 @@ function job2() {
 
                         <p className="text-base font-bold">Experience:</p>
                         <ul className="list-disc mx-4">
-                            <li>One year’s experience for candidates with a Master’s Degree in Public Health / Healthcare Management / Healthcare Administration / Applied Epidemiology</li>
-                            <li>Three years’ experience in Public Health with a  Bachelor’s Degree in Medical or Allied Sciences / Masters in Social Science / Psychology / Demography / Statistics / Population Sciences with minimum of one year of experience in the HIV/AIDS sector.</li>
+                            <li>One year’s experience for candidates with a Master’s Degree in Public Health / Healthcare Management / Healthcare Administration / Applied Epidemiology </li>
+                            <li>Three year's experience in Public Health with a  Bachelor’s Degree in Medical or Allied Sciences / Masters in Social Science / Psychology / Demography / Statistics / Population Sciences with minimum of one year of experience in the HIV/AIDS sector.</li>
                         </ul>
                         <p>
                             <small className="text-base font-bold"> Age limit:</small>
-                            5 years as on 30.06.2023
+                            45 years as on 30.06.2023
                         </p>
                     </div>
                 </div>
@@ -97,9 +97,9 @@ function job2() {
             </div>
 
             <div className='flex justify-center'>
-                    <ApplyButton position="Clinical Service Officer" min_age ={45} emin_age = {45} link = {'/tansacs/clinical_officer/apply'} />
+                <ApplyButton position="Clinical Service Officer" min_age={45} emin_age={45} link={'/tansacs/clinical_officer/apply'} />
 
-                    {/* <Link to={} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                {/* <Link to={} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 

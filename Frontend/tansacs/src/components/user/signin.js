@@ -1,19 +1,18 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage  } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
-import { Login , Register } from '../../redux'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {useMutation } from 'react-query'
+import { Login, Register } from '../../redux'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useMutation } from 'react-query'
 import axios from 'axios'
 import LoadingComponent from '../basecomponents/loading'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import DownloadButton from '../basecomponents/downloadButton'
-import Ribbon from '../../logo/ribbon.png' 
+import Ribbon from '../../logo/ribbon.png'
 import '../../css/ribbon.css'
-import '../../css/login.css'
 
 const initialvalues = {
     username: '',
@@ -27,14 +26,14 @@ const validationSchema = Yup.object({
 })
 
 async function loginUser(values) {
-    const response = await  axios.post('http://127.0.0.1:8000/login', values);
+    const response = await axios.post('http://127.0.0.1:8000/login', values);
     return response.data;
 }
 
 
 
 function SignIn(props) {
-  
+
     const navigate = useNavigate()
 
     const [loading, setLoading] = React.useState(false);
@@ -45,146 +44,152 @@ function SignIn(props) {
     const onSubmit = (values, { setFieldError }) => {
         setLoading(true)
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
             mutation.mutate(values, {
 
-          
-                onSuccess:(data)=>{
 
-                        setLoading(false)
+                onSuccess: (data) => {
 
-                        console.log(data);
-                        props.login(data)
+                    setLoading(false)
+
+                    console.log(data);
+                    props.login(data)
                 },
                 onError: (error) => {
-                    
+
                     const errorData = error.response.data;
                     console.log(errorData);
-                    
+
 
                     if (errorData.username) {
-                      setFieldError('username', errorData.username);
+                        setFieldError('username', errorData.username);
                     }
                     else if (errorData.password) {
-                      setFieldError('password', errorData.password);
+                        setFieldError('password', errorData.password);
                     }
 
-                    else if(! errorData.active){
-                            setLoading(false)
-                            props.register(errorData)
-    
-                            navigate('/verify')
-    
-                        }
-
+                    else if (!errorData.active) {
                         setLoading(false)
+                        props.register(errorData)
+
+                        navigate('/verify')
+
+                    }
+
+                    setLoading(false)
 
 
-                  },
-             })
+                },
+            })
 
 
-        } , 1000
+        }, 1000
 
-            
+
         )
-            
-       };
-       
-       useEffect(() => {
 
-        
+    };
 
-        if(props.isSuperuser){
+    useEffect(() => {
+
+
+
+        if (props.isSuperuser) {
             navigate('admin/home')
         }
 
-        else if(props.isLogin){
+        else if (props.isLogin) {
             navigate('tansacs/jobs')
         }
 
-       }, [props.isLogin]);
-   
-    
+    }, [props.isLogin]);
 
-   
+
+
+
 
 
     return (
         <>
-        
-        
-            <div className="grid grid-cols-5 mt-5 gap-20 relative ribbon font-roboto">
-            {loading ? ( <LoadingComponent/>) : null }
+
+            <img src={Ribbon} alt="Ribbon" className="ribbon lg:block hidden" style={{
+                marginTop: "230px"
+            }} />
+
+            <div className="grid grid-cols-5 mt-5 gap-20 relative">
+
+                {loading ? (<LoadingComponent />) : null}
                 <div className="col-span-5 flex flex-col justify-center items-center">
-                    <h4 className='lg:text-5xl text-3xl text-red-600 font-bold mb-8 font-roboto'>Tamil Nadu State AIDS Control Society</h4>
-                        <h4 className='lg:text-2xl text-xl font-semibold'>TANSACS RECRUITMENT PORTAL</h4>
-                        <p>{props.isLogin}</p>
-                        <div className='lg:w-2/5  w-4/5 image_ribbon'>
-                            <Formik
-                                initialValues={initialvalues}
-                                validationSchema={validationSchema}
-                                onSubmit={onSubmit} >
+                    <h4 className=' text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
+                    <h4 className=' font-normal lg:text-[33px] md:text-[25px] text-[20px]' style={{
+                        textShadow: "#5a32325c 3px 3px 4px"
+                    }}>TANSACS RECRUITMENT PORTAL</h4>
+                    <p>{props.isLogin}</p>
+                    <div className='lg:w-2/5 md:w-3/5 w-4/5 image_ribbon'>
+                        <Formik
+                            initialValues={initialvalues}
+                            validationSchema={validationSchema}
+                            onSubmit={onSubmit} >
 
-                                {(formik) => (
-                                    <Form className='flex flex-col justify-center items-center mt-5'>
+                            {(formik) => (
+                                <Form className='flex flex-col justify-center items-center mt-5'>
 
-                                        <div className='w-2/3 mb-4'>
-                                            <p className='text-red-600 font-bold mb-1 text-start'>User name</p>
-                                            <FormikControl
-                                                control='input'
-                                                type='text'
-                                                name='username'
-                                                label="User Name"
-                                                placeholder="Email ID"
-                                            />
+                                    <div className='w-2/3 mb-4'>
+                                        <p className='text-custom-red font-bold mb-1 text-start'>Username</p>
+                                        <FormikControl
+                                            control='input'
+                                            type='email'
+                                            name='username'
+                                            label="User Name"
+                                            placeholder="Email Id"
+                                        />
 
-                                        </div>
-                                        <div className='w-2/3 mb-4'>
-                                            <p className='text-red-600 font-bold mb-1 text-start'>Password</p>
-                                            <FormikControl
-                                                control='password'
-                                                type='password'
-                                                name='password'
-                                                label="password"
-                                                placeholder="Enter Your Password"
+                                    </div>
+                                    <div className='w-2/3 mb-4'>
+                                        <p className='text-custom-red font-bold mb-1 text-start'>Password</p>
+                                        <FormikControl
+                                            control='password'
+                                            type='password'
+                                            name='password'
+                                            label="password"
+                                            placeholder="ENTER YOUR PASSWORD"
 
-                                            />
-                                        </div>
+                                        />
+                                    </div>
 
 
-                                        <div className="w-2/3 flex justify-between items-center">
-                                            <div className='w-max'>
-                                            <button type='submit' className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Login
+                                    <div className="w-2/3 flex justify-between gap-2 mt-5 items-center flex-wrap">
+                                        <div className='w-max'>
+                                            <button type='submit' className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" >Login
                                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                             </button>
-                                                {/* <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Login
+                                            {/* <a href="#" className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Login
                                                     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                 </a> */}
-                                            </div>
-                                            <div className='w-max'>
-                                                <Link to={'/signup'} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-700 text-sm font-semibold text-white">
-                                                    Register
+                                        </div>
+                                        <div className='w-max'>
+                                            <Link to={'/signup'} className="px-[30px] py-[3px] block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                                                Register
                                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                                                </Link>
-                                                
-                                            </div>
-                                            <Link to={'/forgot'} className="text-red-600 font-semibold block text-sm underline mt-2">forgot password?</Link>
+                                            </Link>
 
                                         </div>
+                                        <Link to={'/forgot'} className="text-custom-red font-semibold block text-sm underline mt-2">Forgot Password?</Link>
 
-                                    </Form>
-                                )}
+                                    </div>
+
+                                </Form>
+                            )}
 
 
-                            </Formik>
-                        </div>
+                        </Formik>
+                    </div>
 
-                        <DownloadButton/>
-                        <p className='text-red-600 font-bold mb-3 text-xs'>Note: <small className='font1'>In  below TANSACS Job Posting Details are given please read before apply</small></p>
-                        <p className='font-semibold font2'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA</p>
+                    <DownloadButton />
+                    <p className='text-custom-red font-bold mb-3 font6'>Note:In  below TANSACS Job Posting Details are given please read before applying.</p>
+                    <p className='font-semibold text-lg font6'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA.</p>
 
                 </div>
             </div>
@@ -194,23 +199,23 @@ function SignIn(props) {
 }
 
 
-const mapStateToProps =  state =>{
+const mapStateToProps = state => {
 
 
     return {
 
-        isLogin : state.login.isLogin,
-        isSuperuser:state.login.is_superuser,
+        isLogin: state.login.isLogin,
+        isSuperuser: state.login.is_superuser,
 
     }
 }
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
 
     return {
-        login : (data)=> dispatch(Login(data)),
-        register : (data)=> dispatch(Register(data))
+        login: (data) => dispatch(Login(data)),
+        register: (data) => dispatch(Register(data))
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

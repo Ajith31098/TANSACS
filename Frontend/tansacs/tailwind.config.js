@@ -11,8 +11,12 @@ module.exports = {
         roboto: ['Roboto', 'sans-serif'],
         IstokWeb: ['IstokWeb', 'sans-serif'],
       },
+      colors: {
+        'custom-red': '#f40000',
+        'custom-gray': "#B3B3B3"
+      },
     },
-    
+
   },
   plugins: [],
 }

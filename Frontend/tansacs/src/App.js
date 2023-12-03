@@ -35,8 +35,8 @@ import Detail from './components/admin/detail';
 
 import Header from './components/basecomponents/header';
 import { Routes, Route } from 'react-router-dom'
-import { QueryClientProvider,QueryClient } from 'react-query';
-import {ReactQueryDevtools} from 'react-query/devtools'
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/Store';
@@ -53,6 +53,7 @@ import AdminADIEC from './components/admin/AdminADIEC';
 import AdminADTI from './components/admin/AdminADTI';
 import AdminADICTC from './components/admin/AdminADICTC';
 import ServerError500 from './components/basecomponents/ServerError500';
+import "./css/main.css"
 const queryClient = new QueryClient()
 
 function App() {
@@ -61,7 +62,7 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <div className="App lg:px-20 md:px-20 px-5 py-10">
+          <div className="App lg:px-20 md:px-20 px-5 py-10 font-roboto">
             <Header />
             {/* <DeputyDirectorForm/> */}
 
@@ -69,18 +70,18 @@ function App() {
 
 
 
-                <Route path='/' element={<SignIn />} />
-                <Route path='/signup' element={<Signup />} />
-                <Route path='/forgot' element={<ForgotPassword />} />
-                <Route path='/reset' element={<ResetPassword />} />
-                <Route path='/verify' element={<VerifyOTP />} />
+              <Route path='/' element={<SignIn />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/forgot' element={<ForgotPassword />} />
+              <Route path='/reset' element={<ResetPassword />} />
+              <Route path='/verify' element={<VerifyOTP />} />
 
 
               <Route path="/tansacs" element={<ValidaterLogin />}>
 
                 <Route path='jobs' element={<Jobs />} />
-                <Route path='cluster_manager' element={<Job1  />} />
-                <Route path='cluster_manager/apply' element={<ClusterManagerForm  />} />
+                <Route path='cluster_manager' element={<Job1 />} />
+                <Route path='cluster_manager/apply' element={<ClusterManagerForm />} />
 
                 <Route path='clinical_officer' element={<Job2 />} />
                 <Route path='clinical_officer/apply' element={<ClinicalServiceOfficer />} />
@@ -119,7 +120,7 @@ function App() {
                 <Route path='applicant/:userId' element={<Preview />} />
               </Route>
 
-              <Route path='/server_error_500' element={<ServerError500/>}/>
+              <Route path='/server_error_500' element={<ServerError500 />} />
 
 
 
@@ -149,7 +150,7 @@ function App() {
 
             </Routes>
           </div>
-          <ReactQueryDevtools initialIsOpen = {false} position="bottom-right" />
+          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </QueryClientProvider>
       </PersistGate>
     </Provider>
