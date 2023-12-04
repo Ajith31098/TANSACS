@@ -40,10 +40,11 @@ class JobDataSerializer(serializers.ModelSerializer):
     application_id = serializers.CharField()
     score = serializers.IntegerField(source='mark')
     job_id = serializers.IntegerField(source='id')
+    phone_number = serializers.CharField(source='user.profile.phone_number')
 
     class Meta:
         model = Job
-        fields = ['user_full_name', 'username', 'application_id', 'score', 'job_id']
+        fields = ['user_full_name', 'username', 'application_id', 'score', 'job_id' , "phone_number"]
 
     def get_user_full_name(self, obj):
         return f"{obj.user.profile.first_name} {obj.user.profile.last_name}"

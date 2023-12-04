@@ -1,4 +1,4 @@
-import { LOGIN , LOGOUT ,EXP_AGE} from "./TypeLogin"
+import { LOGIN , LOGOUT ,EXP_AGE , UPDATEJOBS} from "./TypeLogin"
 
 
 export const Login = (data)=>{
@@ -23,6 +23,15 @@ export const exp_age = ()=>{
 
     return {
         type:EXP_AGE
+    }
+
+}
+
+
+export const update_jobs = ()=>{
+
+    return {
+        type:UPDATEJOBS
     }
 
 }

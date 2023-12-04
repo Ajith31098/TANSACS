@@ -1,8 +1,8 @@
-import { REGISTER , VERIFIED} from "./TypeRegistration"
+import { REGISTER , VERIFIED } from "./TypeRegistration"
 
 const initialState = {
     isRegister: false,
-    email:''
+    email:'',
 }
 
 export const ReducerRegister = (state = initialState, action) => {
@@ -11,13 +11,15 @@ export const ReducerRegister = (state = initialState, action) => {
         case REGISTER: return {
             ...state,
             isRegister : true,
-            email:action.data.email
+            email:action.data.email,
 
         }
 
         case VERIFIED: return {
             ...initialState
         }
+
+       
 
         default: return state
     }

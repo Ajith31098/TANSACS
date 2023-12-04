@@ -8,7 +8,7 @@ from rest_framework.generics import CreateAPIView
 from user.models import Profile
 from django.contrib.auth import login
 from rest_framework.authtoken.views import ObtainAuthToken
-
+from django.db.models import Count
 from rest_framework.decorators import api_view
 from smtplib import  SMTPException, SMTPRecipientsRefused
 from rest_framework.authentication import TokenAuthentication
@@ -51,13 +51,18 @@ class LoginView(ObtainAuthToken):
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
             user_age = user.profile.age_job if not user.is_superuser else 0  
+            jobs_count = Job.objects.filter(user__profile__aadhar = user.profile.aadhar).count()
+            print(user.profile.aadhar)
+            print(jobs_count)
             return Response({
                     'token': token.key,
                     'user_age':  user_age,
                     'is_active': user.is_active,
                     'is_superuser':user.is_superuser,
+                    'jobs' : jobs_count,
                     'message': 'Success'
                 }, status=status.HTTP_200_OK)
+
 
         return Response(user, status=status.HTTP_400_BAD_REQUEST)
     
@@ -102,6 +107,7 @@ class SetPassword(APIView):
 class SignUpView(APIView):
     def post(self, request, format=None):
         try:
+            print("hello")
             serializer = ProfileSerializer(data=request.data)
             if serializer.is_valid():
                 profile = serializer.save()

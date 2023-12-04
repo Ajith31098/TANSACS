@@ -13,14 +13,14 @@ from superadmin.api.utiils import generate_unique_random_number
 
 # Define the abbreviation dictionary
 ABBREVIATION_POSITION = {
-    'CPM': Job.POSITION.CLUSTER_MANAGER,
-    'CSO': Job.POSITION.CLINICAL_OFFICER,
-    'DMDO': Job.POSITION.DATA_MONITORING_OFFICER,
-    'DD_LS': Job.POSITION.DEPUTY_LS_DIRECTOR,
-    'DD_SI': Job.POSITION.DEPUTY_SI_DIRECTOR,
-    'AD_ICTC': Job.POSITION.ASSISTANT_ICTC_DIRECTOR,
-    'AD_TI': Job.POSITION.ASSISTANT_TI_DIRECTOR,
-    'AD_IEC': Job.POSITION.ASSISTANT_IEC_DIRECTOR,
+    Job.POSITION.CLUSTER_MANAGER:'CPM' ,
+     Job.POSITION.CLINICAL_OFFICER:'CSO',
+     Job.POSITION.DATA_MONITORING_OFFICER:'DMDO',
+     Job.POSITION.DEPUTY_LS_DIRECTOR :'DDLS',
+   Job.POSITION.DEPUTY_SI_DIRECTOR : 'DDSI',
+     Job.POSITION.ASSISTANT_ICTC_DIRECTOR:'ADICTC',
+     Job.POSITION.ASSISTANT_TI_DIRECTOR:'ADTI',
+     Job.POSITION.ASSISTANT_IEC_DIRECTOR:'ADIEC',
 }
 
 @receiver(post_save, sender=Job)
@@ -36,7 +36,7 @@ def calculate_mark(sender, instance, **kwargs):
     pg_percentage = pg_total_percentage / pg_count * 10 if pg_count > 0 else 0
 
     # Calculate experience marks if experience exists
-    exp_total_years = sum(exp.years for exp in instance.experience.all()) 
+    exp_total_years = sum(exp.year for exp in instance.experience.all()) 
     exp_percentage = 0
 
     if exp_total_years >= 5:
@@ -72,5 +72,5 @@ def calculate_mark_and_application_id(sender, instance,created ,  **kwargs):
         # Get the abbreviation based on position
         abbreviation = ABBREVIATION_POSITION.get(instance.position, '')
 
-        instance.application_id = f"TAN{abbreviation}{random_number}"
+        instance.application_id = f"TAN-{abbreviation}-{random_number}"
         instance.save()

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { exp_age} from '../../redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 
 const Modal = (props) => {
@@ -21,6 +21,7 @@ const Modal = (props) => {
   };
 
   const redirectButton = () =>{
+    console.log("hi" ,props.link);
         props.exp_age()
         navigate(props.link)
   }
@@ -39,7 +40,6 @@ const Modal = (props) => {
 
       </button>
 
-      {console.log(props.applied)}
 
       <div
         id="default-modal"
@@ -50,30 +50,41 @@ const Modal = (props) => {
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full mt-10">
           <div className="relative bg-white rounded-lg shadow bg-white">
-            <div className="flex items-center justify-center p-4 md:p-5  rounded-t ">
-              <h3 className="text-xl font-semibold text-gray-900 text-white">
-                Terms of Service
-              </h3>
-              
-            </div>
-            <div className="p-4 md:p-5 space-y-4">
-                {! props.applied ? 
-                
-                <p className=" leading-relaxed ">
-                Maximum age to apply for this form is {props.min_age}.if you have experience in NACO or TSC then you can apply up to {props.emin_age}
-              </p>
 
-                :
-                <p className=" leading-relaxed ">
-                You have already applied for this work ... 
-              </p>
-                
-                }
-              
-              
-            </div>
+            
+
+          <div className="p-4 md:p-5 space-y-4">
+              {props.job_count ? (
+                <p className="leading-relaxed">
+                  You have already applied for two jobs.
+                </p>
+              ) : (
+                props.applied ? (
+                  <p className="leading-relaxed">
+                    You have already applied for this work...
+                  </p>
+                 
+                ) : (
+                  props.apply ?(
+                    <p className="leading-relaxed">
+                      Maximum age to apply for this form is {props.min_age}. If you have experience in NACO or TSC, then you can apply up to {props.emin_age}.
+                    </p>
+                  )
+                  :
+                  (
+                    <p>age is over limit</p>
+                  )
+                )
+              )}
+          </div>
+
+
+          
+            
+            
             <div className="flex items-center justify-center p-4 md:p-5  rounded-b border-gray-600">
-                {props.apply ?
+                {(props.apply) ?
+               
                             <button
                                 data-modal-hide="default-modal"
                                 type="button"

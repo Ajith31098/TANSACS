@@ -1,14 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { useField, FastField, ErrorMessage } from 'formik'
 import TextError from './texterror'
 // import TextField from '@material-ui/core/TextField';
 import TextField from '@mui/material/TextField';
+import { useFormikContext } from 'formik';
 
 
 function Input(props) {
   const { label, name, ...rest } = props
   const [field, meta] = useField(name);
   const applyUppercase = rest.type !== 'email';
+  const { isSubmitting, isValidating, errors } = useFormikContext();
+  const scrollToFirstError = (errors) => {
+    const errorFieldKey = Object.keys(errors)[0]; // Key of the first error
+    let fieldSelector;
+
+    // Check if the key is for a nested object
+    if (errorFieldKey.includes('.')) {
+        // Create a selector for the nested field
+        fieldSelector = `[name="${errorFieldKey}"]`;
+    } else {
+        // Handle arrays or top-level fields
+        const nestedErrorKey = Object.keys(errors[errorFieldKey])[0];
+        if (Array.isArray(errors[errorFieldKey])) {
+            // For arrays, select the first element's error
+            fieldSelector = `[name="${errorFieldKey}[0].${nestedErrorKey}"]`;
+        } else {
+            // For objects, select the nested field
+            fieldSelector = `[name="${errorFieldKey}.${nestedErrorKey}"]`;
+        }
+    }
+
+    // Find and scroll to the error field
+    const errorField = document.querySelector(fieldSelector);
+    if (errorField) {
+        errorField.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+};
+  useEffect(() => {
+    if (isSubmitting && !isValidating && Object.keys(errors).length) {
+    console.log(errors,'uhjuihj');
+
+        scrollToFirstError(errors);
+    }
+}, [isSubmitting, isValidating, errors]);
+
   return (
     <>
       <FastField name={name}>
@@ -35,7 +71,7 @@ function Input(props) {
           </>
         )}
       </FastField>
-      <ErrorMessage component={TextError} name={name} className='text-[10px]' />
+      <ErrorMessage component={TextError} name={name}  />
 
 
     </>

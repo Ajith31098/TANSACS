@@ -15,53 +15,72 @@ class Board(models.TextChoices):
 class SSLC(models.Model):
 
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30, blank = True , null=True)
     register_number =  models.CharField(max_length=20)
     month  = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
-    percentage = models.IntegerField(validators=[MaxValueValidator(100)])
+    percentage = models.DecimalField(
+        max_digits=6,  # Increase the total digits to accommodate larger numbers
+        decimal_places=3,  # Increase decimal places to 3
+        validators=[MaxValueValidator(100)],
+    )
     board =  models.CharField(choices=Board.choices)
     marksheet =  models.ImageField(upload_to="SSLC/" ,blank=True , null=True)
 
 class HSC(models.Model):
 
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30, blank = True , null=True)
     register_number =  models.CharField(max_length=20)
     month  = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
-    percentage = models.IntegerField(validators=[MaxValueValidator(100)])
+    
+    percentage = models.DecimalField(
+        max_digits=6,  # Increase the total digits to accommodate larger numbers
+        decimal_places=3,  # Increase decimal places to 3
+        validators=[MaxValueValidator(100)],
+    )
     board =  models.CharField(choices=Board.choices)
     marksheet =  models.ImageField(upload_to="HSC/" ,blank=True , null=True)
 
 class UG(models.Model):
 
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30, blank = True , null=True)
     register_number =  models.CharField(max_length=20)
-    degree =  models.CharField(max_length=50)
+    degree =  models.CharField(max_length=200)
     department =  models.CharField(max_length=20)
     month  = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
-    percentage = models.IntegerField(validators=[MaxValueValidator(100)])
+    percentage = models.DecimalField(
+        max_digits=6,  # Increase the total digits to accommodate larger numbers
+        decimal_places=3,  # Increase decimal places to 3
+        validators=[MaxValueValidator(100)],
+    )
+
     marksheet =  models.ImageField(upload_to="UG/" ,blank=True , null=True)
 
 
 class PG(models.Model):
 
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30, blank = True , null=True)
     register_number =  models.CharField(max_length=20)
-    degree =  models.CharField(max_length=50)
+    degree =  models.CharField(max_length=200)
     department =  models.CharField(max_length=20)
     month  = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
-    percentage = models.IntegerField(validators=[MaxValueValidator(100)])
+    percentage = models.DecimalField(
+        max_digits=6,  # Increase the total digits to accommodate larger numbers
+        decimal_places=3,  # Increase decimal places to 3
+        validators=[MaxValueValidator(100)],
+    )
+
     marksheet =  models.ImageField(upload_to="PG/" ,blank=True , null=True)
 
 class Experience(models.Model):
 
-    degree =  models.CharField(max_length=50)
+    degree =  models.CharField(max_length=200)
     company =  models.CharField(max_length=100)
     year = models.IntegerField()
     certificate =  models.ImageField(upload_to="Experience/" ,blank=True , null=True)
@@ -76,6 +95,8 @@ class PreferedExperience(models.Model):
     company =  models.CharField(max_length=100 , choices=Company.choices)
     year = models.IntegerField()
     certificate =  models.ImageField(upload_to="PreferedExperience/" ,blank=True , null=True)
+    NOC =  models.ImageField(upload_to="NOC/" ,blank=True , null=True)
+
 
 class Job(models.Model):
 
@@ -101,6 +122,5 @@ class Job(models.Model):
     position = models.CharField(max_length=100 , choices=POSITION.choices)
     objects = models.Manager()
     c_objects = JobManager() 
-    NOC =  models.ImageField(upload_to="NOC/" ,blank=True , null=True)
 
     

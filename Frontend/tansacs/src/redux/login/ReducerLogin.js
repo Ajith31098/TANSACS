@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT ,EXP_AGE} from "./TypeLogin"
+import { LOGIN, LOGOUT ,EXP_AGE , UPDATEJOBS} from "./TypeLogin"
 
 const initialState = {
     isLogin: false,
@@ -6,7 +6,10 @@ const initialState = {
     is_active:false,
     user_age:0,
     exp_user_age:false,
+    is_superuser:false,
+    job:0
 }
+
 
 export const ReducerLogin = (state = initialState, action) => {
     switch (action.type) {
@@ -17,8 +20,8 @@ export const ReducerLogin = (state = initialState, action) => {
             token:action.data.token,
             is_active:action.data.is_active,
             user_age:action.data.user_age,
-            is_superuser:action.data.is_superuser
-
+            is_superuser:action.data.is_superuser,
+            job:action.data.jobs,
         }
 
         case LOGOUT: return {
@@ -28,6 +31,11 @@ export const ReducerLogin = (state = initialState, action) => {
         case EXP_AGE:return {
             ...state,
             exp_user_age : true
+        }
+
+        case UPDATEJOBS:return{
+            ...state,
+            job:state.job+1
         }
 
         default: return state

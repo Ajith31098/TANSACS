@@ -1,4 +1,4 @@
-import { REGISTER , VERIFIED } from "./TypeRegistration";
+import { REGISTER , VERIFIED  } from "./TypeRegistration";
 
 
 

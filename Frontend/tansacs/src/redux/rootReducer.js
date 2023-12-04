@@ -10,6 +10,8 @@ import { ReducerRegister } from "./registration/ReducerRegistration";
 
 import { ReducerForgot } from "./forgot/ReducerLogin";
 
+import {Reducerotp} from './otp/ReducerOtp'
+
 
 const persistConfig = {
     key: 'root', // key for the storage
@@ -23,7 +25,8 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
 
     login : ReducerLogin ,
     register : ReducerRegister,
-    forgot : ReducerForgot
+    forgot : ReducerForgot,
+    otp : Reducerotp
 }));
 
 export default persistedReducer;

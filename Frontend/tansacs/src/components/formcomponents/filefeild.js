@@ -16,7 +16,7 @@ function FileInput(props) {
           <>
 
             <div className='relative flex flex-col items-center'>
-              <label htmlFor={id} className="text-[13px] font-Roboto font-semibold bg-custom-gray px-6 py-2 rounded-md absolute top-1/2 start-1/2 -translate-x-2/4 -translate-y-2/4 text-white">{label}</label>
+              <label htmlFor={id} className="text-[13px] font-Roboto font-semibold w-max bg-custom-gray px-6 py-1 rounded-md absolute top-1/2 start-1/2 -translate-x-2/4 -translate-y-2/4 text-white">{label}</label>
 
               <TextField
                 {...field}

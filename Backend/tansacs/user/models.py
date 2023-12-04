@@ -17,7 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     is_verified = models.BooleanField(default=False)
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30 , blank = True , null=True)
     gender = models.CharField(max_length=10, choices=Gender.choices)
     DOB = models.DateField()
     age = models.IntegerField()   
@@ -29,7 +29,7 @@ class Profile(models.Model):
 
 
     guardian_name = models.CharField(max_length=50)
-    guardian_name_initial = models.CharField(max_length=50)
+    guardian_name_initial = models.CharField(max_length=50,blank=True , null=True)
 
     # Add other fields as needed for your user profile
 

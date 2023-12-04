@@ -23,31 +23,16 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import LoadingComponent from '../basecomponents/loading';
 import {connect} from 'react-redux'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import GridViewIcon from '@mui/icons-material/GridView';
 
 
-function createData(id, name, email, score) {
-  return { id, name, email, score };
-}
 
-// const initialRows = [
-//   createData('TAN1000', 'Ajith', 'ajith@gmail.com', 94),
-//   createData('TAN1001', 'Nazrene', 'naz@gmail.com', 87),
-//   createData('TAN1002', 'Deepan', 'deep@gmail.com', 45),
-//   createData('TAN1003', 'Rahul', 'rahul@gmail.com', 34),
-//   createData('TAN1004', 'Jeeva', 'jeeva@gmail.com', 56),
-//   createData('TAN1005', 'Jagan', 'jagan@gmail.com', 32),
-//   createData('TAN1006', 'Amar', 'amar@gmail.com', 90),
-//   createData('TAN1007', 'Ani', 'ani@gmail.com', 20),
-//   createData('TAN1009+', 'Viswa', 'viswa@gmail.com', 2),
-//   createData('TAN1010', 'Kathir', 'kathir@gmail.com', 0),
-//   createData('TAN1011', 'Cristy', 'crist@gmail.com', 10),
-//   createData('TAN1012', 'Anjali', 'anjali@gmail.com', 10),
-// ]
+
 
 function Detail(props) {
 
-  const {isLoading , data} = useQuery("applicants_by_position" ,()=>{
+  const {isLoading , data , isError , error} = useQuery("applicants_by_position" ,()=>{
     return axios.get(LIST_APPLICANT(props.data_position) , {
       headers:{
           'Content-Type' : 'application/json',
@@ -58,7 +43,7 @@ function Detail(props) {
 
   const [initialRows, setInitialRows] = React.useState([]);
 
-
+  const navigate =  useNavigate()
   React.useEffect(() => {
     if (!isLoading && data) {
       setInitialRows(data.data); // Update initialRows with fetched data
@@ -93,7 +78,6 @@ function Detail(props) {
   };
 
   const searchHandler = (event) => {
-    console.log(event.target.value);
     setsearchvalue(event.target.value)
 
   }
@@ -102,13 +86,32 @@ function Detail(props) {
     setsearchvalue('')
   }
 
+  React.useEffect(() => {
+
+
+
+    if (props.isLogin && !props.isSuperuser) {
+        navigate('tansacs/jobs')
+    }
+  
+    if (!props.isLogin) {
+        navigate('/')
+    }
+  
+  }, [props.isLogin]);
+  
+
   if (isLoading){
     return <LoadingComponent/>
 }
 
+
+if(isError){
+  navigate("/server_error_500")
+}
+
   return (
     <>
-    {console.log(data?.data)}
       <div>
         <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -170,11 +173,12 @@ function Detail(props) {
           <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
             <TableHead>
               <TableRow className='bg-gray-200'>
-                <TableCell>Applicant id</TableCell>
-                <TableCell >Name</TableCell>
-                <TableCell >email</TableCell>
-                <TableCell >Score</TableCell>
-                <TableCell >View</TableCell>
+                <TableCell className='uppercase'>Applicant id</TableCell>
+                <TableCell className='uppercase'>Name</TableCell>
+                <TableCell className='uppercase'>Email</TableCell>
+                <TableCell className='uppercase'>Phone Number</TableCell>
+                <TableCell className='uppercase'>Score</TableCell>
+                <TableCell className='uppercase'>View</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -182,7 +186,7 @@ function Detail(props) {
                 ? rows.slice((page - 1) * rowsPerPage, (page - 1) * rowsPerPage + rowsPerPage)
                 : rows
               ).map((row) => (
-                <TableRow hover key={row.name}>
+                <TableRow hover key={row.application_id}>
                   <TableCell>
                     {row.application_id}
                   </TableCell>
@@ -193,11 +197,14 @@ function Detail(props) {
                     {row.username}
                   </TableCell>
                   <TableCell  >
+                    {row.phone_number}
+                  </TableCell>
+                  <TableCell  >
                     {row.score}
                   </TableCell>
                   <TableCell  >
                     <Link to={`/admin/applicant/${row.job_id}`} className="link-style">
-                      View
+                      < GridViewIcon/>
                     </Link>
                   </TableCell>
                 </TableRow>
@@ -228,8 +235,8 @@ const mapStateToProps =  state =>{
 
   return {
 
-      // isLogin : state.login.isLogin,
-      // isSuperuser:state.login.is_superuser,
+      isLogin : state.login.isLogin,
+      isSuperuser:state.login.is_superuser,
       token : state.login.token
   }
 }

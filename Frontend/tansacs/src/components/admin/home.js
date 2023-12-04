@@ -42,35 +42,23 @@ function AdminHome(props) {
     function logoutButton(){
        
         props.logout()
-        // setLoading(true)
-
-        // mutation.mutate( {
-
-          
-        //     onSuccess:(data)=>{
-
-
-        //         setLoading(false)
-
-        //     },
-        //     onError: (error) => {
-                
-        //         console.log(error.response.data);
-                
-        //             setLoading(false)
-
-        //       },
-        //  })
+        
     }
 
 
     useEffect(() => {
 
-        if(!props.isLogin){
+
+
+        if (props.isLogin && !props.isSuperuser) {
+            navigate('tansacs/jobs')
+        }
+    
+        if (!props.isLogin) {
             navigate('/')
         }
-
-       }, [props.isLogin]);
+    
+    }, [props.isLogin]);
 
 
     const {isLoading , data} = useQuery("applicant_count" , ()=>{
@@ -88,7 +76,6 @@ function AdminHome(props) {
 
     return ( 
         <>
-        {console.log(data , props.token)}
         <h4 className='text-4xl text-red-600 font-bold mt-14 mb-14'>Tamil Nadu State AIDS Control Society</h4>
 
         <p className=' text-2xl font-semibold '>DASHBORD HAS TO BE ESTABLISHED TO TRACK RECIEVED JOB POSTING</p>
@@ -98,7 +85,7 @@ function AdminHome(props) {
             </button>
         </div>
         <div className="grid grid-cols-3 mt-10 gap-10">
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 col-span-3">
                 <div className='w-full mb-10'>
                     <Link to={'CPM'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-red-600 text-lg font-semibold text-white">
                     Cluster Program MAnager - 7 Post
@@ -447,7 +434,7 @@ const mapStateToProps =  state =>{
     return {
 
         isLogin : state.login.isLogin,
-        // isSuperuser:state.login.is_superuser,
+        isSuperuser:state.login.is_superuser,
         token : state.login.token
     }
 }

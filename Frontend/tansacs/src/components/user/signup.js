@@ -21,13 +21,14 @@ import { Link } from 'react-router-dom'
 import { district } from '../initialValues/InitialDropdown'
 import calender from '../../logo/icon-8.png'
 import '../../css/login.css'
+import TextError from '../formcomponents/texterror'
 
 const addressSchema = Yup.object().shape({
-    address_line1: Yup.string().required('Line 1 is required'),
+    address_line1: Yup.string().required('Line 1 is Required'),
     address_line2: Yup.string(),
-    state: Yup.string().required('State is required'),
-    district: Yup.string().required('District is required'),
-    city: Yup.string().required('City is required'),
+    state: Yup.string().required('State is Required'),
+    district: Yup.string().required('District is Required'),
+    city: Yup.string().required('City is Required'),
     pincode: Yup.number().typeError("Enter valid Pin Code")
         .required('Required')
         .positive('Enter valid Pin Code')
@@ -70,7 +71,7 @@ const validationSchema = Yup.object({
     confrim_email: Yup.string().oneOf([Yup.ref('email'), ''], 'email not matched').required('Required'),
     guardian_name: Yup.string().required("Required").matches(/^[A-Za-z ]+$/, "Invalid Data"),
     guardian_name_initial: Yup.string().matches(/^[A-Za-z ]+$/, "Invalid Data"),
-    DOB: Yup.string().required('required'),
+    DOB: Yup.string().required('Required'),
     phone_number: Yup.number().typeError("Enter valid Phone number")
         .required('Required')
         .positive('Enter valid Phone number')
@@ -183,88 +184,57 @@ function Signup(props) {
 
         setLoading(true)
 
-        const formData = new FormData();
 
-        // Append all single-value fields
-        Object.keys(values).forEach(key => {
-            if (key !== 'address' && key !== 'permanent_address' && key !== 'profile_image') {
-                formData.append(key, values[key]);
-                // console.log(values[key], formData)
-            }
-        });
+            mutation.mutate(values, {
 
-        // Append address fields
-        values.address.forEach((address, index) => {
-            Object.entries(address).forEach(([key, value]) => {
-                formData.append(`address-${index}-${key}`, value);
-            });
-        });
+          
+                onSuccess:(data)=>{
 
-        // Append permanent address fields - assuming values.permanent_address is an array of address objects
-        values.permanent_address.forEach((address, index) => {
-            Object.entries(address).forEach(([key, value]) => {
-                console.log(value)
-                formData.append(`permanent_address-${index}-${key}`, value);
-            });
-        });
-        // Append profile image
-        if (values.profile_image) {
-            formData.append('profile_image', values.profile_image);
-        }
+                        console.log('success',values.profile_image , data.profile_id);
+                        const id = data.profile_id
+                        
+                        const formData = new FormData();
+                        formData.append('profile_image', values.profile_image);
+                        axios.patch(`http://127.0.0.1:8000/profile/${id}`,formData,{
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                        })
+                        .then(function(response){
+                            setLoading(false)
+                            
+                            props.register(response.data)
+                            navigate('/verify' , {replace:true})
+                        })
+                        .catch(function(error){
+                            navigate('/')
+                        })
 
-        console.log("the form data is ", formData)
+                },
+                onError: (error) => {
+                    setLoading(false)
 
+                    const errorData = error.response;
 
-        mutation.mutate(formData, {
-
-
-            onSuccess: (data) => {
-
-                // console.log('success', values.profile_image, data.profile_id);
-                const id = data.profile_id
-
-                const formData = new FormData();
-                formData.append('profile_image', values.profile_image);
-                axios.patch(`http://127.0.0.1:8000/profile/${id}`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                })
-                    .then(function (response) {
-                        setLoading(false)
-
-                        props.register(response.data)
-                        navigate('/verify', { replace: true })
-                    })
-                // .catch(function (error) {
-                //     navigate('/server_error_500')
-                // })
-
-            },
-            onError: (error) => {
-                setLoading(false)
-
-                const errorData = error.response;
-
-                if (errorData.status == 400) {
-                    if (errorData.data.email) {
-                        setFieldError('email', errorData.data.email[0]);
+                    if (errorData.status == 400 ){
+                        if (errorData.data.email) {
+                            setFieldError('email', errorData.data.email[0]);
+                        }
                     }
-                }
-                // if (errorData.status == 500) {
-                //     navigate('/server_error_500')
-                // }
+                    if (errorData.status == 500){
+                        navigate('/server_error_500')
+                    }    
+                    
 
-
-            },
-        })
-
-
+                  },
+             })
 
 
 
+            
+            
         console.log(values);
-    };
+       };
 
     useEffect(() => {
 
@@ -299,7 +269,7 @@ function Signup(props) {
         <>
             {loading ? <LoadingComponent /> : null}
             <div className='mt-5 mb-14 '>
-                <h4 className='text-4xl text-custom-red font-bold font-roboto lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
+                <h4 className='text-4xl text-custom-red font-bold font-roboto lg:text-[50px] md:text-[40px] text-[30px]'>Tamil Nadu State AIDS Control Society</h4>
 
 
             </div>
@@ -437,7 +407,8 @@ function Signup(props) {
                                         <div>
                                             <p className='text-custom-red text-sm text-start font-bold'>
 
-                                                <ErrorMessage name='DOB' />
+                                            <ErrorMessage component={TextError} name='DOB'  />
+
 
                                             </p>
 

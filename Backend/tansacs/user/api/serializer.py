@@ -70,13 +70,17 @@ class AddressSerializer(serializers.ModelSerializer):
        fields = ['address_line1', 'address_line2', 'city', 'state', 'district', 'pincode', 'address_type']
 
 class ProfileSerializer(serializers.ModelSerializer):
-  address = AddressSerializer(many = True , required = False)
-  permanent_address = AddressSerializer(many = True , required = False)
+  address = AddressSerializer( required = False)
+  permanent_address = AddressSerializer( required = False)
   password = serializers.CharField(write_only=True)
 
   class Meta:
       model = Profile
       fields = ['first_name'  ,'last_name', 'gender', 'DOB', 'age', 'aadhar', 'phone_number', 'alternate_phone_number', 'email', 'guardian_name', 'guardian_name_initial', 'address', 'permanent_address', 'password']
+      extra_kwargs = {
+            'last_name': {'required': False, 'allow_blank': True},
+            'guardian_name_initial': {'required': False, 'allow_blank': True}
+        }
 
   def create(self, validated_data):
       address_data = validated_data.pop('address' , [])

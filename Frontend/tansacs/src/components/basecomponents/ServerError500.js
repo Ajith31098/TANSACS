@@ -14,10 +14,17 @@ function ServerError500(props) {
                 <p className="text-lg md:text-xl lg:text-2xl text-gray-500 my-12">Whoops, something went wrong on our servers.</p>
 
                 {props.isLogin ? (
-                            <Link to={'/tansacs/jobs'} className="px-3 py-1 block group relative  overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
-                                Home
-                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                            </Link>
+                            props.is_superuser ? (
+                                <Link to={'/admin/home'} className="px-3 py-1 block group relative overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                                    Home
+                                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                                </Link>
+                            ) : (
+                                <Link to={'/home'} className="px-3 py-1 block group relative overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                                    Home
+                                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                                </Link>
+                            )
                         ) : (
                             <Link to={'/'} className="px-3 py-1 block group relative  overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                                 Login
@@ -40,6 +47,7 @@ const mapStateToProps =  state =>{
     return {
 
         isLogin : state.login.isLogin,
+        is_superuser : state.login.is_superuser,
         
     }
 }

@@ -34,3 +34,8 @@
     /* Example: change color */
     /* Add any other styles you want for the placeholder */
 }
+
+.customFormSubmit{
+
+    font-size: 50px !important;
+}

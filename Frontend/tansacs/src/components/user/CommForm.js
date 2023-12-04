@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useRef} from 'react'
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
@@ -9,6 +9,7 @@ import LoadingComponent from '../basecomponents/loading'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import SuccessModel from '../basecomponents/SuccessModel';
+import ConfrimModal from '../basecomponents/ConfirmationModel';
 
 
 function CommonForm
@@ -16,6 +17,8 @@ function CommonForm
 
     const [success, setSuccess] = React.useState(false)
     const navigate = useNavigate()
+
+    const formikRef = useRef()
 
     async function ApplicationForm(values) {
         try {
@@ -98,33 +101,37 @@ function CommonForm
                 company: 'NACO',
                 year: '',
                 certificate: '',
+                NOC: ''
 
             },
             {
                 company: 'TANSACS',
                 year: '',
                 certificate: '',
+                NOC: ''
 
             },
             {
                 company: 'TSU',
                 year: '',
                 certificate: '',
+                NOC: null
 
             }
         ],
         position: props.position,
-        NOC: ''
 
     }
 
     const sslc_hsc_Scheme = Yup.object().shape({
-        first_name: Yup.string().required('Must be Required'),
+        first_name: Yup.string().required('Required'),
         // last_name: Yup.string().required('Required'),
         register_number: Yup.number().typeError('invalid').required('Required').positive('invalid'),
         percentage: Yup.number()
             .required('Required')
-            .positive('Must be positive')
+            .typeError("Enter Valid Percentage")
+            .positive('positive')
+
             .max(100, 'Decimal after 2 digits')
             .test(
                 'is-decimal',
@@ -154,8 +161,18 @@ function CommonForm
         // last_name: Yup.string().required('Required'),
         degree: Yup.string().required('Required'),
         department: Yup.string().required('Required'),
-        register_number: Yup.number().required('Required').positive('Must be positive'),
-        percentage: Yup.number().required('Required').positive('Must be positive'),
+        register_number: Yup.number().required('Required').positive('Enter valid Register Number'),
+        percentage: Yup.number()
+        .required('Required')
+        .typeError("Enter Valid Percentage")
+        .positive('Must be positive')
+
+        .max(100, 'Decimal after 2 digits')
+        .test(
+            'is-decimal',
+            'Enter Value with Max 2 Decimals',
+            number => /^\d+(\.\d{1,2})?$/.test(String(number))
+        ),
         marksheet: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
         //   return value && value.size <= 5000000;
         // }),
@@ -236,6 +253,20 @@ function CommonForm
         return true;
     })
 
+    // const prefered_expereinceSchema = Yup.object().shape({
+    //     company: Yup.string().required('Company is required'),
+    //     year: Yup.string().when('company', {
+    //       is: (val) => val && val.length > 0,
+    //       then: Yup.string().required('Year is required when company is filled'),
+    //       otherwise: Yup.string().nullable(),
+    //     }),
+    //     certificate: Yup.string().when('company', {
+    //       is: (val) => val && val.length > 0,
+    //       then: Yup.string().required('Certificate is required when company is filled'),
+    //       otherwise: Yup.string().nullable(),
+    //     }),
+    //   })
+
 
 
     const validationSchema = Yup.object({
@@ -252,7 +283,12 @@ function CommonForm
 
         prefered_experience: Yup.array().of(
             prefered_expereinceSchema
-        )
+         )//.test(
+        //     'atLeastOneObject',
+        //     'At least one object is required',
+        //     (value) => value && value.length > 0
+        //   )
+
     })
 
     const onSubmit = values => {
@@ -275,14 +311,14 @@ function CommonForm
 
             onSuccess: (data) => {
 
-                console.log("success")
+                // console.log("success")
                 setLoading(false)
                 setSuccess(true)
 
             },
             onError: (error) => {
 
-                console.log(error.response.data);
+                // console.log(error.response.data);
 
                 setLoading(false)
                 navigate('/server_error_500')
@@ -331,6 +367,7 @@ function CommonForm
 
 
     return (
+
         <div>
             {loading ? (<LoadingComponent />) : null}
             {success ? (<SuccessModel />) : null}
@@ -347,6 +384,7 @@ function CommonForm
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
+                innerRef={formikRef}
 
             >
                 {(formik) => (
@@ -362,6 +400,7 @@ function CommonForm
                             name="position"
 
                         />
+                        {console.log(formik)}
 
                         <div className="container font-sans">
 
@@ -482,7 +521,7 @@ function CommonForm
 
                                 <div className='w-full  border-solid border border-gray-400 rounded-md gap-1 grid grid-cols-11 p-4'>
 
-                                    <div className='lg:col-span-4 col-span-12'>
+                                    <div className='lg:col-span-3 col-span-12'>
                                         <p className='text-start  text-xs font-bold mb-2'>As per H.S.C. Certificate: <small className='text-custom-red text-sm'>*</small></p>
                                         <div className="grid grid-cols-4 gap-1">
                                             <div className='col-span-3'>
@@ -569,7 +608,7 @@ function CommonForm
 
                                     </div>
 
-                                    <div className="lg:col-span-1 col-span-2">
+                                    <div className="lg:col-span-2 col-span-2">
                                         <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
                                         <FormikControl
                                             control='file'
@@ -577,8 +616,9 @@ function CommonForm
                                             id='hsc.marksheet'
                                             name='hsc.marksheet'
                                             formik={formik}
-                                            label="upload"
+                                            label="Browse File"
                                         />
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
                                     </div>
 
@@ -592,7 +632,7 @@ function CommonForm
                                 <div className='w-full  border-solid border border-gray-400 rounded-md gap-1 grid grid-cols-11 p-4'>
 
 
-                                    <div className='lg:col-span-4 col-span-11'>
+                                    <div className='lg:col-span-3 col-span-11'>
                                         <div className="grid grid-cols-4 gap-1">
                                             <div className="col-span-4">
                                                 <p className='text-start text-xs font-bold mb-2'>Degree: <small className='text-custom-red text-sm'>*</small></p>
@@ -707,7 +747,7 @@ function CommonForm
 
                                     </div>
 
-                                    <div className="lg:col-span-1 col-span-2">
+                                    <div className="lg:col-span-2 col-span-2">
                                         <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
                                         <FormikControl
                                             control='file'
@@ -715,8 +755,10 @@ function CommonForm
                                             id='ug.marksheet'
                                             name='ug.marksheet'
                                             formik={formik}
-                                            label="upload"
+                                            label="Browse File"
                                         />
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+
                                     </div>
 
 
@@ -740,7 +782,7 @@ function CommonForm
                                                     {
                                                         pg.map((pgdegree, index) => (
                                                             <div key={index} className='w-full   gap-1 grid grid-cols-12'>
-                                                                <div className='lg:col-span-4 col-span-12'>
+                                                                <div className='lg:col-span-3 col-span-12'>
 
                                                                     <div className="grid grid-cols-4 gap-1">
                                                                         <div className="col-span-4">
@@ -856,7 +898,7 @@ function CommonForm
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="lg:col-span-1 col-span-2">
+                                                                <div className="lg:col-span-2 col-span-2">
                                                                     <div className="grid col-1 justify-center gap-1">
                                                                         <div>
                                                                             <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
@@ -867,8 +909,10 @@ function CommonForm
                                                                                 id={`pg[${index}].marksheet`}
                                                                                 name={`pg[${index}].marksheet`}
                                                                                 formik={formik}
-                                                                                label="upload"
+                                                                                label="Browse File"
                                                                             />
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+
 
                                                                         </div>
 
@@ -976,8 +1020,10 @@ function CommonForm
                                                                                     id={`experience[${index}].certificate`}
                                                                                     name={`experience[${index}].certificate`}
                                                                                     formik={formik}
-                                                                                    label="upload"
+                                                                                    label="Browse File"
                                                                                 />
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+
                                                                             </div>
 
                                                                             {
@@ -1055,6 +1101,22 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse file"
                                                 />
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+
+                                            </div>
+
+                                            <div className="col-span-3 mt-3">
+                                                <p className='text-center text-sm font-bold mb-2'>NOC Certificate</p>
+                                            </div>
+                                            <div className="col-span-3 mt-3">
+                                                <FormikControl
+                                                    control='file'
+                                                    type='file'
+                                                    id="prefered_experience[0].NOC"
+                                                    name="prefered_experience[0].NOC"
+                                                    formik={formik}
+                                                    label="Browse file"
+                                                />
 
                                             </div>
 
@@ -1087,7 +1149,23 @@ function CommonForm
                                                     id="prefered_experience[1].certificate"
                                                     name="prefered_experience[1].certificate"
                                                     formik={formik}
-                                                    label="upload"
+                                                    label="Browse File"
+                                                />
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+
+                                            </div>
+
+                                            <div className="col-span-3 mt-3">
+                                                <p className='text-center text-sm font-bold mb-2'>NOC Certificate</p>
+                                            </div>
+                                            <div className="col-span-3 mt-3">
+                                                <FormikControl
+                                                    control='file'
+                                                    type='file'
+                                                    id="prefered_experience[1].NOC"
+                                                    name="prefered_experience[1].NOC"
+                                                    formik={formik}
+                                                    label="Browse file"
                                                 />
 
                                             </div>
@@ -1113,7 +1191,7 @@ function CommonForm
                                                 />
                                             </div>
 
-                                            {/* <div className='col-span-3'>
+                                            <div className='col-span-3'>
                                                 <p className='text-center text-xs font-bold mb-2'>NOC</p>
                                                 <FormikControl
                                                     control='file'
@@ -1121,10 +1199,26 @@ function CommonForm
                                                     id="prefered_experience[2].NOC"
                                                     name="prefered_experience[2].NOC"
                                                     formik={formik}
-                                                    label="upload"
+                                                    label="Browse File"
+                                                />
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+
+                                            </div>
+
+                                            <div className="col-span-3 mt-3">
+                                                <p className='text-center text-sm font-bold mb-2'>NOC Certificate</p>
+                                            </div>
+                                            <div className="col-span-3 mt-3">
+                                                <FormikControl
+                                                    control='file'
+                                                    type='file'
+                                                    id="prefered_experience[2].NOC"
+                                                    name="prefered_experience[2]].NOC"
+                                                    formik={formik}
+                                                    label="Browse file"
                                                 />
 
-                                            </div> */}
+                                            </div>
 
                                         </div>
                                     </div>
@@ -1152,9 +1246,8 @@ function CommonForm
                                 Cancel
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                             </Link>
-                            <button type='submit' className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Submit
-                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                            </button>
+                            <ConfrimModal formikRef = { formikRef }/>
+
                         </div>
 
 

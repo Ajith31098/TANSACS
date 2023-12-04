@@ -121,7 +121,7 @@ function SignIn(props) {
 
                 {loading ? (<LoadingComponent />) : null}
                 <div className="col-span-5 flex flex-col justify-center items-center">
-                    <h4 className=' text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
+                    <h4 className=' text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[30px]'>Tamil Nadu State AIDS Control Society</h4>
                     <h4 className=' font-normal lg:text-[33px] md:text-[25px] text-[20px]' style={{
                         textShadow: "#5a32325c 3px 3px 4px"
                     }}>TANSACS RECRUITMENT PORTAL</h4>
