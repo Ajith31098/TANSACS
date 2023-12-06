@@ -20,8 +20,8 @@ class SSLC(models.Model):
     month  = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
     percentage = models.DecimalField(
-        max_digits=6,  # Increase the total digits to accommodate larger numbers
-        decimal_places=3,  # Increase decimal places to 3
+        max_digits=5,  # Increase the total digits to accommodate larger numbers
+        decimal_places=2,  # Increase decimal places to 3
         validators=[MaxValueValidator(100)],
     )
     board =  models.CharField(choices=Board.choices)
@@ -36,8 +36,8 @@ class HSC(models.Model):
     year = models.IntegerField(validators=[validate_year])
     
     percentage = models.DecimalField(
-        max_digits=6,  # Increase the total digits to accommodate larger numbers
-        decimal_places=3,  # Increase decimal places to 3
+        max_digits=5,  # Increase the total digits to accommodate larger numbers
+        decimal_places=2,  # Increase decimal places to 3
         validators=[MaxValueValidator(100)],
     )
     board =  models.CharField(choices=Board.choices)
@@ -53,8 +53,8 @@ class UG(models.Model):
     month  = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
     percentage = models.DecimalField(
-        max_digits=6,  # Increase the total digits to accommodate larger numbers
-        decimal_places=3,  # Increase decimal places to 3
+        max_digits=5,  # Increase the total digits to accommodate larger numbers
+        decimal_places=2,  # Increase decimal places to 3
         validators=[MaxValueValidator(100)],
     )
 
@@ -71,8 +71,8 @@ class PG(models.Model):
     month  = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
     percentage = models.DecimalField(
-        max_digits=6,  # Increase the total digits to accommodate larger numbers
-        decimal_places=3,  # Increase decimal places to 3
+        max_digits=5,  # Increase the total digits to accommodate larger numbers
+        decimal_places=2,  # Increase decimal places to 3
         validators=[MaxValueValidator(100)],
     )
 

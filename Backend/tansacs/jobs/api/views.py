@@ -45,7 +45,7 @@ class JobView(APIView):
         prefered_experience_serializer = PreferedExperienceSerializer(data = prefered_experience_data,many = True )
         if sslc_serializer.is_valid() and hsc_serializer.is_valid() and ug_serializer.is_valid() and  pg_serializer.is_valid() and experience_serializer.is_valid() and  prefered_experience_serializer.is_valid():
             
-            sslc , hsc , ug , pg , experience , prefered_experience = sslc_serializer.save(),hsc_serializer.save(),ug_serializer.save(),pg_serializer.save(),experience_serializer.save(),prefered_experience_serializer.save()
+            sslc ,  hsc , ug , pg , experience , prefered_experience = sslc_serializer.save(),hsc_serializer.save(),ug_serializer.save(),pg_serializer.save(),experience_serializer.save(),prefered_experience_serializer.save()
            
             
             job_serializer = JobSerializer(data = {'position' :position,'sslc': sslc.id,'hsc': hsc.id,'ug': ug.id , 'user' :token.user.id })
@@ -63,7 +63,7 @@ class JobView(APIView):
 
                 return Response (status= status.HTTP_200_OK)
 
-             
+            
         return Response( status=status.HTTP_400_BAD_REQUEST)
 
 

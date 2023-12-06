@@ -59,6 +59,10 @@ class Address(models.Model):
     district = models.CharField(max_length=50)
     pincode = models.CharField(validators=[validate_pincode])
 
+
+    def __str__(self):
+        return self.user.email
+
 # {
 #    "user": 1,
 #    "is_verified": true,

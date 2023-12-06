@@ -1,4 +1,4 @@
-import React , {useRef} from 'react'
+import React , {useRef , useEffect} from 'react'
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import SuccessModel from '../basecomponents/SuccessModel';
 import ConfrimModal from '../basecomponents/ConfirmationModel';
+import { update_jobs,cacel_permission } from '../../redux'
 
 
 function CommonForm
@@ -19,6 +20,17 @@ function CommonForm
     const navigate = useNavigate()
 
     const formikRef = useRef()
+
+
+    useEffect(()=>{
+        if (! props.permission){
+            navigate('/tansacs/jobs')
+        }
+        else{
+            props.cancel_permission()
+        }
+
+    } , [])
 
     async function ApplicationForm(values) {
         try {
@@ -173,9 +185,18 @@ function CommonForm
             'Enter Value with Max 2 Decimals',
             number => /^\d+(\.\d{1,2})?$/.test(String(number))
         ),
-        marksheet: Yup.mixed().required('Required'),//.test('fileSize', 'File too large', value => {
-        //   return value && value.size <= 5000000;
-        // }),
+        marksheet: Yup.mixed()
+        .required('Required')
+        .test(
+            'fileType',
+            'Only JPEG, JPG, and PDF files are allowed',
+            value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+        )
+        .test(
+            'fileSize',
+            'File too large, should be less than 200KB',
+            value => value && value.size <= 200 * 1024 // 200KB in bytes
+        ),
         month: Yup.string().required('Required'),
         year: Yup.string().required('Required'),
     })
@@ -205,7 +226,16 @@ function CommonForm
         certificate: Yup.mixed().when(['degree', 'company', 'year'], {
             is: (degree, company, year) =>
                 !!degree || !!company || !!year,
-            then: () => Yup.mixed().required('certificate is required'),
+            then: () => Yup.mixed().required('certificate is required').test(
+                'fileType',
+                'Only JPEG, JPG, and PDF files are allowed',
+                value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+            )
+            .test(
+                'fileSize',
+                'File too large, should be less than 200KB',
+                value => value && value.size <= 200 * 1024 // 200KB in bytes
+            ),
             otherwise: () => Yup.string(),
         }),
     }, [
@@ -219,53 +249,40 @@ function CommonForm
 
 
     const prefered_expereinceSchema = Yup.object().shape({
-        year: Yup.number().typeError('Year must be a number')
-    }).test('fill-all-or-none', 'Fill all fields or none', function (value) {
-        const { year, certificate } = value;
-
-        // Check if at least one field is filled
-        if (year || certificate) {
-            // Check if all fields are filled, if not, show an error
-            if (year && year < 1) {
-                return this.createError({
-                    message: 'Year must be a positive number',
-                    path: 'prefered_experience.year',
-                });
-            }
-
-            if (!(certificate)) {
-                return this.createError({
-                    message: 'Add the required document for naco',
-                    path: 'prefered_experience.certificate',
-                });
-            }
-            if (!(year)) {
-                return this.createError({
-                    message: 'Enter the year of experience for naco',
-                    path: 'prefered_experience.year',
-                });
-            }
-
-
-
-        }
-
-        return true;
-    })
-
-    // const prefered_expereinceSchema = Yup.object().shape({
-    //     company: Yup.string().required('Company is required'),
-    //     year: Yup.string().when('company', {
-    //       is: (val) => val && val.length > 0,
-    //       then: Yup.string().required('Year is required when company is filled'),
-    //       otherwise: Yup.string().nullable(),
-    //     }),
-    //     certificate: Yup.string().when('company', {
-    //       is: (val) => val && val.length > 0,
-    //       then: Yup.string().required('Certificate is required when company is filled'),
-    //       otherwise: Yup.string().nullable(),
-    //     }),
-    //   })
+        year: Yup.number()
+            .typeError('Enter a number')
+            .positive('Year must be a positive number')
+            .when(['certificate'], {
+                is: (certificate) => !!certificate,
+                then: () => Yup.number()
+                    .typeError('Enter a number')
+                    .positive('Year must be a positive number')
+                    .required('Year is required'),
+                otherwise: () => Yup.number(),
+            }),
+        certificate: Yup.mixed()
+            .when(['year'], {
+                is: (year) => !!year,
+                then: () => Yup.mixed()
+                    .required('Certificate is required')
+                    .test(
+                      'fileType',
+                      'Only JPEG, JPG, and PDF files are allowed',
+                      value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+                    )
+                    .test(
+                      'fileSize',
+                      'File too large, should be less than 200KB',
+                      value => value && value.size <= 200 * 1024 // 200KB in bytes
+                    ),
+                otherwise: () => Yup.string(),
+            }),
+      },[
+        ['year','certificate']
+      ])
+      
+      
+     
 
 
 
@@ -283,28 +300,17 @@ function CommonForm
 
         prefered_experience: Yup.array().of(
             prefered_expereinceSchema
-         )//.test(
-        //     'atLeastOneObject',
-        //     'At least one object is required',
-        //     (value) => value && value.length > 0
-        //   )
-
+         
+        )
     })
 
     const onSubmit = values => {
+
+        
         setLoading(true)
-        console.log('submited', values, props.token);
+        console.log('submited', values);
         // setLoading(true)
-        const sslcformData = {}
-        console.log(values.sslc);
-        Object.entries(values.sslc).forEach(([key, value]) => {
-            console.log(key, value);
-            sslcformData[key] = value;
-        });
-
-        const formData = new FormData()
-
-        formData.append('sslc', sslcformData)
+        
 
         mutation.mutate(values, {
 
@@ -314,11 +320,12 @@ function CommonForm
                 // console.log("success")
                 setLoading(false)
                 setSuccess(true)
+                props.update_jobs()
 
             },
             onError: (error) => {
 
-                // console.log(error.response.data);
+                console.log(error.response.data);
 
                 setLoading(false)
                 navigate('/server_error_500')
@@ -400,7 +407,6 @@ function CommonForm
                             name="position"
 
                         />
-                        {console.log(formik)}
 
                         <div className="container font-sans">
 
@@ -775,8 +781,9 @@ function CommonForm
                                     {
                                         fieldarrayprops => {
                                             const { push, remove, form } = fieldarrayprops
-                                            const { values } = form
+                                            const { values , validateForm } = form
                                             const { pg } = values
+                                            {console.log(pg)}
                                             return (
                                                 <div className='border-solid border border-gray-400 rounded-md p-4'>
                                                     {
@@ -914,7 +921,7 @@ function CommonForm
                                         <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
 
-                                                                        </div>
+                                                                        </div>                                 
 
                                                                         {
                                                                             index > 0 && (
@@ -936,7 +943,10 @@ function CommonForm
                                                     }
 
                                                     <div className='w-15 mt-2'>
-                                                        <button type='button' onClick={() => push({ degree: '', firstname: '', lastname: '', registernumber: '', deparment: '', percentage: '', file: '', month: '', year: '', })} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >ADD
+                                                        <button type='button' onClick={() =>{ push({ degree: '', first_name: '', last_name: '', register_number: '', department: '', percentage: '', marksheet: '', month: '', year: '', })
+                                                    
+                                                    validateForm()
+                                                    } }className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >ADD
                                                             <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                         </button>
                                                     </div>
@@ -960,7 +970,7 @@ function CommonForm
                                     {
                                         fieldarrayprops => {
                                             const { push, remove, form } = fieldarrayprops
-                                            const { values } = form
+                                            const { values ,validateForm } = form
                                             const { experience } = values
                                             return (
                                                 <div className='border-solid border border-gray-400 rounded-md p-4 mb-5'>
@@ -1050,11 +1060,14 @@ function CommonForm
                                                                 </div>
 
                                                             </div>
-                                                        ))
+                                                        )) 
                                                     }
 
                                                     <div className='w-15'>
-                                                        <button type='button' onClick={() => push({ field: '', companyname: '', experience: '', document: '' })} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >ADD
+                                                        <button type='button' onClick={() => {
+                                                            push({ degree: '', company: '', year: '', certificate: '' })
+                                                            validateForm()
+                                                         } } className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >ADD
                                                             <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                         </button>
                                                     </div>
@@ -1192,12 +1205,12 @@ function CommonForm
                                             </div>
 
                                             <div className='col-span-3'>
-                                                <p className='text-center text-xs font-bold mb-2'>NOC</p>
+                                                <p className='text-center text-xs font-bold mb-2'>Supporting document</p>
                                                 <FormikControl
                                                     control='file'
                                                     type='file'
-                                                    id="prefered_experience[2].NOC"
-                                                    name="prefered_experience[2].NOC"
+                                                    id="prefered_experience[2].certificate"
+                                                    name="prefered_experience[2].certificate"
                                                     formik={formik}
                                                     label="Browse File"
                                                 />
@@ -1267,10 +1280,17 @@ const mapStateToProps = state => {
     return {
 
         token: state.login.token,
+        permission:state.login.is_permission
     }
 
 }
 
+const mapDispatchToProps = dispatch => {
 
-export default connect(mapStateToProps)(CommonForm
+    return {
+        update_jobs: () => dispatch(update_jobs()),
+        cancel_permission :()=>dispatch(cacel_permission())
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(CommonForm
 );

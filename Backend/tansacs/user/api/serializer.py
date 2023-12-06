@@ -70,8 +70,8 @@ class AddressSerializer(serializers.ModelSerializer):
        fields = ['address_line1', 'address_line2', 'city', 'state', 'district', 'pincode', 'address_type']
 
 class ProfileSerializer(serializers.ModelSerializer):
-  address = AddressSerializer( required = False)
-  permanent_address = AddressSerializer( required = False)
+  address = AddressSerializer( required = False , many=True)
+  permanent_address = AddressSerializer( required = False , many = True)
   password = serializers.CharField(write_only=True)
 
   class Meta:

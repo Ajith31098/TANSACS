@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import { Logout } from '../../redux'
+import { Logout , removeexp_age } from '../../redux'
 import { useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Ribbon from '../../logo/ribbon.png' 
@@ -13,11 +13,16 @@ function Jobs(props) {
 
     const navigate  = useNavigate()
 
-    // useEffect(()=>{
-    //     if (! props.isLogin){
-    //         navigate('/')
-    //     }
-    // },[props.isLogin])
+    useEffect(()=>{
+        if (! props.isLogin){
+            navigate('/')
+        }
+    },[props.isLogin])
+
+    useEffect(()=>{
+
+        props.removeexp_age()
+    },[])
 
   return (
     <>
@@ -133,7 +138,8 @@ const mapStateToProps =  state =>{
 const mapDispatchToProps = dispatch =>{
 
     return {
-        logout : ()=> dispatch(Logout())
+        logout : ()=> dispatch(Logout()),
+        removeexp_age : ()=> dispatch(removeexp_age())
     }
 }
 

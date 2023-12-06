@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TNPSC Application Form</title>
+<style>
+    *{
+        margin:0px;
+        padding:0px;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f4f4f4;
+        font-weight: 600;
+        width:100%;
+        margin: 50px 0px;
+        padding: 50px;
+    }
+    .section{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        width:100%;
+    }
+    .sub-section-1{
+        flex-basis: 50%;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .sub-section-2{
+        flex-basis: 50%;
+        margin-left:10px;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        gap:20px;
+        margin-top:50px;
+
+    }
+
+    .headers{
+        text-decoration: underline;
+    }
+    
+</style>
+</head>
+<body>
+
+    
+    <div class="container">
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.application_id}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.position}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.user.profile.first_name}} {{job.user.profile.last_name}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>+91 {{job.user.profile.phone_number}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.user.profile.DOB}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.user.profile.age}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.user.profile.email}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.user.profile.guardian_name}} {{job.user.profile.guardian_name_initial}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.user.profile.aadhar}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>+91 {{job.user.profile.alternate_phone_number}}</p>
+            </div>
+        </div>
+        
+    </div>
+    <div class="container">
+        
+        {% for each in job.user.profile.address.all %}
+        <p class="headers">{{each.address_type}} Address</p>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.address_line1}}</p>
+            </div>
+        </div>
+        {% if each.address_line2 %}
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.address_line2}}</p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.state}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.district}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.pincode}}</p>
+            </div>
+        </div>
+        {% endfor %}
+       
+        
+    </div>
+    <div class="container">
+
+        <p class="headers">Education Details</p>
+
+
+        <p class="headers">S.S.L.C</p>
+
+
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.sslc.register_number}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.sslc.month}} {{job.sslc.year}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.sslc.board}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.sslc.percentage}}</p>
+            </div>
+        </div>
+
+
+        <p class="headers">H.S.C</p>
+
+
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.hsc.register_number}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.hsc.month}} {{job.hsc.year}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.hsc.board}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.hsc.percentage}}</p>
+            </div>
+        </div>
+
+
+        <p class="headers">U.G</p>
+
+
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.ug.register_number}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.ug.register_number}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.ug.month}} {{job.ug.year}}</p>
+            </div>
+        </div>
+       
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{job.ug.percentage}}</p>
+            </div>
+        </div>
+
+
+        <p class="headers">P.G</p>
+
+        {% for each in job.pg.all %}
+
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.register_number}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.register_number}}</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.month}} {{each.year}}</p>
+            </div>
+        </div>
+       
+        <div class="section">
+            <div class="sub-section-1">
+                <p>Name of the Post Applying for</p>
+                <p>:</p> 
+            </div>
+            <div class="sub-section-2">
+                <p>{{each.percentage}}</p>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <div class="container">
+
+        <p class="headers">Education Details</p>
+
+        <p class="headers">S.S.L.C</p>
+
+        {}
+
+    </div>
+    
+</body>
+</html>

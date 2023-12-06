@@ -12,6 +12,7 @@ from django.db.models import Count
 from rest_framework.decorators import api_view
 from smtplib import  SMTPException, SMTPRecipientsRefused
 from rest_framework.authentication import TokenAuthentication
+from django.shortcuts import render
 
 
 from .serializer import UserSerializer,CustomUserSerializer,ProfileSerializer , ProfileImageSerializer , VerifyPhoneNumberSerializer
@@ -107,15 +108,12 @@ class SetPassword(APIView):
 class SignUpView(APIView):
     def post(self, request, format=None):
         try:
-            print("hello")
             serializer = ProfileSerializer(data=request.data)
             if serializer.is_valid():
                 profile = serializer.save()
                 return Response({'profile_id' : profile.id }, status=status.HTTP_201_CREATED)
-            print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except:
-           
+        except Exception as e:
             return Response( status=status.HTTP_503_SERVICE_UNAVAILABLE)
    
 
@@ -198,12 +196,19 @@ import boto3
 from django.http import FileResponse
 
 from django.conf import settings
+from datetime import date
 
 def download_file(request, file_name):
     s3 = boto3.client('s3', aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
     s3.download_file(settings.AWS_STORAGE_BUCKET_NAME,  f'static/{file_name}', '/tmp/tempfile')
     with open('/tmp/tempfile', 'rb') as f:
         return FileResponse(f)
+    
+
+def download_success_file(request , pk ):
+    obj = Job.objects.get(pk = pk)
+    current_date = date.today()
+    return render(request , "ApplicationSuccessPdf.html" , {'job' : obj , 'current_date' : current_date})
 
 
 

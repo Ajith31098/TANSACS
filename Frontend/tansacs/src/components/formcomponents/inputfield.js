@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react'
-import { useField, FastField, ErrorMessage } from 'formik'
+import { useField, FastField, ErrorMessage , Field } from 'formik'
 import TextError from './texterror'
 // import TextField from '@material-ui/core/TextField';
 import TextField from '@mui/material/TextField';
@@ -15,17 +15,28 @@ function Input(props) {
     const errorFieldKey = Object.keys(errors)[0]; // Key of the first error
     let fieldSelector;
 
+
     // Check if the key is for a nested object
     if (errorFieldKey.includes('.')) {
         // Create a selector for the nested field
         fieldSelector = `[name="${errorFieldKey}"]`;
     } else {
         // Handle arrays or top-level fields
-        const nestedErrorKey = Object.keys(errors[errorFieldKey])[0];
+        
+       
         if (Array.isArray(errors[errorFieldKey])) {
+
+
+          const firstNonUndefinedIndex = errors[errorFieldKey].findIndex((element) => element !== undefined);
+          if (firstNonUndefinedIndex !== -1) {
+
+          
+            const nestedErrorKey = Object.keys(errors[errorFieldKey][firstNonUndefinedIndex])[0];
             // For arrays, select the first element's error
-            fieldSelector = `[name="${errorFieldKey}[0].${nestedErrorKey}"]`;
+            fieldSelector = `[name="${errorFieldKey}[${firstNonUndefinedIndex}].${nestedErrorKey}"]`;
+          }
         } else {
+          const nestedErrorKey = Object.keys(errors[errorFieldKey])[0];
             // For objects, select the nested field
             fieldSelector = `[name="${errorFieldKey}.${nestedErrorKey}"]`;
         }
@@ -39,7 +50,6 @@ function Input(props) {
 };
   useEffect(() => {
     if (isSubmitting && !isValidating && Object.keys(errors).length) {
-    console.log(errors,'uhjuihj');
 
         scrollToFirstError(errors);
     }
@@ -47,10 +57,11 @@ function Input(props) {
 
   return (
     <>
-      <FastField name={name}>
+      <Field name={name} {...rest} >
         {({ field, meta }) => (
 
           <>
+          {/* {console.log(meta.error && meta.error)} */}
             <TextField
               {...field}
               {...rest}
@@ -70,7 +81,7 @@ function Input(props) {
             />
           </>
         )}
-      </FastField>
+      </Field>
       <ErrorMessage component={TextError} name={name}  />
 
 

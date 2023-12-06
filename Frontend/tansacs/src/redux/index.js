@@ -1,4 +1,4 @@
-export {Login , Logout , exp_age , update_jobs} from './login/ActionLogin'
+export {Login , Logout , exp_age , update_jobs , removeexp_age , set_permission ,cacel_permission} from './login/ActionLogin'
 
 export {Register , Verified} from './registration/ActionRegistration'
 

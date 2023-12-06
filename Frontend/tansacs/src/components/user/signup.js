@@ -154,7 +154,8 @@ async function signUpUser(values) {
     try {
         const response = await axios.post('http://127.0.0.1:8000/signup', values, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                
+                'Content-Type': 'application/json'
             },
         });
         return response.data;
@@ -405,12 +406,10 @@ function Signup(props) {
                                             }
                                         </Field>
                                         <div>
-                                            <p className='text-custom-red text-sm text-start font-bold'>
 
-                                            <ErrorMessage component={TextError} name='DOB'  />
+                                             <ErrorMessage component={TextError} name='DOB'  />
 
 
-                                            </p>
 
                                         </div>
                                     </div>

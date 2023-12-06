@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { exp_age} from '../../redux';
+import { exp_age , set_permission} from '../../redux';
 import {  useNavigate } from 'react-router-dom';
 
 
@@ -21,8 +21,8 @@ const Modal = (props) => {
   };
 
   const redirectButton = () =>{
-    console.log("hi" ,props.link);
         props.exp_age()
+        props.set_permission()
         navigate(props.link)
   }
 
@@ -118,7 +118,8 @@ const mapDispatchToProps = dispatch =>{
 
     return {
        
-        exp_age : ()=> dispatch(exp_age())
+        exp_age : ()=> dispatch(exp_age()),
+        set_permission : ()=>dispatch(set_permission())
     }
 }
 

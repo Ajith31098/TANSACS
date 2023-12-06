@@ -10,7 +10,8 @@ urlpatterns = [
     path('logout' , views.LogoutView.as_view() , name ="logout"),
     path('forgot' , views.ForgotView.as_view() , name='forgot'),
     path('setpassword/<str:email>' , views.SetPassword.as_view() , name="set_password"),
-     path('download_file/<str:file_name>/', views.download_file, name='download_file'),
-     path('get_detail' , views.JobVerification.as_view() , name='get_detail')
+    path('download_file/<str:file_name>', views.download_file, name='download_file'),
+    path('get_detail' , views.JobVerification.as_view() , name='get_detail'),
+    path('download_success_pdf/<int:pk>' , views.download_success_file, name="download_success_pdf")
 
 ]

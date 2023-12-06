@@ -1,9 +1,25 @@
 
 import { Link } from 'react-router-dom'
 import ApplyButton from '../basecomponents/ApplySuggestion';
+import {connect} from 'react-redux'
+import {removeexp_age } from '../../redux'
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
+function Job7(props) {
+    
+    const navigate  = useNavigate()
 
-function job7() {
+    useEffect(()=>{
+        if (! props.isLogin){
+            navigate('/')
+        }
+    },[props.isLogin])
+
+    useEffect(()=>{
+
+        props.removeexp_age()
+    })
     return (
         <>
             <div className='mt-5'>
@@ -105,4 +121,21 @@ function job7() {
     );
 }
 
-export default job7;
+const mapStateToProps =  state =>{
+
+
+    return {
+
+        isLogin : state.login.isLogin,
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+
+    return {
+        removeexp_age : ()=> dispatch(removeexp_age())
+    }
+}
+
+
+export default connect(mapStateToProps , mapDispatchToProps)( Job7);

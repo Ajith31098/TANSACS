@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import React from 'react';
 import { USER_DETAIL } from '../endpoints/user/userEndpoints';
+import {  set_permission} from '../../redux';
+import {  useNavigate } from 'react-router-dom';
 
 function ApplyButton(props) {
+    const navigate  = useNavigate()
+
     const formData = new FormData();
     formData.append('position', props.position);
     const fetchData = async () => {
@@ -37,6 +41,12 @@ function ApplyButton(props) {
             });
     }, []);
 
+
+    const redirect = () =>{
+        props.set_permission()
+        navigate(props.link)
+    }
+
     if (isLoading) {
         return null;
     } else {
@@ -51,10 +61,21 @@ function ApplyButton(props) {
             return (<Modal apply={false} applied={true} />);
         } else {
             return (
-                <Link to={props.link} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
-                    Apply  
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                </Link>
+
+                <button
+              onClick={redirect}
+                data-modal-hide="default-modal"
+                type="button"
+                className="px-5 py-2.5 block group relative ms-5 w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
+              >
+                Apply
+                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+              </button>
+                // <Link to={props.link} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                //     Apply  
+                //     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                // </Link>
             );
         }
     }
@@ -68,4 +89,12 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(ApplyButton);
+const mapDispatchToProps = dispatch =>{
+
+    return {
+       
+        set_permission : ()=>dispatch(set_permission())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ApplyButton);

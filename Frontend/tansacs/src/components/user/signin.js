@@ -53,7 +53,6 @@ function SignIn(props) {
 
                     setLoading(false)
 
-                    console.log(data);
                     props.login(data)
                 },
                 onError: (error) => {
