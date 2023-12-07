@@ -1,8 +1,8 @@
-import { CHANGEPASSWORD,RESETSTATUS } from "./TypeLogin" 
+import { CHANGEPASSWORD, RESETSTATUS } from "./TypeLogin"
 
 
 const initialState = {
-    approval : false,
+    approval: 0,
 }
 
 export const ReducerForgot = (state = initialState, action) => {
@@ -10,7 +10,7 @@ export const ReducerForgot = (state = initialState, action) => {
 
         case CHANGEPASSWORD: return {
             ...state,
-            approval : true
+            approval: action.data
 
         }
 

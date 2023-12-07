@@ -1,18 +1,19 @@
-import { CHANGEPASSWORD,RESETSTATUS } from "./TypeLogin" 
+import { CHANGEPASSWORD, RESETSTATUS } from "./TypeLogin"
 
 
-export const ChangePassword = ()=>{
+export const ChangePassword = (data) => {
 
     return {
-        type:CHANGEPASSWORD,
+        type: CHANGEPASSWORD,
+        data: data
     }
 
 }
 
-export const ResetStatus = ()=>{
+export const ResetStatus = () => {
 
     return {
-        type:RESETSTATUS
+        type: RESETSTATUS
     }
 
 }

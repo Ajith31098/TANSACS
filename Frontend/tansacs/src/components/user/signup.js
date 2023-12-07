@@ -145,7 +145,7 @@ const genderOptions = [
 ]
 const stateOptions = [
     { key: 'STATE', value: '' },
-    { key: 'Tamil Nadu', value: 'Tamil Nadu' },
+    { key: 'TAMIL NADU', value: 'Tamil Nadu' },
 ]
 
 const districtOptions = district
@@ -154,7 +154,7 @@ async function signUpUser(values) {
     try {
         const response = await axios.post('http://127.0.0.1:8000/signup', values, {
             headers: {
-                
+
                 'Content-Type': 'application/json'
             },
         });
@@ -186,60 +186,58 @@ function Signup(props) {
         setLoading(true)
 
 
-            mutation.mutate(values, {
+        mutation.mutate(values, {
 
-          
-                onSuccess:(data)=>{
 
-                        console.log('success',values.profile_image , data.profile_id);
-                        const id = data.profile_id
-                        
-                        const formData = new FormData();
-                        formData.append('profile_image', values.profile_image);
-                        axios.patch(`http://127.0.0.1:8000/profile/${id}`,formData,{
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            },
-                        })
-                        .then(function(response){
-                            setLoading(false)
-                            
-                            props.register(response.data)
-                            navigate('/verify' , {replace:true})
-                        })
-                        .catch(function(error){
-                            navigate('/')
-                        })
+            onSuccess: (data) => {
 
-                },
-                onError: (error) => {
-                    setLoading(false)
+                console.log('success', values.profile_image, data.profile_id);
+                const id = data.profile_id
 
-                    const errorData = error.response;
+                const formData = new FormData();
+                formData.append('profile_image', values.profile_image);
+                axios.patch(`http://127.0.0.1:8000/profile/${id}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                })
+                    .then(function (response) {
+                        setLoading(false)
 
-                    if (errorData.status == 400 ){
-                        if (errorData.data.email) {
-                            setFieldError('email', errorData.data.email[0]);
-                        }
+                        props.register(response.data)
+                        navigate('/verify', { replace: true })
+                    })
+                    .catch(function (error) {
+                        navigate('/')
+                    })
+
+            },
+            onError: (error) => {
+                setLoading(false)
+
+                const errorData = error.response;
+
+                if (errorData.status == 400) {
+                    if (errorData.data.email) {
+                        setFieldError('email', errorData.data.email[0]);
                     }
-                    if (errorData.status == 500){
-                        navigate('/server_error_500')
-                    }    
-                    
-
-                  },
-             })
+                }
+                if (errorData.status == 500) {
+                    navigate('/server_error_500')
+                }
 
 
+            },
+        })
 
-            
-            
+
+
+
+
         console.log(values);
-       };
+    };
 
     useEffect(() => {
-
-
 
         if (props.isSuperuser) {
             navigate('admin/home')
@@ -249,9 +247,8 @@ function Signup(props) {
             navigate('tansacs/jobs')
         }
 
-
-
     }, [props.isLogin]);
+
 
     function calculateAge(dob, endDate) {
         const birthDate = new Date(dob);
@@ -318,7 +315,8 @@ function Signup(props) {
                                         </label>
 
                                     </div>
-                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 100KB and only in .jpeg or .jpg formats.</p>
+                                    {!values.profile_image && <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 100KB and only in .jpeg or .jpg formats.</p>}
+
 
 
                                 </div>
@@ -359,7 +357,7 @@ function Signup(props) {
 
                                     </div>
 
-                                    <div className="lg:col-span-2 col-span-2">
+                                    <div className="lg:col-span-1 col-span-2">
                                         <Field
                                             name="DOB"
                                             placeholder="DOB"
@@ -387,7 +385,7 @@ function Signup(props) {
                                                             className={
                                                                 touched.DOB && errors.DOB
                                                                     ? ' custom-datepicker-placeholder w-full placeholder-shown:borrelative border border shadow-md py-1 px-2 border-red-400 w-full rounded text-sm focus:outline-none focus:border-sky-400'
-                                                                    : ' custom-datepicker-placeholder w-full relative border border shadow-md py-1 px-2 text-sm border-gray-400 w-full rounded focus:outline-none focus:border-sky-400'
+                                                                    : ' custom-datepicker-placeholder w-full relative border border shadow-md py-1 px-2 text-sm text-slate-200 border-gray-300 w-full rounded focus:outline-none focus:border-sky-400'
                                                             }
                                                             onChange={(val) => {
                                                                 const formattedDate = format(val, 'yyyy-MM-dd');
@@ -407,7 +405,7 @@ function Signup(props) {
                                         </Field>
                                         <div>
 
-                                             <ErrorMessage component={TextError} name='DOB'  />
+                                            <ErrorMessage component={TextError} name='DOB' />
 
 
 

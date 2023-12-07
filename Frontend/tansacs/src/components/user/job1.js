@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom'
 import ApplyButton from '../basecomponents/ApplySuggestion';
-import {connect} from 'react-redux'
-import {removeexp_age } from '../../redux'
+import { connect } from 'react-redux'
+import { removeexp_age } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
 function Job1(props) {
 
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
 
-    useEffect(()=>{
-        if (! props.isLogin){
+    useEffect(() => {
+        if (!props.isLogin) {
             navigate('/')
         }
-    },[props.isLogin])
+    }, [props.isLogin])
 
-    useEffect(()=>{
+    useEffect(() => {
 
         props.removeexp_age()
     })
@@ -66,13 +66,13 @@ function Job1(props) {
                             </caption>
                             <thead>
                                 <tr className="bg-gray-200 border-2 border-gray-400">
-                                    <th className="border-gray-400 text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                    <th className="border-gray-400  text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         S.NO
                                     </th>
-                                    <th className="border-gray-400 text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                    <th className="border-gray-400  text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         DISTRICT
                                     </th>
-                                    <th className="border-gray-400 text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                    <th className="border-gray-400  text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         POST
                                     </th>
 
@@ -81,85 +81,85 @@ function Job1(props) {
 
                             <tbody>
                                 <tr>
-                                    <th className="border-2 border-gray-400  text-xs whitespace-nowrap  px-7 py-2  ">
+                                    <th className="border-2 border-gray-400  text-center text-xs whitespace-nowrap  px-7 py-2  ">
                                         1
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         TRICHY
                                     </td>
-                                    <td className="border-2 border-gray-400  align-center  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-center  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <th className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <th className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         2
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         NAMAKKAL
                                     </td>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <th className="border-2 border-gray-400 align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <th className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         3
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         SALEM
                                     </td>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <th className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <th className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         4
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         THANJAVUR
                                     </td>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <th className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <th className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         5
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         VILLUPURAM
                                     </td>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <th className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <th className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         6
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         KRISHNAGIRI
                                     </td>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <th className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <th className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         7
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         KANCHEEPURAM
                                     </td>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400  text-center align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
@@ -186,21 +186,21 @@ function Job1(props) {
 }
 
 
-const mapStateToProps =  state =>{
+const mapStateToProps = state => {
 
 
     return {
 
-        isLogin : state.login.isLogin,
+        isLogin: state.login.isLogin,
     }
 }
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
 
     return {
-        removeexp_age : ()=> dispatch(removeexp_age())
+        removeexp_age: () => dispatch(removeexp_age())
     }
 }
 
 
-export default connect(mapStateToProps , mapDispatchToProps)( Job1);
+export default connect(mapStateToProps, mapDispatchToProps)(Job1);

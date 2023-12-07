@@ -5,7 +5,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
-import { Verified } from '../../redux'
+import { Verified, ChangePassword } from '../../redux'
 import React, { useState, useRef, useEffect } from 'react';
 
 
@@ -92,10 +92,10 @@ function VerifyOTP(props) {
 
     useEffect(() => {
 
-        if (!props.isSuperuser && !props.isLogin && (props.isRegister || props.forgot)) {
+
+        if (!props.isSuperuser && !props.isLogin && (props.isRegister || (props.forgot === 1))) {
             startTimer();
             sendotp()
-            console.log("hi");
         }
 
         if (props.isSuperuser) {
@@ -106,15 +106,20 @@ function VerifyOTP(props) {
             navigate('tansacs/jobs')
         }
 
-        else if (!(props.isRegister || props.forgot)) {
+        else if (!(props.isRegister || (props.forgot === 1))) {
+            navigate('/')
+        }
+
+        else if (props.isRegister && (props.forgot == 2)) {
             navigate('/')
         }
 
     }, [props.isLogin]);
 
-    const redirectLogin = () => {
 
-        props.verified()
+
+
+    const redirectLogin = () => {
 
         navigate('/');
     }
@@ -134,14 +139,11 @@ function VerifyOTP(props) {
     };
 
     const onSubmit = (event) => {
-        console.log('enter');
         event.preventDefault();
         const otpValue = otp.join('');
-        console.log(otpValue, otps);
         if (otps == parseInt(otpValue)) {
-
-            if (props.forgot) {
-
+            if (props.forgot == 1) {
+                props.Updatestatus(2)
                 navigate('/reset')
             }
 
@@ -165,13 +167,13 @@ function VerifyOTP(props) {
         }
         else {
             seterror(true)
-            console.log('enter');
         }
     }
 
 
     return (
         <>
+
 
             <div className="flex flex-col justify-center items-center">
                 <div className='mt-3'>
@@ -193,7 +195,7 @@ function VerifyOTP(props) {
                         <form onSubmit={onSubmit}>
 
                             <div>
-                                {error && <p className='text-custom-red font-bold mb-3'>Worng OTP</p>}
+                                {error && <p className='text-custom-red font-bold mb-3'>Wrong OTP</p>}
                             </div>
 
                             <div className="flex gap-2 justify-center items-center">
@@ -268,7 +270,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        verified: () => dispatch(Verified())
+        verified: () => dispatch(Verified()),
+        Updatestatus: (data) => dispatch(ChangePassword(data))
     }
 }
 

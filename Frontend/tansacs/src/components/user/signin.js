@@ -2,7 +2,7 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
-import { Login, Register } from '../../redux'
+import { Login, Register, ResetStatus, Verified } from '../../redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useMutation } from 'react-query'
@@ -11,6 +11,7 @@ import LoadingComponent from '../basecomponents/loading'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import DownloadButton from '../basecomponents/downloadButton'
+import DownloadNOCButton from '../basecomponents/NOCForm'
 import Ribbon from '../../logo/ribbon.png'
 import '../../css/ribbon.css'
 
@@ -44,49 +45,45 @@ function SignIn(props) {
     const onSubmit = (values, { setFieldError }) => {
         setLoading(true)
 
-        setTimeout(() => {
 
-            mutation.mutate(values, {
+        mutation.mutate(values, {
 
 
-                onSuccess: (data) => {
+            onSuccess: (data) => {
 
+                setLoading(false)
+
+                props.login(data)
+            },
+            onError: (error) => {
+
+                const errorData = error.response.data;
+                console.log(errorData);
+
+
+                if (errorData.username) {
+                    setFieldError('username', errorData.username);
+                }
+                else if (errorData.password) {
+                    setFieldError('password', errorData.password);
+                }
+
+                else if (!errorData.active) {
                     setLoading(false)
+                    props.register(errorData)
 
-                    props.login(data)
-                },
-                onError: (error) => {
+                    navigate('/verify')
 
-                    const errorData = error.response.data;
-                    console.log(errorData);
+                }
 
-
-                    if (errorData.username) {
-                        setFieldError('username', errorData.username);
-                    }
-                    else if (errorData.password) {
-                        setFieldError('password', errorData.password);
-                    }
-
-                    else if (!errorData.active) {
-                        setLoading(false)
-                        props.register(errorData)
-
-                        navigate('/verify')
-
-                    }
-
-                    setLoading(false)
+                setLoading(false)
 
 
-                },
-            })
+            },
+        })
 
 
-        }, 1000
 
-
-        )
 
     };
 
@@ -102,10 +99,18 @@ function SignIn(props) {
             navigate('tansacs/jobs')
         }
 
+
+
     }, [props.isLogin]);
 
 
+    useEffect(() => {
 
+        props.resetForgot()
+
+
+        props.ResetRegister()
+    })
 
 
 
@@ -141,7 +146,7 @@ function SignIn(props) {
                                             type='email'
                                             name='username'
                                             label="User Name"
-                                            placeholder="Email Id"
+                                            placeholder="Email-ID"
                                         />
 
                                     </div>
@@ -187,7 +192,8 @@ function SignIn(props) {
                     </div>
 
                     <DownloadButton />
-                    <p className='text-custom-red font-bold mb-3 font6'>Note:In  below TANSACS Job Posting Details are given please read before applying.</p>
+                    <DownloadNOCButton />
+                    <p className='text-custom-red font-bold mb-3 font6'>Note: TANSACS Job Posting Details are given in the link above, please read carefully before applying.</p>
                     <p className='font-semibold text-lg font6'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA.</p>
 
                 </div>
@@ -213,7 +219,10 @@ const mapDispatchToProps = dispatch => {
 
     return {
         login: (data) => dispatch(Login(data)),
-        register: (data) => dispatch(Register(data))
+        register: (data) => dispatch(Register(data)),
+        resetForgot: () => dispatch(ResetStatus()),
+        ResetRegister: () => dispatch(Verified()),
+
     }
 }
 

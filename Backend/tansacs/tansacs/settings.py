@@ -48,13 +48,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-     'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
 ]
 
 ROOT_URLCONF = 'tansacs.urls'
@@ -82,16 +82,15 @@ WSGI_APPLICATION = 'tansacs.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-
 DATABASES = {
-   'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tansacs',
-        'USER': 'tansacs',
-        'PASSWORD': 'tansacs',
+        'USER': 'postgres',
+        'PASSWORD': 'Ajith@3108@',
         'HOST': 'localhost',          # If PostgreSQL is running on localhost
-        'PORT': '5432', 
-   }
+        'PORT': '5432',
+    }
 }
 
 
@@ -137,7 +136,6 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
 AWS_ACCESS_KEY_ID = 'AKIARX56MWFDJPTMTRPZ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'tansac-s3'
@@ -158,21 +156,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # The default port is often 587 or 25
 EMAIL_USE_TLS = True  # Use TLS encryption
-EMAIL_HOST_USER = 'ssnazarenesrs@gmail.com'
-EMAIL_HOST_PASSWORD = 'lcjcsgffunxbzkhr'
+EMAIL_HOST_USER = 'info@tansacsrecruitment.in'
+EMAIL_HOST_PASSWORD = 'fmqowydftwzvqusy'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
 
 
 CORS_ALLOWED_ORIGINS = [
-   "http://localhost:3000",
-   "http://127.0.0.1:9000"
+    "http://localhost:3000",
+    "http://127.0.0.1:9000"
 ]
 
 
 REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES': [
-       'rest_framework.authentication.TokenAuthentication',
-   ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }

@@ -1,4 +1,4 @@
-import React , {useRef , useEffect} from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup'
 import FormikControl from '../formcomponents/formcontrol'
@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import SuccessModel from '../basecomponents/SuccessModel';
 import ConfrimModal from '../basecomponents/ConfirmationModel';
-import { update_jobs,cacel_permission } from '../../redux'
+import { update_jobs, cacel_permission } from '../../redux'
 
 
 function CommonForm
@@ -19,18 +19,20 @@ function CommonForm
     const [success, setSuccess] = React.useState(false)
     const navigate = useNavigate()
 
+    const [dataDownload, setdataDownload] = React.useState({ id: 0, applicant_id: 0 })
+
     const formikRef = useRef()
 
 
-    useEffect(()=>{
-        if (! props.permission){
+    useEffect(() => {
+        if (!props.permission) {
             navigate('/tansacs/jobs')
         }
-        else{
+        else {
             props.cancel_permission()
         }
 
-    } , [])
+    }, [])
 
     async function ApplicationForm(values) {
         try {
@@ -105,7 +107,7 @@ function CommonForm
         ],
         experience: [
             {
-                degree: '', company: '', year: '', certificate: ''
+                degree: '', company: '', year: '', certificate: '', course: ''
             }
         ],
         prefered_experience: [
@@ -175,58 +177,19 @@ function CommonForm
         department: Yup.string().required('Required'),
         register_number: Yup.number().required('Required').positive('Enter valid Register Number'),
         percentage: Yup.number()
-        .required('Required')
-        .typeError("Enter Valid Percentage")
-        .positive('Must be positive')
+            .required('Required')
+            .typeError("Enter Valid Percentage")
+            .positive('Must be positive')
 
-        .max(100, 'Decimal after 2 digits')
-        .test(
-            'is-decimal',
-            'Enter Value with Max 2 Decimals',
-            number => /^\d+(\.\d{1,2})?$/.test(String(number))
-        ),
+            .max(100, 'Decimal after 2 digits')
+            .test(
+                'is-decimal',
+                'Enter Value with Max 2 Decimals',
+                number => /^\d+(\.\d{1,2})?$/.test(String(number))
+            ),
         marksheet: Yup.mixed()
-        .required('Required')
-        .test(
-            'fileType',
-            'Only JPEG, JPG, and PDF files are allowed',
-            value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
-        )
-        .test(
-            'fileSize',
-            'File too large, should be less than 200KB',
-            value => value && value.size <= 200 * 1024 // 200KB in bytes
-        ),
-        month: Yup.string().required('Required'),
-        year: Yup.string().required('Required'),
-    })
-
-    const experienceSchema = Yup.object().shape({
-        degree: Yup.string().when(['company', 'year', 'certificate'], {
-            is: (company, year, certificate) =>
-                !!company || !!year || !!certificate,
-            then: () => Yup.string().required('degree is required'),
-            otherwise: () => Yup.string(),
-        }),
-        company: Yup.string().when(['degree', 'year', 'certificate'], {
-            is: (degree, year, certificate) =>
-                !!degree || !!year || !!certificate,
-            then: () => Yup.string().required('Company Name is required'),
-            otherwise: () => Yup.string(),
-        }),
-        year: Yup.number().when(['degree', 'company', 'certificate'], {
-            is: (degree, company, certificate) =>
-                !!degree || !!company || !!certificate,
-            then: () => Yup.number().typeError('Enter Years')
-                .required('year is required')
-                .positive('Enter a valid number of years')
-                .test('length', 'Enter a valid number of years', (val) => val && val.toString().length < 3),
-            otherwise: () => Yup.string(),
-        }),
-        certificate: Yup.mixed().when(['degree', 'company', 'year'], {
-            is: (degree, company, year) =>
-                !!degree || !!company || !!year,
-            then: () => Yup.mixed().required('certificate is required').test(
+            .required('Required')
+            .test(
                 'fileType',
                 'Only JPEG, JPG, and PDF files are allowed',
                 value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
@@ -236,6 +199,52 @@ function CommonForm
                 'File too large, should be less than 200KB',
                 value => value && value.size <= 200 * 1024 // 200KB in bytes
             ),
+        month: Yup.string().required('Required'),
+        year: Yup.string().required('Required'),
+    })
+
+    const experienceSchema = Yup.object().shape({
+        degree: Yup.string().when(['company', 'year', 'certificate', 'course'], {
+            is: (company, year, certificate, course) =>
+                !!company || !!year || !!certificate || !!course,
+            then: () => Yup.string().required('degree is required'),
+            otherwise: () => Yup.string(),
+        }),
+        company: Yup.string().when(['degree', 'year', 'certificate', 'course'], {
+            is: (degree, year, certificate, course) =>
+                !!degree || !!year || !!certificate || !!course,
+            then: () => Yup.string().required('Company Name is required'),
+            otherwise: () => Yup.string(),
+        }),
+        year: Yup.number().when(['degree', 'company', 'certificate', 'course'], {
+            is: (degree, company, certificate, course) =>
+                !!degree || !!company || !!certificate || !!course,
+            then: () => Yup.number().typeError('Enter Years')
+                .required('year is required')
+                .positive('Enter a valid number of years')
+                .test('length', 'Enter a valid number of years', (val) => val && val.toString().length < 3),
+            otherwise: () => Yup.string(),
+        }),
+        course: Yup.string().when(['degree', 'company', 'certificate', 'year'], {
+            is: (degree, company, certificate, year) =>
+                !!degree || !!company || !!certificate || !!year,
+            then: () => Yup.string().required('Required'),
+
+            otherwise: () => Yup.string(),
+        }),
+        certificate: Yup.mixed().when(['degree', 'company', 'year', 'course'], {
+            is: (degree, company, year, course) =>
+                !!degree || !!company || !!year || !!course,
+            then: () => Yup.mixed().required('certificate is required').test(
+                'fileType',
+                'Only JPEG, JPG, and PDF files are allowed',
+                value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+            )
+                .test(
+                    'fileSize',
+                    'File too large, should be less than 200KB',
+                    value => value && value.size <= 200 * 1024 // 200KB in bytes
+                ),
             otherwise: () => Yup.string(),
         }),
     }, [
@@ -245,6 +254,10 @@ function CommonForm
         ['company', 'year'],
         ['company', 'certificate'],
         ['year', 'certificate'],
+        ['course', 'certificate'],
+        ['year', 'course'],
+        ['company', 'course'],
+        ['degree', 'course'],
     ])
 
 
@@ -266,23 +279,23 @@ function CommonForm
                 then: () => Yup.mixed()
                     .required('Certificate is required')
                     .test(
-                      'fileType',
-                      'Only JPEG, JPG, and PDF files are allowed',
-                      value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+                        'fileType',
+                        'Only JPEG, JPG, and PDF files are allowed',
+                        value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
                     )
                     .test(
-                      'fileSize',
-                      'File too large, should be less than 200KB',
-                      value => value && value.size <= 200 * 1024 // 200KB in bytes
+                        'fileSize',
+                        'File too large, should be less than 200KB',
+                        value => value && value.size <= 200 * 1024 // 200KB in bytes
                     ),
                 otherwise: () => Yup.string(),
             }),
-      },[
-        ['year','certificate']
-      ])
-      
-      
-     
+    }, [
+        ['year', 'certificate']
+    ])
+
+
+
 
 
 
@@ -300,17 +313,17 @@ function CommonForm
 
         prefered_experience: Yup.array().of(
             prefered_expereinceSchema
-         
+
         )
     })
 
     const onSubmit = values => {
 
-        
+
         setLoading(true)
         console.log('submited', values);
         // setLoading(true)
-        
+
 
         mutation.mutate(values, {
 
@@ -319,7 +332,10 @@ function CommonForm
 
                 // console.log("success")
                 setLoading(false)
+                // console.log("success", data)
+                setdataDownload(data)
                 setSuccess(true)
+
                 props.update_jobs()
 
             },
@@ -328,7 +344,7 @@ function CommonForm
                 console.log(error.response.data);
 
                 setLoading(false)
-                navigate('/server_error_500')
+                // navigate('/server_error_500')
 
             },
         })
@@ -371,21 +387,30 @@ function CommonForm
 
     const experienceOptions = props.exp
 
+    const ExperienceCoursse = [
+        { key: 'Select', value: '' },
+        { key: 'UG', value: 'UG' },
+        { key: 'PG', value: 'PG' }
+    ]
+
+
+
 
 
     return (
 
         <div>
             {loading ? (<LoadingComponent />) : null}
-            {success ? (<SuccessModel />) : null}
+            {success ? (<SuccessModel id={dataDownload.id} applicant_id={dataDownload.applicant_id} />) : null}
             <div className='mt-5'>
-                <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
+                <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
-                <p className='text-lg my-5 text-start text-red-600 font-bold'>CLUSTER PROGRAM MANAGER</p>
-                <p className='text-lg my-5  text-red-600 underline font-bold'>EDUCATION QUALIFICATION & EXPERIENCE</p>
+                <p className='text-lg my-5 text-start text-custom-red font-bold uppercase'>{props.position}</p>
+                <p className='text-lg my-5  text-custom-red underline font-bold'>EDUCATION QUALIFICATION & EXPERIENCE</p>
 
 
             </div>
+
 
             <Formik
                 initialValues={initialValues}
@@ -401,6 +426,8 @@ function CommonForm
 
                     >
 
+                        {console.log(formik)}
+
                         <Field
 
                             type="hidden"
@@ -411,7 +438,7 @@ function CommonForm
                         <div className="container font-sans">
 
                             <div className='w-full mb-5 '>
-                                <p className='text-red-600 mb-2 underline text-start font-bold'>S.S.L.C. 10th</p>
+                                <p className='text-custom-red mb-2 underline text-start font-bold'>S.S.L.C. (10th)</p>
                                 <div className='w-full gap-2 grid grid-cols-11 p-4 border-solid border border-gray-400 rounded-md'>
                                     <div className='lg:col-span-3 col-span-12'>
                                         <p className='text-start text-xs font-bold mb-2'>As per S.S.L.C. Certificate: <small className='text-custom-red text-sm'>*</small></p>
@@ -523,7 +550,7 @@ function CommonForm
                             </div>
 
                             <div className='w-full mb-5 '>
-                                <p className='text-red-600 underline mb-2 text-start font-bold'>H.S.C. 12th</p>
+                                <p className='text-custom-red underline mb-2 text-start font-bold'>H.S.C. (12th)</p>
 
                                 <div className='w-full  border-solid border border-gray-400 rounded-md gap-1 grid grid-cols-11 p-4'>
 
@@ -633,7 +660,7 @@ function CommonForm
                             </div>
 
                             <div className='w-full mb-5 '>
-                                <p className='text-red-600 mb-2 underline uppercase text-start font-bold'>UnderGraduate</p>
+                                <p className='text-custom-red mb-2 underline uppercase text-start font-bold'>UnderGraduate</p>
 
                                 <div className='w-full  border-solid border border-gray-400 rounded-md gap-1 grid grid-cols-11 p-4'>
 
@@ -772,7 +799,7 @@ function CommonForm
                             </div>
 
                             <div className='w-full mb-5 '>
-                                <p className='text-red-600 mb-2 underline text-start uppercase font-bold'>postgraduate</p>
+                                <p className='text-custom-red mb-2 underline text-start uppercase font-bold'>postgraduate</p>
 
 
 
@@ -781,9 +808,9 @@ function CommonForm
                                     {
                                         fieldarrayprops => {
                                             const { push, remove, form } = fieldarrayprops
-                                            const { values , validateForm } = form
+                                            const { values, validateForm } = form
                                             const { pg } = values
-                                            {console.log(pg)}
+                                            { console.log(pg) }
                                             return (
                                                 <div className='border-solid border border-gray-400 rounded-md p-4'>
                                                     {
@@ -918,16 +945,16 @@ function CommonForm
                                                                                 formik={formik}
                                                                                 label="Browse File"
                                                                             />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                                            <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
 
-                                                                        </div>                                 
+                                                                        </div>
 
                                                                         {
                                                                             index > 0 && (
 
                                                                                 <div >
-                                                                                    <button type='button' onClick={() => remove(index)} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >cancel
+                                                                                    <button type='button' onClick={() => remove(index)} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-xs font-semibold text-white" >cancel
                                                                                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                                                     </button>
 
@@ -943,10 +970,11 @@ function CommonForm
                                                     }
 
                                                     <div className='w-15 mt-2'>
-                                                        <button type='button' onClick={() =>{ push({ degree: '', first_name: '', last_name: '', register_number: '', department: '', percentage: '', marksheet: '', month: '', year: '', })
-                                                    
-                                                    validateForm()
-                                                    } }className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >ADD
+                                                        <button type='button' onClick={() => {
+                                                            push({ degree: '', first_name: '', last_name: '', register_number: '', department: '', percentage: '', marksheet: '', month: '', year: '', })
+
+                                                            validateForm()
+                                                        }} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-xs font-semibold text-white" >ADD
                                                             <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                         </button>
                                                     </div>
@@ -964,13 +992,13 @@ function CommonForm
                             </div>
 
                             <div className='w-full mb-5 '>
-                                <p className='text-red-600 mb-2 text-start underline font-bold'>EXPERIENCE CERTIFICATES</p>
+                                <p className='text-custom-red mb-2 text-start underline font-bold'>EXPERIENCE CERTIFICATES</p>
                                 <FieldArray name='experience'>
 
                                     {
                                         fieldarrayprops => {
                                             const { push, remove, form } = fieldarrayprops
-                                            const { values ,validateForm } = form
+                                            const { values, validateForm } = form
                                             const { experience } = values
                                             return (
                                                 <div className='border-solid border border-gray-400 rounded-md p-4 mb-5'>
@@ -978,12 +1006,12 @@ function CommonForm
                                                         experience.map((experience_cantidate, index) => (
                                                             <div key={index} className='w-full'>
 
-                                                                {/* {formik.errors.experience1 ? <div className='bg-red-600 text-white ms-2 p-2 w-max mt-2 rounded-lg text-start'><p>{formik.errors.experience1}</p></div> : null} */}
+                                                                {/* {formik.errors.experience1 ? <div className='bg-custom-red text-white ms-2 p-2 w-max mt-2 rounded-lg text-start'><p>{formik.errors.experience1}</p></div> : null} */}
 
                                                                 <div className='w-full  gap-1 grid grid-cols-12 p-4'>
 
 
-                                                                    <div className="lg:col-span-4 col-span-12">
+                                                                    <div className="lg:col-span-3 col-span-12">
                                                                         <p className='text-start text-xs font-bold mb-2'>Experience Based Work</p>
                                                                         <FormikControl
                                                                             control='select'
@@ -995,7 +1023,7 @@ function CommonForm
                                                                     </div>
 
 
-                                                                    <div className="lg:col-span-4 col-span-12">
+                                                                    <div className="lg:col-span-3 col-span-12">
                                                                         <p className='text-start text-xs font-bold mb-2'>Company Name</p>
 
                                                                         <FormikControl
@@ -1007,6 +1035,9 @@ function CommonForm
                                                                         />
 
                                                                     </div>
+
+
+
                                                                     <div className="lg:col-span-2 col-span-6">
                                                                         <p className='text-start text-xs font-bold mb-2'>No. of Year's Experience</p>
 
@@ -1020,6 +1051,18 @@ function CommonForm
 
                                                                     </div>
 
+                                                                    <div className="lg:col-span-2 col-span-12">
+                                                                        <p className='text-start text-xs font-bold mb-2'>Course</p>
+                                                                        <FormikControl
+                                                                            control='select'
+                                                                            type='text'
+                                                                            name={`experience[${index}].course`}
+                                                                            options={ExperienceCoursse}
+                                                                        />
+
+                                                                    </div>
+
+
                                                                     <div className="lg:col-span-2 col-span-6">
                                                                         <div className="grid grid-cols-1 justify-center">
                                                                             <div className='col-span-1 flex flex-col justify-center items-center'>
@@ -1032,7 +1075,7 @@ function CommonForm
                                                                                     formik={formik}
                                                                                     label="Browse File"
                                                                                 />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
                                                                             </div>
 
@@ -1040,7 +1083,7 @@ function CommonForm
                                                                                 index > 0 && (
 
                                                                                     <div className='mt-2 col-span-1 flex flex-col justify-center items-center'>
-                                                                                        <button type='button' onClick={() => remove(index)} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >cancel
+                                                                                        <button type='button' onClick={() => remove(index)} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-xs font-semibold text-white" >cancel
                                                                                             <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                                                         </button>
 
@@ -1060,14 +1103,14 @@ function CommonForm
                                                                 </div>
 
                                                             </div>
-                                                        )) 
+                                                        ))
                                                     }
 
                                                     <div className='w-15'>
                                                         <button type='button' onClick={() => {
-                                                            push({ degree: '', company: '', year: '', certificate: '' })
+                                                            push({ degree: '', company: '', year: '', certificate: '', course: '' })
                                                             validateForm()
-                                                         } } className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-xs font-semibold text-white" >ADD
+                                                        }} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-xs font-semibold text-white" >ADD
                                                             <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                         </button>
                                                     </div>
@@ -1081,7 +1124,7 @@ function CommonForm
                             </div>
 
                             <div className='w-full mb-5 '>
-                                <p className='text-red-600 mb-2 text-start underline font-bold'>WORK EXPERIENCE ( WITHIN NACO / TANSACS / TSU )</p>
+                                <p className='text-custom-red mb-2 text-start underline font-bold'>WORK EXPERIENCE ( WITHIN NACO / TANSACS / TSU )</p>
 
                                 <div className='w-full  border-solid border border-gray-400 rounded-md gap-1 grid grid-cols-9 p-4'>
 
@@ -1089,7 +1132,7 @@ function CommonForm
                                         <div className="grid grid-cols-7 gap-1">
 
                                             <div className="col-span-2 ">
-                                                <p className='text-center text-sm font-bold mb-2'>NACO</p>
+                                                <p className='text-center text-sm font-bold mb-2 mt-5'>NACO</p>
                                             </div>
                                             <div className="col-span-2">
 
@@ -1114,23 +1157,26 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse file"
                                                 />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
                                             </div>
 
-                                            <div className="col-span-3 mt-3">
-                                                <p className='text-center text-sm font-bold mb-2'>NOC Certificate</p>
-                                            </div>
-                                            <div className="col-span-3 mt-3">
-                                                <FormikControl
-                                                    control='file'
-                                                    type='file'
-                                                    id="prefered_experience[0].NOC"
-                                                    name="prefered_experience[0].NOC"
-                                                    formik={formik}
-                                                    label="Browse file"
-                                                />
+                                            <div className="col-span-7 mt-3 grid grid-cols-7 justify-center items-center">
+                                                <div className="col-span-2"></div>
+                                                <div className="col-span-2 ">
+                                                    <p className='text-center text-sm font-bold'>NOC Certificate</p>
+                                                </div>
+                                                <div className="col-span-3 ">
+                                                    <FormikControl
+                                                        control='file'
+                                                        type='file'
+                                                        id="prefered_experience[0].NOC"
+                                                        name="prefered_experience[0].NOC"
+                                                        formik={formik}
+                                                        label="Browse file"
+                                                    />
 
+                                                </div>
                                             </div>
 
                                         </div>
@@ -1139,7 +1185,7 @@ function CommonForm
                                         <div className="grid grid-cols-7 gap-1">
 
                                             <div className="col-span-2">
-                                                <p className='text-center text-sm font-bold mb-2'>TANSACS</p>
+                                                <p className='text-center text-sm font-bold mb-2  mt-5'>TANSACS</p>
                                             </div>
                                             <div className="col-span-2">
 
@@ -1164,24 +1210,29 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse File"
                                                 />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
                                             </div>
 
-                                            <div className="col-span-3 mt-3">
-                                                <p className='text-center text-sm font-bold mb-2'>NOC Certificate</p>
-                                            </div>
-                                            <div className="col-span-3 mt-3">
-                                                <FormikControl
-                                                    control='file'
-                                                    type='file'
-                                                    id="prefered_experience[1].NOC"
-                                                    name="prefered_experience[1].NOC"
-                                                    formik={formik}
-                                                    label="Browse file"
-                                                />
+                                            <div className="col-span-7 mt-3 grid grid-cols-7 justify-center items-center">
+                                                <div className="col-span-2"></div>
+                                                <div className="col-span-2 ">
+                                                    <p className='text-center text-sm font-bold'>NOC Certificate</p>
+                                                </div>
+                                                <div className="col-span-3 ">
+                                                    <FormikControl
+                                                        control='file'
+                                                        type='file'
+                                                        id="prefered_experience[1].NOC"
+                                                        name="prefered_experience[1].NOC"
+                                                        formik={formik}
+                                                        label="Browse file"
+                                                    />
 
+                                                </div>
                                             </div>
+
+
 
                                         </div>
                                     </div>
@@ -1189,7 +1240,7 @@ function CommonForm
                                         <div className="grid grid-cols-7 gap-1">
 
                                             <div className="col-span-2">
-                                                <p className='text-center text-sm font-bold mb-2'>TSU</p>
+                                                <p className='text-center text-sm font-bold mb-2  mt-5'>TSU</p>
                                             </div>
                                             <div className="col-span-2">
 
@@ -1214,23 +1265,26 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse File"
                                                 />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
                                             </div>
 
-                                            <div className="col-span-3 mt-3">
-                                                <p className='text-center text-sm font-bold mb-2'>NOC Certificate</p>
-                                            </div>
-                                            <div className="col-span-3 mt-3">
-                                                <FormikControl
-                                                    control='file'
-                                                    type='file'
-                                                    id="prefered_experience[2].NOC"
-                                                    name="prefered_experience[2]].NOC"
-                                                    formik={formik}
-                                                    label="Browse file"
-                                                />
+                                            <div className="col-span-7 mt-3 grid grid-cols-7 justify-center items-center">
+                                                <div className="col-span-2"></div>
+                                                <div className="col-span-2 ">
+                                                    <p className='text-center text-sm font-bold'>NOC Certificate</p>
+                                                </div>
+                                                <div className="col-span-3 ">
+                                                    <FormikControl
+                                                        control='file'
+                                                        type='file'
+                                                        id="prefered_experience[2].NOC"
+                                                        name="prefered_experience[2].NOC"
+                                                        formik={formik}
+                                                        label="Browse file"
+                                                    />
 
+                                                </div>
                                             </div>
 
                                         </div>
@@ -1250,16 +1304,16 @@ function CommonForm
 
 
                                 </div>
-                                <p className='text-xs text-start text-black mt-2 font-bold'><small className='font-bold text-red-600'>note : </small>  Only for the existing employees of NACO/TANSACS/TSU</p>
+                                <p className='text-xs text-start text-black mt-2 font-bold'><small className='font-bold text-custom-red'>note : </small>  Only for the existing employees of NACO/TANSACS/TSU</p>
                             </div>
                         </div>
 
                         <div className='w-full flex justify-around'>
-                            <Link to={'/tansacs/jobs'} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
+                            <Link to={'/tansacs/jobs'} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
                                 Cancel
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                             </Link>
-                            <ConfrimModal formikRef = { formikRef }/>
+                            <ConfrimModal formikRef={formikRef} />
 
                         </div>
 
@@ -1280,7 +1334,7 @@ const mapStateToProps = state => {
     return {
 
         token: state.login.token,
-        permission:state.login.is_permission
+        permission: state.login.is_permission
     }
 
 }
@@ -1289,8 +1343,8 @@ const mapDispatchToProps = dispatch => {
 
     return {
         update_jobs: () => dispatch(update_jobs()),
-        cancel_permission :()=>dispatch(cacel_permission())
+        cancel_permission: () => dispatch(cacel_permission())
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(CommonForm
+export default connect(mapStateToProps, mapDispatchToProps)(CommonForm
 );

@@ -68,7 +68,7 @@ function ForgotPassword(props) {
                     setLoading(false)
 
                     props.Register(data)
-                    props.ChangePassword()
+                    props.ChangePassword(1)
                     navigate('/verify')
                 },
                 onError: (error) => {
@@ -111,8 +111,8 @@ function ForgotPassword(props) {
 
             </div>
             <div className='mt-0 flex justify-center items-center w-full'>
-                <div className='w-1/3 shadow-md p-10'>
-                    <p className='text-2xl mt-10 mb-10 font-semibold underline '>ENTER YOUR REGISTERED EMAIL</p>
+                <div className='lg:w-1/3 md:w-2/3 w-4/5 shadow-md p-10'>
+                    <p className='text-2xl mt-10 mb-10 font-semibold underline '>Enter your Registered Email ID</p>
 
                     <Formik
 
@@ -133,7 +133,7 @@ function ForgotPassword(props) {
                                                 type='email'
                                                 name='username'
                                                 label="User Name"
-                                                placeholder="EMAIL"
+                                                placeholder="Email ID"
                                             />
 
 
@@ -151,9 +151,11 @@ function ForgotPassword(props) {
 
                                         <div className=" flex justify-between items-center my-10">
                                             <div className='w-max'>
-                                                <a href="#" className="px-[30px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" >Login
+                                                <Link to={'/'} className="px-[30px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-red-400 text-sm font-semibold text-white">
+                                                    Back
                                                     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                                </a>
+
+                                                </Link>
                                             </div>
                                             <div className='w-max'>
                                                 <button type='submit' className="px-[30px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white" >Enter
@@ -196,7 +198,7 @@ const mapDispatchToProps = dispatch => {
 
     return {
         Register: (data) => dispatch(Register(data)),
-        ChangePassword: () => dispatch(ChangePassword()),
+        ChangePassword: (data) => dispatch(ChangePassword(data)),
     }
 }
 

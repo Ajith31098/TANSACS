@@ -18,7 +18,7 @@ function DownloadButton() {
     <>
 
 
-      <button onClick={handleDownload} className='text-red-600 font-semibold text-xl my-6 underline'>TANSACS Recruitment Eligibility Criteria.pdf</button>
+      <button onClick={handleDownload} className='text-red-600 font-semibold text-xl mt-6 underline'>TANSACS Recruitment Eligibility Criteria.pdf</button>
     </>
   );
 }

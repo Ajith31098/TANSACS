@@ -1,20 +1,20 @@
 import { Link } from 'react-router-dom'
 import ApplyButton from '../basecomponents/ApplySuggestion';
-import {connect} from 'react-redux'
-import {removeexp_age } from '../../redux'
+import { connect } from 'react-redux'
+import { removeexp_age } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 function Job5(props) {
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
 
-    useEffect(()=>{
-        if (! props.isLogin){
+    useEffect(() => {
+        if (!props.isLogin) {
             navigate('/')
         }
-    },[props.isLogin])
+    }, [props.isLogin])
 
-    useEffect(()=>{
+    useEffect(() => {
 
         props.removeexp_age()
     })
@@ -24,7 +24,7 @@ function Job5(props) {
                 <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
 
-                <h4 className='text-2xl my-5 underline font-semibold'> DEPUTY DIRECTOR (SI)- 1 POSTS</h4>
+                <h4 className='text-2xl my-5 underline font-semibold'> DEPUTY DIRECTOR (SI) - 1 POST</h4>
 
 
             </div>
@@ -120,21 +120,21 @@ function Job5(props) {
     );
 }
 
-const mapStateToProps =  state =>{
+const mapStateToProps = state => {
 
 
     return {
 
-        isLogin : state.login.isLogin,
+        isLogin: state.login.isLogin,
     }
 }
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
 
     return {
-        removeexp_age : ()=> dispatch(removeexp_age())
+        removeexp_age: () => dispatch(removeexp_age())
     }
 }
 
 
-export default connect(mapStateToProps , mapDispatchToProps)( Job5);
+export default connect(mapStateToProps, mapDispatchToProps)(Job5);

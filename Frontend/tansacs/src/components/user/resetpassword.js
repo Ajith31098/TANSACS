@@ -25,7 +25,7 @@ const validationSchema = Yup.object({
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
             "Password must contain at least one capital,small and number."
         ),
-    confrim_password: Yup.string().oneOf([Yup.ref('password'), ''], 'password not matched').required('Required'),
+    confrim_password: Yup.string().oneOf([Yup.ref('password'), ''], 'password does not match').required('Required'),
 
 })
 
@@ -37,7 +37,7 @@ const validationSchema = Yup.object({
 function ResetPassword(props) {
 
     async function resetUser(values) {
-        const response = await axios.post(`http://127.0.0.1:8000/setpassword/${props.email}`, values);
+        const response = await axios.post(`http://127.0.0.1:8000/setpassword_user/${props.email}`, values);
         return response.data;
     }
 
@@ -62,12 +62,19 @@ function ResetPassword(props) {
             navigate('tansacs/jobs')
         }
 
-        else if (!props.forgot) {
+
+
+    }, [props.isLogin]);
+
+    useEffect(() => {
+
+
+        if (!(props.forgot === 2)) {
             navigate('/')
 
         }
 
-    }, [props.isLogin]);
+    }, [])
 
     const onSubmit = (values, { setFieldError }) => {
         setLoading(true)
@@ -114,6 +121,8 @@ function ResetPassword(props) {
 
     return (
         <>
+            {loading ? <LoadingComponent /> : null}
+
             <div className='mt-5 flex flex-col justify-center items-center'>
                 <h4 className='lg:text-[50px] md:text-[40px] text-[30px] text-custom-red font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
 
@@ -122,7 +131,7 @@ function ResetPassword(props) {
                     boxShadow: "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
                 }}>
 
-                    <p className='g:text-[33px] md:text-[25px] text-[20px] mt-10 mb-5 font-semibold underline'>CREATE NEW PASSWORD</p>
+                    <p className='g:text-[33px] md:text-[25px] text-[20px] mt-10 mb-5 font-semibold underline'>Set Up Your New Password</p>
 
                     <div className='mt-10'>
 
@@ -163,9 +172,11 @@ function ResetPassword(props) {
 
                                             <div className=" flex justify-around items-center my-10">
                                                 <div className='w-max'>
-                                                    <a href="#" className="px-[25px] py-[3px] block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" >Login
+                                                    <Link to={'/'} className="px-[30px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-red-400 text-sm font-semibold text-white">
+                                                        Login
                                                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                                                    </a>
+
+                                                    </Link>
                                                 </div>
                                                 <div className='w-max'>
                                                     <button type='submit' className="px-[25px] py-[3px] block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" >Enter

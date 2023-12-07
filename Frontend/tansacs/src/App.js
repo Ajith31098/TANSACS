@@ -36,7 +36,6 @@ import Detail from './components/admin/detail';
 import Header from './components/basecomponents/header';
 import { Routes, Route } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/Store';
@@ -150,7 +149,6 @@ function App() {
 
             </Routes>
           </div>
-          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </QueryClientProvider>
       </PersistGate>
     </Provider>

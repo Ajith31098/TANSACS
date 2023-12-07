@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import React from 'react';
 import { USER_DETAIL } from '../endpoints/user/userEndpoints';
-import {  set_permission} from '../../redux';
-import {  useNavigate } from 'react-router-dom';
+import { set_permission } from '../../redux';
+import { useNavigate } from 'react-router-dom';
 
 function ApplyButton(props) {
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
 
     const formData = new FormData();
     formData.append('position', props.position);
@@ -42,7 +42,7 @@ function ApplyButton(props) {
     }, []);
 
 
-    const redirect = () =>{
+    const redirect = () => {
         props.set_permission()
         navigate(props.link)
     }
@@ -50,8 +50,8 @@ function ApplyButton(props) {
     if (isLoading) {
         return null;
     } else {
-        if (props.job >= 2){
-            return (<Modal job_count = {true} />)
+        if (props.job >= 2) {
+            return (<Modal job_count={true} />)
         }
         if ((props.age > props.min_age) && (props.age < props.emin_age)) {
             return (<Modal min_age={props.min_age} emin_age={props.emin_age} apply={true} link={props.link} applied={false} />);
@@ -63,15 +63,15 @@ function ApplyButton(props) {
             return (
 
                 <button
-              onClick={redirect}
-                data-modal-hide="default-modal"
-                type="button"
-                className="px-5 py-2.5 block group relative ms-5 w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
-              >
-                Apply
-                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                    onClick={redirect}
+                    data-modal-hide="default-modal"
+                    type="button"
+                    className="px-5 py-1 block group relative ms-5 w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
+                >
+                    Apply
+                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-              </button>
+                </button>
                 // <Link to={props.link} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                 //     Apply  
                 //     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
@@ -85,16 +85,16 @@ const mapStateToProps = state => {
     return {
         age: state.login.user_age,
         token: state.login.token,
-        job:state.login.job
+        job: state.login.job
     };
 };
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
 
     return {
-       
-        set_permission : ()=>dispatch(set_permission())
+
+        set_permission: () => dispatch(set_permission())
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ApplyButton);
+export default connect(mapStateToProps, mapDispatchToProps)(ApplyButton);

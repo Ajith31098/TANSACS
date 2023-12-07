@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom'
 import ApplyButton from '../basecomponents/ApplySuggestion';
-import {connect} from 'react-redux'
-import {removeexp_age } from '../../redux'
+import { connect } from 'react-redux'
+import { removeexp_age } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
 function Job2(props) {
 
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
 
-    useEffect(()=>{
-        if (! props.isLogin){
+    useEffect(() => {
+        if (!props.isLogin) {
             navigate('/')
         }
-    },[props.isLogin])
+    }, [props.isLogin])
 
-    useEffect(()=>{
+    useEffect(() => {
 
         props.removeexp_age()
     })
@@ -66,13 +66,13 @@ function Job2(props) {
                             </caption>
                             <thead>
                                 <tr className="bg-gray-200 border-2 border-gray-400">
-                                    <th className="border-gray-400 text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                    <th className="border-gray-400 text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         S.NO
                                     </th>
-                                    <th className="border-gray-400 text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                    <th className="border-gray-400 text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         DISTRICT
                                     </th>
-                                    <th className="border-gray-400 text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                    <th className="border-gray-400 text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         POST
                                     </th>
 
@@ -81,25 +81,25 @@ function Job2(props) {
 
                             <tbody>
                                 <tr>
-                                    <th className="border-2 border-gray-400 align-middle  text-xs whitespace-nowrap  px-7 py-2  ">
+                                    <th className="border-2 border-gray-400 text-center align-middle  text-xs whitespace-nowrap  px-7 py-2  ">
                                         1
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <td className="border-2 border-gray-400 text-center  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         THOOTHUKUDI
                                     </td>
-                                    <td className="border-2 border-gray-400  align-center  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400 text-center  align-center  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <th className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
+                                    <th className="border-2 border-gray-400 text-center  align-middle  text-xs whitespace-nowrap px-7 py-2 ">
                                         2
                                     </th>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400 text-center  align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         THIRUVALLUR
                                     </td>
-                                    <td className="border-2 border-gray-400  align-middle  text-xs whitespace-nowrap px-7 py-2">
+                                    <td className="border-2 border-gray-400 text-center  align-middle  text-xs whitespace-nowrap px-7 py-2">
                                         1
                                     </td>
 
@@ -129,21 +129,21 @@ function Job2(props) {
     );
 }
 
-const mapStateToProps =  state =>{
+const mapStateToProps = state => {
 
 
     return {
 
-        isLogin : state.login.isLogin,
+        isLogin: state.login.isLogin,
     }
 }
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = dispatch => {
 
     return {
-        removeexp_age : ()=> dispatch(removeexp_age())
+        removeexp_age: () => dispatch(removeexp_age())
     }
 }
 
 
-export default connect(mapStateToProps , mapDispatchToProps)( Job2);
+export default connect(mapStateToProps, mapDispatchToProps)(Job2);

@@ -28,14 +28,19 @@
 
 
 .custom-datepicker-placeholder::placeholder {
-    font-size: 10px;
+    font-size: 11px;
+    font-weight: 200;
     /* or use a specific size like '12px' */
-    color: grey;
+    color: rgba(128, 128, 128, 0.705);
     /* Example: change color */
     /* Add any other styles you want for the placeholder */
 }
 
-.customFormSubmit{
+.customFormSubmit {
 
     font-size: 50px !important;
+}
+
+.customFormSubmitsuccess {
+    font-size: 60px !important;
 }
