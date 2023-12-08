@@ -73,8 +73,8 @@ class Job(models.Model):
         DATA_MONITORING_OFFICER = 'Data Monitoring Documentation Officer'
         DEPUTY_LS_DIRECTOR = 'Deputy Director (LS)'
         DEPUTY_SI_DIRECTOR = 'Deputy Director (SI)'
-        ASSISTANT_ICTC_DIRECTOR = 'Assistent Director (ICTC)'
-        ASSISTANT_TI_DIRECTOR = 'Assistent Director (TI)'
+        ASSISTANT_ICTC_DIRECTOR = 'Assistent Director (BSD) /(ICTC)'
+        ASSISTANT_TI_DIRECTOR = 'Assistent Director (PREVENTION) /(TI)'
         ASSISTANT_IEC_DIRECTOR = 'Assistent Director (IEC)'
 
     user = models.ForeignKey(

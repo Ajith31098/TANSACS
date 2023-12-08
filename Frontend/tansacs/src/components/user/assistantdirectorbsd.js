@@ -11,7 +11,7 @@ function AssistantDirectorBSD(props) {
 
     return (
 
-        <CommForm position="ASSISTANT DIRECTOR (BSD) / (ICTC)" ug={AssistantDirector_BSD_ug} pg={AssistantDirector_BSD_pg} exp={AssistantDirector_BSD_experience} />
+        <CommForm position='Assistent Director (BSD) /(ICTC)' ug={AssistantDirector_BSD_ug} pg={AssistantDirector_BSD_pg} exp={AssistantDirector_BSD_experience} />
     )
 
 }

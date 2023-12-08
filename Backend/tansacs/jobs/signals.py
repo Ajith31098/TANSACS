@@ -101,6 +101,8 @@ def calculate_mark_and_application_id(sender, instance, created,  **kwargs):
     if created:
         random_number = generate_unique_random_number()
 
+        print(instance.position)
+
         # Get the abbreviation based on position
         abbreviation = ABBREVIATION_POSITION.get(instance.position, '')
 

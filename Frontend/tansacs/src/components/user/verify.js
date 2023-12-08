@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { Verified, ChangePassword } from '../../redux'
 import React, { useState, useRef, useEffect } from 'react';
-
+import NotificationModal from "../basecomponents/Notification"
 
 // const initialValues = {
 
@@ -21,10 +21,6 @@ import React, { useState, useRef, useEffect } from 'react';
 // })
 
 
-async function loginUser(values) {
-    const response = await axios.post('http://127.0.0.1:8000/verified', values);
-    return response.data;
-}
 
 
 function VerifyOTP(props) {
@@ -36,6 +32,8 @@ function VerifyOTP(props) {
     const [otps, setOtps] = useState(0)
     const [otp, setOtp] = useState(['', '', '', '']);
     const [error, seterror] = useState(false)
+
+    const [errorOTP, seterrorOTP] = useState(false)
 
     useEffect(() => {
         inputRefs[0]?.current?.focus();
@@ -53,6 +51,18 @@ function VerifyOTP(props) {
         }
     };
 
+    async function loginUser(values) {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/verified', values);
+            return response.data;
+
+        } catch (error) {
+            navigate('/server_error_500')
+            throw error
+
+
+        }
+    }
 
     const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
     const sendotp = async () => {
@@ -65,8 +75,14 @@ function VerifyOTP(props) {
             const receivedOTP = response.data.otp; // Extract OTP from response
             setOtps(receivedOTP);
         } catch (error) {
-            console.error('Error sending OTP:', error);
             // Handle error, show error message, etc.
+            if (props.isRegister && (props.forgot == 0)) {
+                seterrorOTP(true)
+            }
+            else {
+                navigate('/server_error_500')
+                throw error
+            }
         }
     }
 
@@ -158,7 +174,7 @@ function VerifyOTP(props) {
                 },
                 onError: (error) => {
 
-                    console.error(error)
+                    navigate('/server_error_500')
 
                 },
             })
@@ -173,6 +189,7 @@ function VerifyOTP(props) {
 
     return (
         <>
+            {errorOTP && (<NotificationModal />)}
 
 
             <div className="flex flex-col justify-center items-center">

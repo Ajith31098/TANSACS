@@ -22,7 +22,7 @@ import { LIST_APPLICANT } from '../endpoints/admin/AdminEndPoints';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import LoadingComponent from '../basecomponents/loading';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom";
 import GridViewIcon from '@mui/icons-material/GridView';
 
@@ -32,18 +32,18 @@ import GridViewIcon from '@mui/icons-material/GridView';
 
 function Detail(props) {
 
-  const {isLoading , data , isError , error} = useQuery("applicants_by_position" ,()=>{
-    return axios.get(LIST_APPLICANT(props.data_position) , {
-      headers:{
-          'Content-Type' : 'application/json',
-          'Authorization' : `token ${props.token}`
+  const { isLoading, data, isError, error } = useQuery("applicants_by_position", () => {
+    return axios.get(LIST_APPLICANT(props.data_position), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `token ${props.token}`
       }
-     })
+    })
   })
 
   const [initialRows, setInitialRows] = React.useState([]);
 
-  const navigate =  useNavigate()
+  const navigate = useNavigate()
   React.useEffect(() => {
     if (!isLoading && data) {
       setInitialRows(data.data); // Update initialRows with fetched data
@@ -91,38 +91,38 @@ function Detail(props) {
 
 
     if (props.isLogin && !props.isSuperuser) {
-        navigate('tansacs/jobs')
+      navigate('tansacs/jobs')
     }
-  
+
     if (!props.isLogin) {
-        navigate('/')
+      navigate('/')
     }
-  
+
   }, [props.isLogin]);
-  
-
-  if (isLoading){
-    return <LoadingComponent/>
-}
 
 
-if(isError){
-  navigate("/server_error_500")
-}
+  if (isLoading) {
+    return <LoadingComponent />
+  }
+
+
+  if (isError) {
+    navigate("/server_error_500")
+  }
 
   return (
     <>
       <div>
-        <h4 className='text-4xl text-red-600 font-bold mb-14'>Tamil Nadu State AIDS Control Society</h4>
+        <h4 className='text-4xl text-custom-red font-bold mt-10 mb-14'>Tamil Nadu State AIDS Control Society</h4>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <p className='text-red-600 font-semibold '>{props.position }</p>
+          <p className='text-custom-red font-semibold '>{props.position}</p>
           <div className='w-max'>
-              <Link to={"/admin/home"} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
-                  Back
-                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+            <Link to={"/admin/home"} className="px-3 py-1 block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+              Back
+              <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-              </Link>
-            
+            </Link>
+
           </div>
 
         </Box>
@@ -139,6 +139,7 @@ if(isError){
                 value={rowsPerPage}
                 label="Show"
                 onChange={handleChangeRowsPerPage}
+                name="row_per_page"
               >
                 <MenuItem value={5}>5</MenuItem>
                 <MenuItem value={10}>10</MenuItem>
@@ -204,14 +205,14 @@ if(isError){
                   </TableCell>
                   <TableCell  >
                     <Link to={`/admin/applicant/${row.job_id}`} className="link-style">
-                      < GridViewIcon/>
+                      < GridViewIcon />
                     </Link>
                   </TableCell>
                 </TableRow>
               ))}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
+              {data.data.length <= 0 && (
+                <TableRow style={{ height: 53 * emptyRows }} >
+                  <TableCell colSpan={6}><p className='p-10 text-custom-red'>NO APPLICANT TILL NOW</p></TableCell>
                 </TableRow>
               )}
             </TableBody>
@@ -230,16 +231,16 @@ if(isError){
   );
 }
 
-const mapStateToProps =  state =>{
+const mapStateToProps = state => {
 
 
   return {
 
-      isLogin : state.login.isLogin,
-      isSuperuser:state.login.is_superuser,
-      token : state.login.token
+    isLogin: state.login.isLogin,
+    isSuperuser: state.login.is_superuser,
+    token: state.login.token
   }
 }
 
 
-export default connect(mapStateToProps) (Detail);
+export default connect(mapStateToProps)(Detail);

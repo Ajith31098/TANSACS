@@ -175,7 +175,7 @@ function Job1(props) {
 
             <div className='flex justify-center'>
 
-                <ApplyButton position="Cluster Program Manager" min_age={50} emin_age={55} link={'/tansacs/cluster_manager/apply'} />
+                <ApplyButton position="Cluster Program Manager" main={true} min_age={50} emin_age={55} link={'/tansacs/cluster_manager/apply'} />
 
 
 

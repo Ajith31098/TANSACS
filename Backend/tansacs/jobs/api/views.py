@@ -81,6 +81,7 @@ class JobView(APIView):
                     my_custom_signal.send(sender=Job, instance=job)
 
                     return Response(data, status=status.HTTP_200_OK)
+                print('job errors', job_serializer.errors)
             errors = {
                 'sslc_errors': sslc_serializer.errors,
                 'hsc_errors': hsc_serializer.errors,

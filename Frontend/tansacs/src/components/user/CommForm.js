@@ -46,8 +46,9 @@ function CommonForm
             return response.data;
         } catch (error) {
             // Handle errors here if needed
-            console.error('Error:', error);
             // Re-throw the error to be caught by the caller
+            setLoading(false)
+            navigate('/server_error_500')
             throw error
         }
     }
@@ -321,7 +322,6 @@ function CommonForm
 
 
         setLoading(true)
-        console.log('submited', values);
         // setLoading(true)
 
 
@@ -341,10 +341,9 @@ function CommonForm
             },
             onError: (error) => {
 
-                console.log(error.response.data);
 
                 setLoading(false)
-                // navigate('/server_error_500')
+                navigate('/server_error_500')
 
             },
         })
@@ -426,7 +425,6 @@ function CommonForm
 
                     >
 
-                        {console.log(formik)}
 
                         <Field
 
@@ -530,7 +528,7 @@ function CommonForm
 
                                     </div>
 
-                                    <div className="lg:col-span-2 col-span-2">
+                                    <div className="lg:col-span-2 col-span-4">
                                         <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
                                         <FormikControl
                                             control='file'
@@ -641,7 +639,7 @@ function CommonForm
 
                                     </div>
 
-                                    <div className="lg:col-span-2 col-span-2">
+                                    <div className="lg:col-span-2 col-span-4">
                                         <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
                                         <FormikControl
                                             control='file'
@@ -714,14 +712,14 @@ function CommonForm
                                     <div className=' lg:col-span-6 col-span-11'>
                                         <div className='grid grid-cols-5 gap-1'>
                                             <div className="col-span-5">
-                                                <p className='text-start text-xs font-bold mb-2'>Department: <small className='text-custom-red text-sm'>*</small></p>
+                                                <p className='text-start text-xs font-bold mb-2'>Courses / discipline: <small className='text-custom-red text-sm'>*</small></p>
 
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
                                                     name='ug.department'
-                                                    label="ENTER YOUR DEPARTMENT NAME"
-                                                    placeholder="ENTER YOUR DEPARTMENT NAME"
+                                                    label="ENTER YOUR COURSE NAME"
+                                                    placeholder="ENTER YOUR COURSE NAME"
                                                 />
                                             </div>
                                             <div className="lg:col-span-2 col-span-5">
@@ -780,7 +778,7 @@ function CommonForm
 
                                     </div>
 
-                                    <div className="lg:col-span-2 col-span-2">
+                                    <div className="lg:col-span-2 col-span-4">
                                         <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
                                         <FormikControl
                                             control='file'
@@ -810,7 +808,6 @@ function CommonForm
                                             const { push, remove, form } = fieldarrayprops
                                             const { values, validateForm } = form
                                             const { pg } = values
-                                            { console.log(pg) }
                                             return (
                                                 <div className='border-solid border border-gray-400 rounded-md p-4'>
                                                     {
@@ -820,7 +817,7 @@ function CommonForm
 
                                                                     <div className="grid grid-cols-4 gap-1">
                                                                         <div className="col-span-4">
-                                                                            <p className='text-start text-xs font-bold mb-2'>Degree</p>
+                                                                            <p className='text-start text-xs font-bold mb-2'>Degree: <small className='text-custom-red text-sm'>*</small></p>
                                                                             <FormikControl
                                                                                 control='select'
                                                                                 type='text'
@@ -866,13 +863,13 @@ function CommonForm
 
 
                                                                     <div className="lg:col-span-6 col-span-8">
-                                                                        <p className='text-start text-xs font-bold mb-2'>Department: <small className='text-custom-red text-sm'>*</small></p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>Courses / discipline: <small className='text-custom-red text-sm'>*</small></p>
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
                                                                             name={`pg[${index}].department`}
-                                                                            label="ENTER YOUR DEPARTMENT NAME"
-                                                                            placeholder="ENTER YOUR DEPARTMENT NAME"
+                                                                            label="ENTER YOUR COURSE NAME"
+                                                                            placeholder="ENTER YOUR COURSE NAME"
                                                                         />
 
                                                                     </div>
@@ -932,7 +929,7 @@ function CommonForm
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="lg:col-span-2 col-span-2">
+                                                                <div className="lg:col-span-2 col-span-6">
                                                                     <div className="grid col-1 justify-center gap-1">
                                                                         <div>
                                                                             <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
@@ -947,13 +944,12 @@ function CommonForm
                                                                             />
                                                                             <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
 
-
                                                                         </div>
 
                                                                         {
                                                                             index > 0 && (
 
-                                                                                <div >
+                                                                                <div className='flex flex-col justify-center items-center'>
                                                                                     <button type='button' onClick={() => remove(index)} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-xs font-semibold text-white" >cancel
                                                                                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
                                                                                     </button>

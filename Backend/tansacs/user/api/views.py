@@ -1,7 +1,14 @@
+from django.http import StreamingHttpResponse
+from botocore.exceptions import NoCredentialsError, ClientError
+from django.core.files.utils import FileProxyMixin
+import tempfile
+import os
 from rest_framework.permissions import IsAuthenticated
 from datetime import date
 from django.conf import settings
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse, HttpResponseRedirect
+from botocore.client import Config
+
 import boto3
 from rest_framework import generics, permissions, status
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -27,6 +34,7 @@ from .serializer import UserSerializer, CustomUserSerializer, ProfileSerializer,
 from .permissions import IsUnauthenticated
 from .utils import sendOTP
 from jobs.models import Job
+from django.db import transaction
 
 
 class JobVerification(APIView):
@@ -116,12 +124,14 @@ class SetPassword(APIView):
 
 class SignUpView(APIView):
     def post(self, request, format=None):
+
         try:
-            serializer = ProfileSerializer(data=request.data)
-            if serializer.is_valid():
-                profile = serializer.save()
-                return Response({'profile_id': profile.id}, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            with transaction.atomic():
+                serializer = ProfileSerializer(data=request.data)
+                if serializer.is_valid():
+                    profile = serializer.save()
+                    return Response({'profile_id': profile.id}, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
@@ -202,13 +212,72 @@ class LogoutView(APIView):
 #     return profile
 
 
+class RemoveAfterCloseFileProxy(FileProxyMixin):
+    def __init__(self, file):
+        self.file = file
+        self.name = file.name
+
+    def close(self):
+        if not self.closed:
+            self.file.close()
+            try:
+                os.remove(self.name)
+            except FileNotFoundError:
+                pass
+
+    def __del__(self):
+        self.close()
+
+
 def download_file(request, file_name):
-    s3 = boto3.client('s3', aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+    s3 = boto3.client('s3',
+                      region_name='ap-south-1',
+                      aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
                       aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
-    s3.download_file(settings.AWS_STORAGE_BUCKET_NAME,
-                     f'static/{file_name}', '/tmp/tempfile')
-    with open('/tmp/tempfile', 'rb') as f:
-        return FileResponse(f)
+
+    file_key = f'static/{file_name}'
+    try:
+        # Get a streaming response from S3
+        response = s3.get_object(
+            Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=file_key)
+
+        # Stream the file directly to the client
+        return StreamingHttpResponse(
+            streaming_content=response['Body'],
+            content_type=response['ContentType'],
+            headers={'Content-Disposition': f'attachment; filename="{file_name}"'}
+        )
+    except NoCredentialsError:
+        return HttpResponse("Error in AWS Credentials", status=500)
+    except ClientError as e:
+        # Handle specific exceptions or return a generic error response
+        return HttpResponse(f"Error accessing file: {str(e)}", status=500)
+
+    # # Create a temporary file
+    # temp_file = tempfile.NamedTemporaryFile(delete=False)
+    # temp_file_path = temp_file.name
+    # temp_file.close()  # Close the file so it can be accessed by another process
+
+    # try:
+    #     # Download the file from S3 to the temporary file
+    #     s3.download_file(settings.AWS_STORAGE_BUCKET_NAME,
+    #                      f'static/{file_name}', temp_file_path)
+    # except Exception as e:
+    #     print(f"Error downloading file: {e}")
+    #     os.unlink(temp_file_path)  # Ensure to clean up the temporary file
+    #     return HttpResponse("Error downloading file", status=500)
+
+    # # Prepare and send the file in the response
+    # try:
+    #     with open(temp_file_path, 'rb') as file:
+    #         response = FileResponse(
+    #             file, as_attachment=True, filename=file_name)
+    #         return response
+    # except Exception as e:
+    #     print(f"Error sending file: {e}")
+    #     return HttpResponse("Error sending file", status=500)
+    # finally:
+    #         os.unlink(temp_file_path)  # Clean up the temporary file after sending the response
 
 
 def download_success_file(request, pk):

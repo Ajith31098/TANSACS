@@ -8,8 +8,8 @@ POSITION_ABBREVIATIONS = {
     'Data Monitoring Documentation Officer': 'DMDO',
     'Deputy Director (LS)': 'DD_LS',
     'Deputy Director (SI)': 'DD_SI',
-    'Assistent Director (ICTC)': 'AD_ICTC',
-    'Assistent Director (TI)': 'AD_TI',
+    'Assistent Director (BSD) /(ICTC)': 'AD_ICTC',
+    'Assistent Director (PREVENTION) /(TI)': 'AD_TI',
     'Assistent Director (IEC)': 'AD_IEC',
     # Add abbreviations for other positions here
 }

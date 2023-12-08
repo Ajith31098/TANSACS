@@ -24,10 +24,6 @@ const validationSchema = Yup.object({
 })
 
 
-async function forgotUser(values) {
-    const response = await axios.post('http://127.0.0.1:8000/forgot', values);
-    return response.data;
-}
 
 
 function ForgotPassword(props) {
@@ -39,6 +35,19 @@ function ForgotPassword(props) {
 
 
     const mutation = useMutation(forgotUser)
+
+
+    async function forgotUser(values) {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/forgot', values);
+            return response.data;
+        } catch (error) {
+            navigate('/server_error_500')
+            throw error
+
+
+        }
+    }
 
 
     useEffect(() => {

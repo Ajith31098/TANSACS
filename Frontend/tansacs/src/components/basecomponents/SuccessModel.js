@@ -23,7 +23,7 @@ const SuccessModal = (props) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'product_details.pdf');
+      link.setAttribute('download', "application summary.pdf");
       document.body.appendChild(link);
       link.click();
     } catch (error) {
@@ -43,7 +43,7 @@ const SuccessModal = (props) => {
       className=" overflow-y-auto overflow-x-hidden fixed top-0 flex items-start  justify-center right-0 left-0 z-50  w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
     >
       <div className="relative p-10  w-[500px] h-[350px] mt-10">
-        <div className="relative w-full h-full p-4 bg-white rounded-sm shadow bg-custom-choco  relative">
+        <div className="relative w-full h-full p-4 rounded-sm shadow bg-custom-choco  relative">
           <DoneIcon className='p-2 absolute start-1/2 top-0 -translate-y-2/4 -translate-x-2/4 bg-custom-red rounded-full text-white customFormSubmitsuccess mb-5' />
           <div className="flex items-center justify-center p-4 md:p-5  rounded-t ">
             <h3 className="text-3xl font-semibold mt-3">
@@ -62,7 +62,7 @@ const SuccessModal = (props) => {
 
               data-modal-hide="default-modal"
               type="button"
-              className="w-[100px] py-1 block group relative w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
+              className="w-[100px] py-1 px-4 block group relative w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
             >
               Done
               <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
@@ -72,7 +72,7 @@ const SuccessModal = (props) => {
               onClick={() => handleDownload(props.id)}
               data-modal-hide="default-modal"
               type="button"
-              className="w-[100px] py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
+              className="w-[100px] py-1 px-4 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
             >
               Download
               <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>

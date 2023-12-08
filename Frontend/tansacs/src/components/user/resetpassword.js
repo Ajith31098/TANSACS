@@ -36,10 +36,9 @@ const validationSchema = Yup.object({
 
 function ResetPassword(props) {
 
-    async function resetUser(values) {
-        const response = await axios.post(`http://127.0.0.1:8000/setpassword_user/${props.email}`, values);
-        return response.data;
-    }
+
+
+
 
 
     const navigate = useNavigate()
@@ -49,6 +48,19 @@ function ResetPassword(props) {
 
     const mutation = useMutation(resetUser)
 
+
+    async function resetUser(values) {
+        try {
+            const response = await axios.post(`http://127.0.0.1:8000/setpassword_user/${props.email}`, values);
+            return response.data;
+
+        } catch (error) {
+            navigate('/server_error_500')
+            throw error
+
+
+        }
+    }
 
     useEffect(() => {
 
@@ -95,14 +107,16 @@ function ResetPassword(props) {
                 onError: (error) => {
 
                     const errorData = error.response;
-
-                    console.log(errorData)
+                    setLoading(false)
                     if (errorData.status == 404) {
 
                         setFieldError('password', "user not found");
 
-                        setLoading(false)
 
+
+                    }
+                    else {
+                        navigate('/server_error_500')
                     }
 
 
@@ -172,7 +186,7 @@ function ResetPassword(props) {
 
                                             <div className=" flex justify-around items-center my-10">
                                                 <div className='w-max'>
-                                                    <Link to={'/'} className="px-[30px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-red-400 text-sm font-semibold text-white">
+                                                    <Link to={'/'} className="px-[30px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
                                                         Login
                                                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 

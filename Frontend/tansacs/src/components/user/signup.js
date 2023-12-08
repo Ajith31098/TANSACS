@@ -67,7 +67,7 @@ const validationSchema = Yup.object({
             'Aadhaar number must be exactly 12 digits',
             val => val && val.length === 12 // Check if the length is exactly 12
         ),
-    email: Yup.string().required("Required").email(),
+    email: Yup.string().required("Required").matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format"),
     confrim_email: Yup.string().oneOf([Yup.ref('email'), ''], 'email not matched').required('Required'),
     guardian_name: Yup.string().required("Required").matches(/^[A-Za-z ]+$/, "Invalid Data"),
     guardian_name_initial: Yup.string().matches(/^[A-Za-z ]+$/, "Invalid Data"),
@@ -150,21 +150,7 @@ const stateOptions = [
 
 const districtOptions = district
 
-async function signUpUser(values) {
-    try {
-        const response = await axios.post('http://127.0.0.1:8000/signup', values, {
-            headers: {
 
-                'Content-Type': 'application/json'
-            },
-        });
-        return response.data;
-    } catch (error) {
-        // Handle errors here if needed
-        console.error('Error:', error);
-        throw error; // Re-throw the error to be caught by the caller
-    }
-}
 
 
 
@@ -180,7 +166,22 @@ function Signup(props) {
 
     const mutation = useMutation(signUpUser)
 
+    async function signUpUser(values) {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/signup', values, {
+                headers: {
 
+                    'Content-Type': 'application/json'
+                },
+            });
+            return response.data;
+        } catch (error) {
+            navigate('/server_error_500')
+            throw error
+
+
+        }
+    }
     const onSubmit = (values, { setFieldError }) => {
 
         setLoading(true)
@@ -234,7 +235,6 @@ function Signup(props) {
 
 
 
-        console.log(values);
     };
 
     useEffect(() => {
@@ -326,7 +326,7 @@ function Signup(props) {
 
                             <div className="grid grid-cols-2 mb-3 gap-10 border border-black border-solid rounded p-2">
 
-                                <div className='grid grid-cols-4 lg:col-span-1 col-span-2 gap-y-4 gap-x-10'>
+                                <div className='grid grid-cols-4 lg:col-span-1 col-span-2 gap-y-4 lg:gap-x-10 gap-x-5'>
                                     <div className="col-span-3">
                                         <FormikControl
                                             control='input'
@@ -347,7 +347,7 @@ function Signup(props) {
                                         />
 
                                     </div>
-                                    <div className="col-span-1">
+                                    <div className="lg:col-span-1 col-span-2">
                                         <FormikControl
                                             control='select'
                                             type='select'
@@ -384,8 +384,8 @@ function Signup(props) {
                                                             calendarIcon={<img src={calender} alt="calender" />}
                                                             className={
                                                                 touched.DOB && errors.DOB
-                                                                    ? ' custom-datepicker-placeholder w-full placeholder-shown:borrelative border border shadow-md py-1 px-2 border-red-400 w-full rounded text-sm focus:outline-none focus:border-sky-400'
-                                                                    : ' custom-datepicker-placeholder w-full relative border border shadow-md py-1 px-2 text-sm text-slate-200 border-gray-300 w-full rounded focus:outline-none focus:border-sky-400'
+                                                                    ? ' custom-datepicker-placeholder w-full placeholder-shown:borrelative border border shadow-md py-1 px-2 border-red-400 w-full rounded text-sm focus:outline-none focus:border-sky-400  text-dark'
+                                                                    : ' custom-datepicker-placeholder w-full relative border border shadow-md py-1 px-2 text-sm  border-gray-300 w-full rounded focus:outline-none focus:border-sky-400 text-dark'
                                                             }
                                                             onChange={(val) => {
                                                                 const formattedDate = format(val, 'yyyy-MM-dd');
@@ -454,7 +454,7 @@ function Signup(props) {
                                     </div>
 
                                 </div>
-                                <div className='grid grid-cols-4 lg:col-span-1 col-span-2 gap-y-4 gap-x-10'>
+                                <div className='grid grid-cols-4 lg:col-span-1 col-span-2 gap-y-4 lg:gap-x-10 gap-x-5'>
                                     <div className="col-span-3">
                                         <FormikControl
                                             control='input'
@@ -477,7 +477,7 @@ function Signup(props) {
                                     </div>
 
 
-                                    <div className="col-span-3">
+                                    <div className="lg:col-span-3 col-span-4">
                                         <FormikControl
                                             control='input'
                                             type='text'
@@ -487,7 +487,7 @@ function Signup(props) {
                                         />
 
                                     </div>
-                                    <div className="col-span-3">
+                                    <div className="lg:col-span-3 col-span-4">
                                         <FormikControl
                                             control='input'
                                             type='text'
@@ -497,7 +497,7 @@ function Signup(props) {
                                         />
 
                                     </div>
-                                    <div className="col-span-3">
+                                    <div className="lg:col-span-3 col-span-4">
                                         <FormikControl
                                             control='password'
                                             type='text'
@@ -507,7 +507,7 @@ function Signup(props) {
                                         />
 
                                     </div>
-                                    <div className="col-span-3">
+                                    <div className="lg:col-span-3 col-span-4">
                                         <FormikControl
                                             control='password'
                                             type='text'
@@ -673,7 +673,7 @@ function Signup(props) {
 
                             <div className=" flex justify-center gap-10 items-center mt-16">
                                 <div className='w-max'>
-                                    <Link to={'/'} className="px-[15px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-red-400 text-sm font-semibold text-white">
+                                    <Link to={'/'} className="px-[15px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
                                         Back to Login
                                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 

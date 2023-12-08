@@ -188,6 +188,8 @@
 
     <!-- Education Details -->
     <p class="headers">Education Details</p>
+
+
     <p class="headers">S.S.L.C</p>
     <table style="width:100%;">
         <tr>
@@ -209,6 +211,8 @@
 
         <!-- Add more rows as needed -->
     </table>
+
+
     <p class="headers">H.S.C </p>
     <table style="width:100%;">
         <tr>
@@ -230,6 +234,8 @@
 
         <!-- Add more rows as needed -->
     </table>
+
+
     <p class="headers">U.G </p>
     <table style="width:100%;">
         <tr>
@@ -252,6 +258,8 @@
 
         <!-- Add more rows as needed -->
     </table>
+
+
     <p class="headers">P.G </p>
     {% for each in job.pg.all %}
 
@@ -277,6 +285,59 @@
         <!-- Add more rows as needed -->
     </table>
     {% endfor %}
+
+    {% if job.exp.all %}
+    <p class="headers">Experience</p>
+    {% for each in job.exp.all %}
+
+    <table style="width:100%;">
+        <tr>
+            <td>Degree</td>
+            <td>{{each.degree}}</td>
+        </tr>
+        <tr>
+            <td>Company</td>
+            <td>{{each.company}}</td>
+        </tr>
+
+
+        <tr>
+            <td>Years</td>
+            <td>{{each.year}}</td>
+        </tr>
+
+        <!-- Add more rows as needed -->
+    </table>
+
+    {% endfor %}
+    {% endif %}
+
+
+    {% if job.pexp.all %}
+    <p class="headers">WorkExperience With in (NACO / TANSACS / TSU )</p>
+
+    {% for each in job.pexp.all %}
+
+    {% if each.company == 'NACO' %}
+
+    <p>Expereience in NACO : {{each.year}} years</p>
+
+    {% endif %}
+    {% if each.company == 'TANSACS' %}
+
+    <p>Expereience in TANSACS : {{each.year}} years</p>
+
+    {% endif %}
+    {% if each.company == 'TSU' %}
+
+    <p>Expereience in TSU : {{each.year}} years</p>
+
+    {% endif %}
+
+    {% endfor %}
+
+
+    {% endif %}
 
 
 </body>

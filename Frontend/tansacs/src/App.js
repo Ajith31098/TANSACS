@@ -52,6 +52,7 @@ import AdminADIEC from './components/admin/AdminADIEC';
 import AdminADTI from './components/admin/AdminADTI';
 import AdminADICTC from './components/admin/AdminADICTC';
 import ServerError500 from './components/basecomponents/ServerError500';
+import PageNotFound from './components/basecomponents/PageNotFound';
 import "./css/main.css"
 const queryClient = new QueryClient()
 
@@ -120,6 +121,7 @@ function App() {
               </Route>
 
               <Route path='/server_error_500' element={<ServerError500 />} />
+              <Route path='*' element={<PageNotFound />} />
 
 
 

@@ -141,7 +141,6 @@ AWS_SECRET_ACCESS_KEY = 'cPcsJBwSVendfsV30LEneJF4oEdJj5MOj/gJ1b4w'
 AWS_STORAGE_BUCKET_NAME = 'tansac-s3'
 AWS_S3_REGION_NAME = 'ap-south-1'  # e.g., 'us-east-1'
 AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
 
 # Configure static and media file URLs
 STATIC_URL = 'https://tansac-s3.s3.amazonaws.com/static/'
