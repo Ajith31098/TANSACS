@@ -47,19 +47,27 @@ function ApplyButton(props) {
         navigate(props.link)
     }
 
+
+
     if (isLoading) {
         return null;
     } else {
         if (props.job >= 2) {
             return (<Modal job_count={true} />)
         }
+        else if (data && data.has_applied) {
+            return (<Modal apply={false} applied={true} />);
+        }
         if ((props.age > props.min_age) && (props.age <= props.emin_age)) {
+
             return (<Modal min_age={props.min_age} emin_age={props.emin_age} apply={true} link={props.link} applied={false} />);
         } else if ((props.age > props.min_age) && (props.age > props.emin_age)) {
+
             return (<Modal main={props.main ? true : false} min_age={props.min_age} emin_age={props.emin_age} apply={false} applied={false} />);
-        } else if (data && data.has_applied) {
-            return (<Modal apply={false} applied={true} />);
+
         } else {
+
+
             return (
 
                 <button

@@ -27,7 +27,7 @@ class SSLC(models.Model):
         validators=[MaxValueValidator(100)],
     )
     board = models.CharField(choices=Board.choices)
-    marksheet = models.ImageField(upload_to="SSLC/", blank=True, null=True)
+    marksheet = models.FileField(upload_to="SSLC/", blank=True, null=True)
 
 
 class HSC(models.Model):
@@ -44,7 +44,7 @@ class HSC(models.Model):
         validators=[MaxValueValidator(100)],
     )
     board = models.CharField(choices=Board.choices)
-    marksheet = models.ImageField(upload_to="HSC/", blank=True, null=True)
+    marksheet = models.FileField(upload_to="HSC/", blank=True, null=True)
 
 
 class UG(models.Model):
@@ -62,7 +62,7 @@ class UG(models.Model):
         validators=[MaxValueValidator(100)],
     )
 
-    marksheet = models.ImageField(upload_to="UG/", blank=True, null=True)
+    marksheet = models.FileField(upload_to="UG/", blank=True, null=True)
 
 
 class Job(models.Model):
@@ -117,7 +117,7 @@ class PG(models.Model):
         validators=[MaxValueValidator(100)],
     )
 
-    marksheet = models.ImageField(upload_to="PG/", blank=True, null=True)
+    marksheet = models.FileField(upload_to="PG/", blank=True, null=True)
     job = models.ForeignKey(Job, on_delete=models.CASCADE,
                             related_name="pg", blank=True, null=True, default=None)
 
@@ -129,7 +129,7 @@ class Experience(models.Model):
     degree = models.CharField(max_length=200)
     company = models.CharField(max_length=100)
     year = models.IntegerField()
-    certificate = models.ImageField(
+    certificate = models.FileField(
         upload_to="Experience/", blank=True, null=True)
     course = models.CharField(
         max_length=50, choices=Course.choices, default=Course.UG)
@@ -147,8 +147,8 @@ class PreferedExperience(models.Model):
 
     company = models.CharField(max_length=100, choices=Company.choices)
     year = models.IntegerField()
-    certificate = models.ImageField(
+    certificate = models.FileField(
         upload_to="PreferedExperience/", blank=True, null=True)
-    NOC = models.ImageField(upload_to="NOC/", blank=True, null=True)
+    NOC = models.FileField(upload_to="NOC/", blank=True, null=True)
     job = models.ForeignKey(Job, on_delete=models.CASCADE,
                             related_name="pexp", blank=True, null=True, default=None)

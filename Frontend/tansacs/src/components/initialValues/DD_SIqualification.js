@@ -40,5 +40,6 @@ export const DDSI_experience = [
     { key: 'MS office package and SPSS', value: 'MS office package and SPSS' },
     { key: 'epidemiological analysis ', value: 'epidemiological analysis' },
     { key: 'biostatistics', value: 'biostatistics' },
+    { key: 'HIV/AIDS ', value: 'hiv/aids' },
 
 ]

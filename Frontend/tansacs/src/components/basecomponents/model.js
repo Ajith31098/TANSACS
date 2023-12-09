@@ -97,7 +97,6 @@ const Modal = (props) => {
 
 
 
-
             <div className="flex w-full p-4 md:p-5  rounded-b border-gray-600">
               {(props.apply) ?
 
@@ -107,6 +106,7 @@ const Modal = (props) => {
                   onClick={redirectButton}
                   className="text-white w-full font-medium rounded-lg text-sm px-[15px] py-[5px] text-center bg-custom-red "
                 >
+
                   APPLY
                 </button>
                 :

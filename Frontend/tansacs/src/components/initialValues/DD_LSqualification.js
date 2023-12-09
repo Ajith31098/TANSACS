@@ -34,5 +34,6 @@ export const DDLS_experience = [
     { key: 'Select', value: '' },
     { key: 'medical diagnostic laboratory', value: 'medical diagnostic laboratory' },
     { key: 'accredited labs', value: 'accredited labs' },
+    { key: 'HIV/AIDS ', value: 'hiv/aids' },
 
 ]

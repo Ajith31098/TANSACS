@@ -82,6 +82,13 @@ class JobView(APIView):
 
                     return Response(data, status=status.HTTP_200_OK)
                 print('job errors', job_serializer.errors)
+            print('sslc errors', sslc_serializer.errors)
+            print('hsc errors', hsc_serializer.errors)
+            print('ug errors', ug_serializer.errors)
+            print('pg errors', pg_serializer.errors)
+            print('experience errors', experience_serializer.errors)
+            print('prefered_experience errors',
+                  prefered_experience_serializer.errors)
             errors = {
                 'sslc_errors': sslc_serializer.errors,
                 'hsc_errors': hsc_serializer.errors,

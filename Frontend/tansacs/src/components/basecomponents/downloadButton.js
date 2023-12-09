@@ -25,8 +25,8 @@ function DownloadButton(props) {
 
   return (
     <>
-      <button onClick={handleDownload} className='text-red-600 font-semibold text-xl mt-6 underline'>
-        TANSACS Recruitment Eligibility Criteria.pdf
+      <button onClick={handleDownload} className='text-red-600 font-semibold text-xl mt-2 underline'>
+        {props.content}
       </button>
     </>
   );

@@ -157,8 +157,8 @@ function CommonForm
             .required('Required')
             .test(
                 'fileType',
-                'Only JPEG, JPG, and PDF files are allowed',
-                value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+                'Only PDF files are allowed',
+                value => value && (value.type === 'application/pdf')
             )
             .test(
                 'fileSize',
@@ -192,8 +192,8 @@ function CommonForm
             .required('Required')
             .test(
                 'fileType',
-                'Only JPEG, JPG, and PDF files are allowed',
-                value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+                'Only PDF files are allowed',
+                value => value && (value.type === 'application/pdf')
             )
             .test(
                 'fileSize',
@@ -238,8 +238,8 @@ function CommonForm
                 !!degree || !!company || !!year || !!course,
             then: () => Yup.mixed().required('certificate is required').test(
                 'fileType',
-                'Only JPEG, JPG, and PDF files are allowed',
-                value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+                'Only  PDF files are allowed',
+                value => value && (value.type === 'application/pdf')
             )
                 .test(
                     'fileSize',
@@ -281,8 +281,8 @@ function CommonForm
                     .required('Certificate is required')
                     .test(
                         'fileType',
-                        'Only JPEG, JPG, and PDF files are allowed',
-                        value => value && (value.type === 'application/pdf' || value.type === 'image/jpeg' || value.type === 'image/jpg')
+                        'Only PDF files are allowed',
+                        value => value && (value.type === 'application/pdf')
                     )
                     .test(
                         'fileSize',
@@ -538,7 +538,7 @@ function CommonForm
                                             formik={formik}
                                             label="Browse File"
                                         />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
 
                                     </div>
@@ -649,7 +649,7 @@ function CommonForm
                                             formik={formik}
                                             label="Browse File"
                                         />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
                                     </div>
 
@@ -788,7 +788,7 @@ function CommonForm
                                             formik={formik}
                                             label="Browse File"
                                         />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
                                     </div>
 
@@ -942,7 +942,7 @@ function CommonForm
                                                                                 formik={formik}
                                                                                 label="Browse File"
                                                                             />
-                                                                            <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                                            <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
                                                                         </div>
 
@@ -1071,7 +1071,7 @@ function CommonForm
                                                                                     formik={formik}
                                                                                     label="Browse File"
                                                                                 />
-                                                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
                                                                             </div>
 
@@ -1153,7 +1153,7 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse file"
                                                 />
-                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
                                             </div>
 
@@ -1206,7 +1206,7 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse File"
                                                 />
-                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
                                             </div>
 
@@ -1261,7 +1261,7 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse File"
                                                 />
-                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .jpeg or .jpg or .pdf formats.</p>
+                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
 
                                             </div>
 

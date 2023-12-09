@@ -17,6 +17,7 @@
             width: 170mm;
             /* Adjust width to account for margins */
             margin: 0 auto;
+            font-weight: bold;
             /* ... other styles ... */
         }
 
@@ -27,8 +28,8 @@
         }
 
         td {
-            border: 1px solid black;
-            padding: 2px;
+            border: 1px solid rgba(150, 150, 150, 0.466);
+            padding: 5px;
         }
 
 
@@ -36,7 +37,6 @@
         .headers {
             text-decoration: underline;
             color: #f40000;
-            font-size: 20px;
             margin: 10px 0;
         }
 
@@ -47,17 +47,34 @@
             font-size: 25px;
             margin-bottom: 50px;
         }
-
-        img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            float: right;
-        }
     </style>
 </head>
 
 <body>
+
+    <table style="margin-bottom:0px">
+        <tr>
+
+            <td style="border:none">
+
+                <img src="{% static 'tn ACS logo.png' %}" alt="" width="100px" height="100px">
+            </td>
+            <td style="border:none">
+
+                <img src="{% static '100 Year Logo - 4.png' %}" alt="" width="100px" height="100px">
+            </td>
+            <td style="border:none">
+
+                <img src="{% static 'Tamil_Nadu_Emblem.png' %}" alt="" width="100px" height="100px">
+            </td>
+            <td style="border:none">
+
+                <img src="{% static 'NACO LOGO.png' %}" alt="" width="100px" height="100px">
+            </td>
+
+        </tr>
+    </table>
+
     <h1>Tamil Nadu State AIDS Control Society</h1>
 
     <table style="margin-bottom:0px">
@@ -65,7 +82,7 @@
 
             <td style="border:none">
 
-                <img src="{{job.user.profile.profile_image.url}}" alt="">
+                <img src="{{job.user.profile.profile_image.url}}" alt="" width="100px" height="100px">
             </td>
         </tr>
     </table>
@@ -269,7 +286,7 @@
             <td>{{each.degree}}</td>
         </tr>
         <tr>
-            <td>U.G Register Number</td>
+            <td>P.G Register Number</td>
             <td>{{each.register_number}}</td>
         </tr>
         <tr>

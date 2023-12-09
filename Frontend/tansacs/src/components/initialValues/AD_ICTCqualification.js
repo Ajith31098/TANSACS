@@ -46,5 +46,6 @@ export const AssistantDirector_BSD_experience = [
     { key: 'Development Partners implementing agencies ', value: 'Development Partners implementing agencies ' },
     { key: 'Private Sector', value: 'Private Sector' },
     { key: 'MS Office', value: 'MS Office' },
+    { key: 'HIV/AIDS ', value: 'hiv/aids' },
 
 ]

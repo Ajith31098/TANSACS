@@ -36,7 +36,8 @@ class JobDataSerializer(serializers.ModelSerializer):
     user_full_name = serializers.SerializerMethodField()
     username = serializers.CharField(source='user.username')
     application_id = serializers.CharField()
-    score = serializers.IntegerField(source='mark')
+    score = serializers.DecimalField(
+        source='mark', max_digits=5, decimal_places=2)
     job_id = serializers.IntegerField(source='id')
     phone_number = serializers.CharField(source='user.profile.phone_number')
 

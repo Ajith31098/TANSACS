@@ -112,6 +112,7 @@ function Detail(props) {
 
   return (
     <>
+      {console.log(data.data)}
       <div>
         <h4 className='text-4xl text-custom-red font-bold mt-10 mb-14'>Tamil Nadu State AIDS Control Society</h4>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

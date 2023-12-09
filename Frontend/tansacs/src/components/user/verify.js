@@ -87,7 +87,7 @@ function VerifyOTP(props) {
     }
 
 
-    const [timer, setTimer] = useState(300);
+    const [timer, setTimer] = useState(420);
     const [disableInput, setDisableInput] = useState(false);
     let interval
     const startTimer = () => {
@@ -144,11 +144,11 @@ function VerifyOTP(props) {
     const handleResendClick = () => {
         // Reset timer to initial value
         if (timer == 0) {
-            setTimer(300);
+            setTimer(420);
             startTimer()
         }
         else {
-            setTimer(300);
+            setTimer(420);
         }
         setDisableInput(false);
         sendotp()// Enable input field

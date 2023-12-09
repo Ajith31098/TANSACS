@@ -68,19 +68,23 @@ def my_custom_signal_receiver(sender, **kwargs):
     exp_total_years_pg = sum(exps.year for exps in instance.exp.all(
     ) if exps.course == Experience.Course.PG)
     # print("exp_score", exp_percentage)
-    exp_total_years = exp_total_years_ug + exp_total_years_pg
-    exp_percentage = 0
+    exp_percentage = exp_total_years_ug * \
+        4 if exp_total_years_pg == 0 else exp_total_years_pg*7
 
-    if exp_total_years >= 4:
-        exp_percentage = 20
-    elif exp_total_years >= 3:
-        exp_percentage = 18
-    elif exp_total_years >= 2:
-        exp_percentage = 13
-    elif exp_total_years >= 1:
-        exp_percentage = 8
-    else:
-        exp_percentage = 0
+    print(exp_percentage)
+
+    exp_percentage = exp_percentage if exp_percentage <= 20 else 20
+
+    # if exp_total_years >= 4:
+    #     exp_percentage = 20
+    # elif exp_total_years >= 3:
+    #     exp_percentage = 18
+    # elif exp_total_years >= 2:
+    #     exp_percentage = 13
+    # elif exp_total_years >= 1:
+    #     exp_percentage = 8
+    # else:
+    #     exp_percentage = 0
     print(sslc_percentage, hsc_percentage,
           ug_percentage, pg_percentage, exp_percentage)
     mark = sslc_percentage + hsc_percentage + \

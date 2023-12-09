@@ -49,5 +49,5 @@ export const DMDO_experience = [
     { key: 'Demography ', value: 'Demography ' },
     { key: 'Statistics ', value: 'Statistics ' },
     { key: 'Population Sciences', value: 'Population Sciences' },
-    { key: 'HIV/AIDS sector', value: 'HIV/AIDS sector ' },
+    { key: 'HIV/AIDS', value: 'HIV/AIDS' },
 ]

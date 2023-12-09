@@ -187,7 +187,7 @@ function ResetPassword(props) {
                                             <div className=" flex justify-around items-center my-10">
                                                 <div className='w-max'>
                                                     <Link to={'/'} className="px-[30px] py-[3px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                                                        Login
+                                                        Back
                                                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                                                     </Link>

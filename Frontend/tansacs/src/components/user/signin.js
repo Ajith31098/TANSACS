@@ -163,7 +163,7 @@ function SignIn(props) {
                                     </div>
 
 
-                                    <div className="w-2/3 flex justify-between gap-2 mt-5 items-center flex-wrap">
+                                    <div className="w-2/3 flex justify-between gap-2 mt-5 items-center flex-wrap mb-5">
                                         <div className='w-max'>
                                             <button type='submit' className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" >Login
                                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
@@ -191,8 +191,8 @@ function SignIn(props) {
                         </Formik>
                     </div>
 
-                    <DownloadButton file_name="Tansacsjobcriteria.pdf" />
-                    <DownloadNOCButton file_name="" />
+                    <DownloadButton file_name="Tansacsjobcriteria.pdf" content="TANSACS Recruitment Eligibility Criteria.pdf" />
+                    <DownloadButton file_name="NOC Form.pdf" content="NOC Form.pdf" />
                     <p className='text-custom-red font-bold mb-3 font6'>Note: TANSACS Job Posting Details are given in the link above, please read carefully before applying.</p>
                     <p className='font-semibold text-lg font6'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA.</p>
 
