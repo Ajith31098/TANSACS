@@ -205,6 +205,8 @@ function VerifyOTP(props) {
 
                     <p className='text-custom-red text-sm mt-10 mt-5 mb-5 font-semibold underline'>Please enter the OTP sent to your registered Email-ID</p>
 
+                    <p className='text-custom-red text-sm mt-10 mt-5 mb-5 font-semibold underline'>If not, check your spam or bin folder.</p>
+
 
                     <div className='mt-10'>
 

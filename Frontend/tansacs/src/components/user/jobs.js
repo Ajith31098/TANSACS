@@ -29,8 +29,8 @@ function Jobs(props) {
             <div className='mt-5'>
                 <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
-                <div className='flex flex-col gap-2 mb-3'>
-                    <p className='font-semibold'>Tamil Nadu State AIDS Control Society (TANSACS), Chennai invites applications
+                <div className='flex flex-col gap-2 mb-2'>
+                    <p className='font-semibold lg:text-[20px] md:text-[10px] text-[15px]'>Tamil Nadu State AIDS Control Society (TANSACS), Chennai invites applications
                         from eligible candidates with the qualifications / requirements mentioned against each along with recent passport
                         size photographs with self attested  Xerox copies of Mark sheet (10th, +2, UG degree & PG degree) & Experience
                         certificates (to be uploaded) for the following contractual posts on consolidated monthly remuneration and purely

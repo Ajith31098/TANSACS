@@ -38,6 +38,7 @@
             text-decoration: underline;
             color: #f40000;
             margin: 10px 0;
+            text-transform: uppercase;
         }
 
         h1 {
@@ -88,7 +89,7 @@
     </table>
 
     <!-- Personal Details -->
-    <p class="headers">Personal Details</p>
+    <p class="headers">PERSONAL DETAILS</p>
 
 
 
@@ -145,7 +146,7 @@
         </tr>
         <tr>
             <td>
-                Guardian Name
+                Parent's Name
 
             </td>
             <td>
@@ -154,7 +155,7 @@
         </tr>
         <tr>
             <td>
-                Aadhar Card
+                Aadhar Card Number
 
             </td>
             <td>
@@ -174,7 +175,11 @@
 
     <!-- Address Details -->
     {% for each in job.user.profile.address.all %}
-    <p class="headers">{{each.address_type}} Address</p>
+    {% if each.address_type == "permanent" %}
+    <p class="headers">PERMANENT ADDRESS</p>
+    {% else %}
+    <p class="headers">COMMUNICATION ADDRESS</p>
+    {% endif %}
     <table style="width:100%;">
         <tr>
             <td>Address Line 1</td>
@@ -204,10 +209,10 @@
     {% endfor %}
 
     <!-- Education Details -->
-    <p class="headers">Education Details</p>
+    <p class="headers">EDUCATION DETAILS</p>
 
 
-    <p class="headers">S.S.L.C</p>
+    <p class="headers">S.S.L.C.</p>
     <table style="width:100%;">
         <tr>
             <td>S.S.L.C. Register Number</td>
@@ -230,7 +235,7 @@
     </table>
 
 
-    <p class="headers">H.S.C </p>
+    <p class="headers">H.S.C.</p>
     <table style="width:100%;">
         <tr>
             <td>H.S.C Register Number</td>
@@ -253,7 +258,7 @@
     </table>
 
 
-    <p class="headers">U.G </p>
+    <p class="headers">UNDERGRADUATE </p>
     <table style="width:100%;">
         <tr>
             <td>U.G Degree</td>
@@ -277,7 +282,7 @@
     </table>
 
 
-    <p class="headers">P.G </p>
+    <p class="headers">POSTGRADUATE </p>
     {% for each in job.pg.all %}
 
     <table style="width:100%;">
@@ -304,7 +309,7 @@
     {% endfor %}
 
     {% if job.exp.all %}
-    <p class="headers">Experience</p>
+    <p class="headers">EXPERIENCE</p>
     {% for each in job.exp.all %}
 
     <table style="width:100%;">
@@ -331,7 +336,7 @@
 
 
     {% if job.pexp.all %}
-    <p class="headers">WorkExperience With in (NACO / TANSACS / TSU )</p>
+    <p class="headers">WORK EXPERIENCE WITH IN ( NACO / TANSACS / TSU )</p>
 
     {% for each in job.pexp.all %}
 

@@ -712,7 +712,7 @@ function CommonForm
                                     <div className=' lg:col-span-6 col-span-11'>
                                         <div className='grid grid-cols-5 gap-1'>
                                             <div className="col-span-5">
-                                                <p className='text-start text-xs font-bold mb-2'>Courses / discipline: <small className='text-custom-red text-sm'>*</small></p>
+                                                <p className='text-start text-xs font-bold mb-2'>Courses / Discipline: <small className='text-custom-red text-sm'>*</small></p>
 
                                                 <FormikControl
                                                     control='input'
@@ -863,7 +863,7 @@ function CommonForm
 
 
                                                                     <div className="lg:col-span-6 col-span-8">
-                                                                        <p className='text-start text-xs font-bold mb-2'>Courses / discipline: <small className='text-custom-red text-sm'>*</small></p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>Courses / Discipline: <small className='text-custom-red text-sm'>*</small></p>
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
@@ -1008,7 +1008,7 @@ function CommonForm
 
 
                                                                     <div className="lg:col-span-3 col-span-12">
-                                                                        <p className='text-start text-xs font-bold mb-2'>Experience Based Work</p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>Experience Based Work:</p>
                                                                         <FormikControl
                                                                             control='select'
                                                                             type='text'
@@ -1020,7 +1020,7 @@ function CommonForm
 
 
                                                                     <div className="lg:col-span-3 col-span-12">
-                                                                        <p className='text-start text-xs font-bold mb-2'>Company Name</p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>Company Name:</p>
 
                                                                         <FormikControl
                                                                             control='input'
@@ -1035,7 +1035,7 @@ function CommonForm
 
 
                                                                     <div className="lg:col-span-2 col-span-6">
-                                                                        <p className='text-start text-xs font-bold mb-2'>No. of Year's Experience</p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>No. of Year's Experience:</p>
 
                                                                         <FormikControl
                                                                             control='input'
@@ -1048,7 +1048,7 @@ function CommonForm
                                                                     </div>
 
                                                                     <div className="lg:col-span-2 col-span-12">
-                                                                        <p className='text-start text-xs font-bold mb-2'>Course</p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>Experience After UG / PG:</p>
                                                                         <FormikControl
                                                                             control='select'
                                                                             type='text'
@@ -1062,7 +1062,7 @@ function CommonForm
                                                                     <div className="lg:col-span-2 col-span-6">
                                                                         <div className="grid grid-cols-1 justify-center">
                                                                             <div className='col-span-1 flex flex-col justify-center items-center'>
-                                                                                <p className='text-start text-xs font-bold mb-2'>Upload Certificate</p>
+                                                                                <p className='text-start text-xs font-bold mb-2'>Upload Certificate:</p>
                                                                                 <FormikControl
                                                                                     control='file'
                                                                                     type='file'
@@ -1132,7 +1132,7 @@ function CommonForm
                                             </div>
                                             <div className="col-span-2">
 
-                                                <p className='text-start text-xs font-bold mb-2'>Enter Years</p>
+                                                <p className='text-start text-xs font-bold mb-2'>Enter Year's:</p>
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
@@ -1144,7 +1144,7 @@ function CommonForm
                                             </div>
 
                                             <div className='col-span-3'>
-                                                <p className='text-center text-xs font-bold mb-2'>Supporting document</p>
+                                                <p className='text-center text-xs font-bold mb-2'>Supporting document:</p>
                                                 <FormikControl
                                                     control='file'
                                                     type='file'
@@ -1185,7 +1185,7 @@ function CommonForm
                                             </div>
                                             <div className="col-span-2">
 
-                                                <p className='text-start text-xs font-bold mb-2'>Enter Years</p>
+                                                <p className='text-start text-xs font-bold mb-2'>Enter Year's:</p>
                                                 <FormikControl
                                                     control='input'
                                                     type='text'
@@ -1197,7 +1197,7 @@ function CommonForm
                                             </div>
 
                                             <div className='col-span-3'>
-                                                <p className='text-center text-xs font-bold mb-2'>Supporting document</p>
+                                                <p className='text-center text-xs font-bold mb-2'>Supporting document:</p>
                                                 <FormikControl
                                                     control='file'
                                                     type='file'
@@ -1240,7 +1240,7 @@ function CommonForm
                                             </div>
                                             <div className="col-span-2">
 
-                                                <p className='text-start text-xs font-bold mb-2'>Enter Years</p>
+                                                <p className='text-start text-xs font-bold mb-2'>Enter Year's:</p>
 
                                                 <FormikControl
                                                     control='input'
@@ -1252,7 +1252,7 @@ function CommonForm
                                             </div>
 
                                             <div className='col-span-3'>
-                                                <p className='text-center text-xs font-bold mb-2'>Supporting document</p>
+                                                <p className='text-center text-xs font-bold mb-2'>Supporting document:</p>
                                                 <FormikControl
                                                     control='file'
                                                     type='file'
@@ -1300,7 +1300,7 @@ function CommonForm
 
 
                                 </div>
-                                <p className='text-xs text-start text-black mt-2 font-bold'><small className='font-bold text-custom-red'>note : </small>  Only for the existing employees of NACO/TANSACS/TSU</p>
+                                <p className='text-xs text-start text-black mt-2 font-bold'><small className='font-bold text-custom-red text-sm'>Note : </small>  Only for the existing employees of NACO/TANSACS/TSU</p>
                             </div>
                         </div>
 

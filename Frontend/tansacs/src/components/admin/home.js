@@ -73,358 +73,359 @@ function AdminHome(props) {
     if (isLoading) {
         return <LoadingComponent />
     }
+    if (data) {
+        return (
+            <>
+                <h4 className='text-4xl text-custom-red font-bold mt-14 mb-14'>Tamil Nadu State AIDS Control Society</h4>
 
-    return (
-        <>
-            <h4 className='text-4xl text-custom-red font-bold mt-14 mb-14'>Tamil Nadu State AIDS Control Society</h4>
-
-            <p className=' text-2xl font-semibold mb-5'>DASHBORD HAS TO BE ESTABLISHED TO TRACK RECIEVED JOB POSTING</p>
-            <div className="text-end">
-                <button onClick={() => { logoutButton() }} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" >Logout
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-                </button>
-            </div>
-            <div className="grid grid-cols-3 mt-10 gap-10">
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10'>
-                        <Link to={'CPM'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Cluster Program Manager - 7 Posts
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                        </Link>
-
-                    </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
-
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'CPM')?.applicants_count || 0}
-                                    </td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
+                <p className=' text-2xl font-semibold mb-5'>DASHBORD HAS TO BE ESTABLISHED TO TRACK RECIEVED JOB POSTING</p>
+                <div className="text-end">
+                    <button onClick={() => { logoutButton() }} className="px-4 py-1 block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" >Logout
+                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                    </button>
                 </div>
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10'>
-                        <Link to={'DD_SI'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Deputy Director (SI) - 1 Post
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                <div className="grid grid-cols-3 mt-10 gap-10">
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10'>
+                            <Link to={'CPM'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Cluster Program Manager - 7 Posts
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                        </Link>
+                            </Link>
 
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
+
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'CPM')?.applicants_count || 0}
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
                     </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10'>
+                            <Link to={'DD_SI'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Deputy Director (SI) - 1 Post
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
+                            </Link>
 
-                                </tr>
-                            </thead>
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
 
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'DD_SI')?.applicants_count || 0}
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
 
-                                    </td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'DD_SI')?.applicants_count || 0}
+
+                                        </td>
 
 
-                                </tr>
+                                    </tr>
 
-                            </tbody>
+                                </tbody>
 
-                        </table>
+                            </table>
+                        </div>
                     </div>
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10'>
+                            <Link to={'DD_LS'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Deputy Director (LS) - 1 Post
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                            </Link>
+
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
+
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'DD_LS')?.applicants_count || 0}
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10'>
+                            <Link to={'CSO'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Clinical Server Officer - 2 Posts
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                            </Link>
+
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
+
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'CSO')?.applicants_count || 0}
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10'>
+                            <Link to={'AD_ICTC'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Assistant Director (ICTC) / (BSD) - 1 Post
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                            </Link>
+
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
+
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'AD_ICTC')?.applicants_count || 0}
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10'>
+                            <Link to={'AD_IEC'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Assistant Director (IEC) - 1 Post
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                            </Link>
+
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
+
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'AD_IEC')?.applicants_count || 0}
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10'>
+                            <Link to={'DMDO'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Data Monitoring Documentation Officer
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                            </Link>
+
+
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
+
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'DMDO')?.applicants_count || 0}
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1 col-span-3">
+                        <div className='w-full mb-10 '>
+                            <Link to={'AD_TI'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
+                                Assistant Director (Prevention) / (TI) - 2 Posts
+                                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                            </Link>
+
+                        </div>
+                        <div className="flex justify-center">
+                            <table className="items-center bg-transparent w-2/3 border rounded-lg">
+
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Post
+                                        </th>
+                                        <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
+                                            Applicant
+                                        </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
+                                            APPLICENT RECIVED
+                                        </th>
+                                        <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
+                                            {data.data.find(position => position.abbreviation === 'AD_TI')?.applicants_count || 0}
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10'>
-                        <Link to={'DD_LS'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Deputy Director (LS) - 1 Post
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                        </Link>
-
-                    </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
-
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'DD_LS')?.applicants_count || 0}
-
-                                    </td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10'>
-                        <Link to={'CSO'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Clinical Server Officer - 2 Posts
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                        </Link>
-
-                    </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
-
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'CSO')?.applicants_count || 0}
-
-                                    </td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10'>
-                        <Link to={'AD_ICTC'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Assistant Director (ICTC) / (BSD) - 1 Post
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                        </Link>
-
-                    </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
-
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'AD_ICTC')?.applicants_count || 0}
-
-                                    </td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10'>
-                        <Link to={'AD_IEC'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Assistant Director (IEC) - 1 Post
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                        </Link>
-
-                    </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
-
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'AD_IEC')?.applicants_count || 0}
-
-                                    </td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10'>
-                        <Link to={'DMDO'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Data Monitoring Documentation Officer
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                        </Link>
-
-
-                    </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
-
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'DMDO')?.applicants_count || 0}
-
-                                    </td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-                <div className="lg:col-span-1 col-span-3">
-                    <div className='w-full mb-10 '>
-                        <Link to={'AD_TI'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                            Assistant Director (Prevention) / (TI) - 2 Posts
-                            <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                        </Link>
-
-                    </div>
-                    <div className="flex justify-center">
-                        <table className="items-center bg-transparent w-2/3 border rounded-lg">
-
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Post
-                                    </th>
-                                    <th className=" text-red-500 align-middle border border-solid border-black py-3 text-xs uppercase  whitespace-nowrap font-semibold">
-                                        Applicant
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <th className="border border-solid border-black align-middle  text-xs whitespace-nowrap  p-4  ">
-                                        APPLICENT RECIVED
-                                    </th>
-                                    <td className="border border-solid border-black align-middle  text-xs whitespace-nowrap p-4 ">
-                                        {data.data.find(position => position.abbreviation === 'AD_TI')?.applicants_count || 0}
-
-                                    </td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </>
-    );
+            </>
+        );
+    }
 }
 
 

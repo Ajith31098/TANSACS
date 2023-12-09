@@ -170,7 +170,7 @@ function Preview(props) {
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">NAME OF APPLICANT</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.first_name + data.data?.user_profile.last_name}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.first_name + " " + data.data?.user_profile.last_name}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">DATE OF BIRTH</p>
@@ -197,8 +197,8 @@ function Preview(props) {
                     <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.aadhar}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
-                    <p className="w-1/2 text-start text-sm font-bold">EMERGENCY CONTACT NUMBER</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">TAN 76765</p>
+                    <p className="w-1/2 text-start text-sm font-bold">CONTACT NUMBER</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.phone_number}</p>
                   </div>
 
                 </div>
@@ -256,11 +256,11 @@ function Preview(props) {
                   }}>
 
                     <div className="flex w-full justify-center items-center text-sm font-bold gap-3" >
-                      <p className="w-1/2 text-start text-sm font-bold">S.S.L.C REGISTER NUMBER</p>
+                      <p className="w-1/2 text-start text-sm font-bold">S.S.L.C. REGISTER NUMBER</p>
                       <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.sslc.register_number}</p>
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
-                      <p className="w-1/2 text-start text-sm font-bold">MONTH /YEAR OF PASSING</p>
+                      <p className="w-1/2 text-start text-sm font-bold">MONTH / YEAR OF PASSING</p>
                       <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.sslc.year}</p>
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
@@ -278,7 +278,7 @@ function Preview(props) {
                     <div className="flex justify-between items-center ignorebutton">
 
                       <a target='_blank' href={data.data.sslc.marksheet} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                        Marksheet
+                        View
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                       </a>
@@ -304,7 +304,7 @@ function Preview(props) {
                       <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.hsc.register_number}</p>
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
-                      <p className="w-1/2 text-start text-sm font-bold">MONTH /YEAR OF PASSING</p>
+                      <p className="w-1/2 text-start text-sm font-bold">MONTH / YEAR OF PASSING</p>
                       <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.hsc.year}</p>
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
@@ -318,7 +318,7 @@ function Preview(props) {
                     <div className="flex justify-between items-center ignorebutton">
 
                       <a target='_blank' href={data.data.hsc.marksheet} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                        Marksheet
+                        View
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                       </a>
@@ -365,7 +365,7 @@ function Preview(props) {
                     <div className="flex justify-between items-center ignorebutton">
 
                       <a target='_blank' href={data.data.ug.marksheet} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                        Marksheet
+                        View
                         <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                       </a>
@@ -411,7 +411,7 @@ function Preview(props) {
                       <div className="flex justify-between items-center ignorebutton">
 
                         <a target='_blank' href={pg.marksheet} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                          Marksheet
+                          View
                           <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                         </a>
@@ -493,7 +493,7 @@ function Preview(props) {
             </div>
 
             <div className="w-full my-3 ">
-              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">WorkExperience With in (NACO / TANSACS / TSU )</p>
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Work Experience With in ( NACO / TANSACS / TSU )</p>
 
               <div className=" w-full my-5  flex flex-col gap-5">
                 <div className="flex w-full flex-wrap justify-start items-center text-sm font-bold ">
@@ -529,7 +529,7 @@ function Preview(props) {
                   </div>
                 </div>
                 <div className="flex w-full flex-wrap justify-start items-center text-sm font-bold ">
-                  <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">TANSAC EXPERENCE : </p>
+                  <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">TANSAC EXPERIENCE : </p>
                   <p className="lg:w-1/4 w-2/4 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.pexp[1]?.year ? data.data.pexp[1].year : 0} </p>
                   <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
                     {data.data.pexp[1]?.certificate ? (
@@ -561,7 +561,7 @@ function Preview(props) {
                   </div>
                 </div>
                 <div className="flex w-full flex-wrap justify-start items-center text-sm font-bold ">
-                  <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">TSU EXPERENCE : </p>
+                  <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">TSU EXPERIENCE : </p>
                   <p className="lg:w-1/4 w-2/4 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.pexp[2]?.year ? data.data.pexp[2].year : 0} </p>
                   <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
                     {data.data.pexp[2]?.certificate ? (

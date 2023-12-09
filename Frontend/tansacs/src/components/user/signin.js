@@ -14,6 +14,7 @@ import DownloadButton from '../basecomponents/downloadButton'
 import DownloadNOCButton from '../basecomponents/NOCForm'
 import Ribbon from '../../logo/ribbon.png'
 import '../../css/ribbon.css'
+import CopyrightIcon from '@mui/icons-material/Copyright';
 
 const initialvalues = {
     username: '',
@@ -196,7 +197,11 @@ function SignIn(props) {
                     <p className='text-custom-red font-bold mb-3 font6'>Note: TANSACS Job Posting Details are given in the link above, please read carefully before applying.</p>
                     <p className='font-semibold text-lg font6'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA.</p>
 
+                    <p className='text-right font-semibold text-lg font6 w-full'> <CopyrightIcon className='text-custom-red' /> 2023TANSACS, All rights reserved  </p>
                 </div>
+
+
+
             </div>
 
         </>
