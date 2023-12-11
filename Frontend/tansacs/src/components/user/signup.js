@@ -288,7 +288,7 @@ function Signup(props) {
                                 <div className='flex flex-col items-center' style={{
                                     width: "210px"
                                 }}>
-                                    <p className='text-[15px] text-custom-red font-semibold mt-2 cursor-pointer'>Upload Passport Size Photo </p>
+                                    <p className='text-[15px] text-custom-red font-semibold mt-2 '>Upload Passport Size Photo </p>
 
                                     <div className='flex flex-col items-center  border-2 border-gray-400 p-2 border-solid w-[120px] '>
                                         <img className='w-full h-[100px] object-cover'

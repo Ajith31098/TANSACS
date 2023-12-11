@@ -10,3 +10,11 @@ def adiec_exp_score(instance):
     score = total * 7
 
     return 20 if score >= 20 else score
+
+
+def get_score_adiec(ug, pg):
+
+    if pg > 0:
+        return pg * 7
+
+    return 0

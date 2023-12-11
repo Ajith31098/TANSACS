@@ -8,31 +8,31 @@ from django.db.models.signals import post_save
 from .models import Job
 from superadmin.api.utiils import generate_unique_random_number
 from .models import Experience
-from .ScoreValidatorJobs.cpm import cpm_exp_score
-from .ScoreValidatorJobs.cso import cso_exp_score
-from .ScoreValidatorJobs.dmdo import dmdo_exp_score
-from .ScoreValidatorJobs.ddls import ddls_exp_score
-from .ScoreValidatorJobs.ddsi import ddsi_exp_score
-from .ScoreValidatorJobs.adictc import adictc_exp_score
-from .ScoreValidatorJobs.adti import adti_exp_score
-from .ScoreValidatorJobs.adiec import adiec_exp_score
+from .ScoreValidatorJobs.cpm import get_score_cpm
+from .ScoreValidatorJobs.cso import get_score_cso
+from .ScoreValidatorJobs.dmdo import get_score_dmdo
+from .ScoreValidatorJobs.ddls import get_score_ddls
+from .ScoreValidatorJobs.ddsi import get_score_ddsi
+from .ScoreValidatorJobs.adictc import get_score_adictc
+from .ScoreValidatorJobs.adti import get_score_adti
+from .ScoreValidatorJobs.adiec import get_score_adiec
 from django.dispatch import Signal
 
 ABBREVIATION_POSITIONS = {
-    Job.POSITION.CLUSTER_MANAGER: cpm_exp_score,
-    Job.POSITION.CLINICAL_OFFICER: cso_exp_score,
-    Job.POSITION.DATA_MONITORING_OFFICER: dmdo_exp_score,
-    Job.POSITION.DEPUTY_LS_DIRECTOR: ddls_exp_score,
-    Job.POSITION.DEPUTY_SI_DIRECTOR: ddsi_exp_score,
-    Job.POSITION.ASSISTANT_ICTC_DIRECTOR: adictc_exp_score,
-    Job.POSITION.ASSISTANT_TI_DIRECTOR: adti_exp_score,
-    Job.POSITION.ASSISTANT_IEC_DIRECTOR: adiec_exp_score,
+    Job.POSITION.CLUSTER_MANAGER: get_score_cpm,
+    Job.POSITION.CLINICAL_OFFICER: get_score_cso,
+    Job.POSITION.DATA_MONITORING_OFFICER: get_score_dmdo,
+    Job.POSITION.DEPUTY_LS_DIRECTOR: get_score_ddls,
+    Job.POSITION.DEPUTY_SI_DIRECTOR: get_score_ddsi,
+    Job.POSITION.ASSISTANT_ICTC_DIRECTOR: get_score_adictc,
+    Job.POSITION.ASSISTANT_TI_DIRECTOR: get_score_adti,
+    Job.POSITION.ASSISTANT_IEC_DIRECTOR: get_score_adiec,
 }
 
 
-def get_score(instance):
+def get_score(ug, pg, position):
 
-    return ABBREVIATION_POSITIONS[instance.position](instance)
+    return ABBREVIATION_POSITIONS[position](ug, pg)
 
 
 # Define the abbreviation dictionary
@@ -62,16 +62,18 @@ def my_custom_signal_receiver(sender, **kwargs):
         pg.percentage for pg in instance.pg.all()) if pg_count > 0 else 0
     pg_percentage = ((pg_total_percentage / pg_count) /
                      100) * 10 if pg_count > 0 else 0
-    # exp_percentage = get_score(instance)
     exp_total_years_ug = sum(exps.year for exps in instance.exp.all(
     ) if exps.course == Experience.Course.UG)
     exp_total_years_pg = sum(exps.year for exps in instance.exp.all(
     ) if exps.course == Experience.Course.PG)
     # print("exp_score", exp_percentage)
-    exp_percentage = exp_total_years_ug * \
-        4 if exp_total_years_pg == 0 else exp_total_years_pg*7
+    # exp_percentage = exp_total_years_ug * \
+    #     4 if exp_total_years_pg == 0 else exp_total_years_pg*7
 
-    print(exp_percentage)
+    # print(exp_percentage)
+
+    exp_percentage = get_score(
+        exp_total_years_ug, exp_total_years_pg, instance.position)
 
     exp_percentage = exp_percentage if exp_percentage <= 20 else 20
 

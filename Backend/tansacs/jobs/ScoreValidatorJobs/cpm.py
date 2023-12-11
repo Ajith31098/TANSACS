@@ -40,3 +40,11 @@ def cpm_exp_score(instance):
         score = total * 7
 
     return 20 if score >= 20 else score
+
+
+def get_score_cpm(ug, pg):
+
+    if pg > 0:
+        return pg * 4
+
+    return ug * 7

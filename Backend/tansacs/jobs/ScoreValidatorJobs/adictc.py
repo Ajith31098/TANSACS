@@ -11,3 +11,11 @@ def adictc_exp_score(instance):
     score = total * 7
 
     return 20 if score >= 20 else score
+
+
+def get_score_adictc(ug, pg):
+
+    if pg > 0:
+        return pg * 7
+
+    return 0

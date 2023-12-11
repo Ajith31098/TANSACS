@@ -41,3 +41,11 @@ def cso_exp_score(instance):
         score = total * 20
 
     return 20 if score >= 20 else score
+
+
+def get_score_cso(ug, pg):
+
+    if pg > 0:
+        return 20
+
+    return ug * 7
