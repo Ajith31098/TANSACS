@@ -50,7 +50,15 @@ function ApplyButton(props) {
 
 
     if (isLoading) {
-        return null;
+        return (
+            <button
+                className="px-5 py-1 block group relative ms-5 w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
+            >
+                Apply
+                <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+            </button>
+        )
     } else {
         if (props.job >= 2) {
             return (<Modal job_count={true} />)

@@ -167,20 +167,14 @@ function Signup(props) {
     const mutation = useMutation(signUpUser)
 
     async function signUpUser(values) {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/signup', values, {
-                headers: {
+        const response = await axios.post('http://127.0.0.1:8000/signup', values, {
+            headers: {
 
-                    'Content-Type': 'application/json'
-                },
-            });
-            return response.data;
-        } catch (error) {
-            navigate('/server_error_500')
-            throw error
+                'Content-Type': 'application/json'
+            },
+        });
+        return response.data;
 
-
-        }
     }
     const onSubmit = (values, { setFieldError }) => {
 

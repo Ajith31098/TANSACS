@@ -38,15 +38,10 @@ function ForgotPassword(props) {
 
 
     async function forgotUser(values) {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/forgot', values);
-            return response.data;
-        } catch (error) {
-            navigate('/server_error_500')
-            throw error
 
+        const response = await axios.post('http://127.0.0.1:8000/forgot', values);
+        return response.data;
 
-        }
     }
 
 
@@ -83,16 +78,14 @@ function ForgotPassword(props) {
                 onError: (error) => {
 
                     const errorData = error.response;
+                    setLoading(false)
 
                     console.log(errorData)
                     if (errorData.status == 400) {
                         if (errorData.data.username) {
                             setFieldError('username', errorData.data.username);
                         }
-                        // if (errorData.data.number) {
-                        //   setFieldError('number', errorData.data.number);
-                        // }
-                        setLoading(false)
+
 
                     }
 
