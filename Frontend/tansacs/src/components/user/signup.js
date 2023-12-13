@@ -203,6 +203,7 @@ function Signup(props) {
                         navigate('/verify', { replace: true })
                     })
                     .catch(function (error) {
+                        console.log(error);
                         navigate('/')
                     })
 
@@ -217,7 +218,7 @@ function Signup(props) {
                         setFieldError('email', errorData.data.email[0]);
                     }
                 }
-                if (errorData.status == 500) {
+                else {
                     navigate('/server_error_500')
                 }
 
