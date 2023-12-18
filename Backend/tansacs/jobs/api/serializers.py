@@ -66,4 +66,4 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         # No fields are included in the serializer
-        fields = ['position', 'sslc', 'hsc', 'ug', 'user']
+        fields = ['position', 'sslc', 'hsc', 'ug', 'user', 'signature']

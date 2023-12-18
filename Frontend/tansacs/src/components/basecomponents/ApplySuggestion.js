@@ -78,16 +78,18 @@ function ApplyButton(props) {
 
             return (
 
-                <button
-                    onClick={redirect}
-                    data-modal-hide="default-modal"
-                    type="button"
-                    className="px-5 py-1 block group relative ms-5 w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
-                >
-                    Apply
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                <Modal link={props.link} normal_check={true} />
 
-                </button>
+                // <button
+                //     onClick={redirect}
+                //     data-modal-hide="default-modal"
+                //     type="button"
+                //     className="px-5 py-1 block group relative ms-5 w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white"
+                // >
+                //     Apply
+                //     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                // </button>
                 // <Link to={props.link} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                 //     Apply  
                 //     <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>

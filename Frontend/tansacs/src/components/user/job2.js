@@ -37,20 +37,56 @@ function Job2(props) {
 
                 <div className="lg:col-span-2 col-span-3">
                     <div className="border border-black p-3 flex flex-col gap-5 text-start">
-                        <p>Bachelor’s Degree in Medical or Allied Health Sciences / Master’s
-                            Degree in Public Health / Healthcare Management / Healthcare Administration
-                            / Social Science / Psychology / Applied Epidemiology / Demography
-                            / Statistics / Population Sciences
+                        <p className="text-base font-bold">Qualification:</p>
+                        <p>Bachelor’s Degree in Medical or Allied Sciences / Master’s Degree
+                            in Public Health / Healthcare Management / Healthcare
+                            Administration / Social Science / Psychology / Applied
+                            Epidemiology / Demography / Statistics / Population Sciences
                         </p>
 
                         <p className="text-base font-bold">Experience:</p>
                         <ul className="list-disc mx-4">
-                            <li>One year’s experience for candidates with a Master’s Degree in Public Health / Healthcare Management / Healthcare Administration / Applied Epidemiology </li>
-                            <li>Three year's experience in Public Health with a  Bachelor’s Degree in Medical or Allied Sciences / Masters in Social Science / Psychology / Demography / Statistics / Population Sciences with minimum of one year of experience in the HIV/AIDS sector.</li>
+                            <li>One year’s experience for candidates with a Master’s Degree
+                                in Public Health / Healthcare Management / Healthcare
+                                Administration / Applied Epidemiology</li>
+                            <li>Three years’ experience in Public Health with a Bachelor’s
+                                Degree in Medical or Allied Sciences / Masters in Social
+                                Science / Psychology / Demography / Statistics / Population
+                                Sciences with minimum of one year of experience in the
+                                HIV/AIDS sector.</li>
                         </ul>
+
+                        <p className="text-base font-bold">Desirable:</p>
+                        <ul className="list-disc mx-4">
+                            <li>The suitable candidate will be familiar with the
+                                organization and functions of the State and local public
+                                health systems / State AIDS Control Societies
+                            </li>
+                            <li>Excellent written and verbal communication skills in local
+                                languages and English (Speaking, Reading and
+                                Writing).
+                            </li>
+                            <li>Strong analytical, Advocacy and negotiation skills</li>
+                            <li>Willingness to travel extensively.</li>
+                            <li>Other expertise includes:</li>
+
+                        </ul>
+                        <ul className="list-disc mx-8">
+                            <li>Programme Management Skills</li>
+                            <li>Good knowledge of computers</li>
+                            <li>Capacity building and Team Management
+                            </li>
+
+
+                        </ul>
+
+
                         <p>
                             <small className="text-base font-bold"> Age limit:</small>
-                            45 years as on 30.06.2023
+                            For the existing employees of NACO/TANSACS/TSU,
+                            the upper age limit is 50 years as on 30.06.2023. For other
+                            candidates, upper age limit is 45 years as on 30.06.2023
+
                         </p>
                     </div>
                 </div>
@@ -64,7 +100,7 @@ function Job2(props) {
                                 CONSOLIDATED MONTHLY REMUNERATION
                                 ( PER MONTH ) RS 46,800/-
                             </caption>
-                            <thead>
+                            {/* <thead>
                                 <tr className="bg-gray-200 border-2 border-gray-400">
                                     <th className="border-gray-400 text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         S.NO
@@ -106,7 +142,7 @@ function Job2(props) {
                                 </tr>
 
 
-                            </tbody>
+                            </tbody> */}
 
                         </table>
                     </div>
@@ -116,7 +152,7 @@ function Job2(props) {
             </div>
 
             <div className='flex justify-center'>
-                <ApplyButton position="Clinical Service Officer" min_age={45} emin_age={45} link={'/tansacs/clinical_officer/apply'} />
+                <ApplyButton position="Clinical Service Officer" min_age={45} emin_age={50} link={'/tansacs/clinical_officer/apply'} />
 
                 {/* <Link to={} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply

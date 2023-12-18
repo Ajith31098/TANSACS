@@ -79,48 +79,66 @@ function Preview(props) {
       .catch(error => console.error('Download error:', error));
   };
 
-
-  const downloadPageAsPDF = (fileName) => {
-    // Hide elements with the 'ignorebutton' class
-    const ignoreElements = document.querySelectorAll('.ignorebutton');
-    const shadowElements = document.querySelectorAll('.box-shadow');
-    ignoreElements.forEach(el => el.style.visibility = 'hidden');
-    shadowElements.forEach(el => {
-      el.classList.remove('box-shadow'); // Remove the same classes
-    });
-
-    html2canvas(document.body, { scale: 1 }) // Adjust scale as needed
-      .then((canvas) => {
-        // Show the 'ignorebutton' elements again
-        ignoreElements.forEach(el => el.style.visibility = 'visible');
-
-        const imgData = canvas.toDataURL('image/png');
-        const imgWidth = 210; // A4 width in mm
-        const pageHeight = 295;  // A4 height in mm
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-
-        const pdf = new jsPDF('p', 'mm');
-        let position = 0;
-
-        // Add image to first page
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        // Add new pages if content overflows
-        while (heightLeft >= 0) {
-          position = heightLeft - imgHeight;
-          pdf.addPage();
-          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight;
-        }
-
-        pdf.save(`${fileName}.pdf`);
-        shadowElements.forEach(el => {
-          el.classList.add('box-shadow'); // Add back the same classes
-        });
+  const handleDownloadadmin = async (id, filename) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/jobs/admin_download/${id}`, {
+        responseType: 'blob',  // Important for handling PDF download
       });
+      console.log("success");
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${filename}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error('Error downloading the file:', error);
+    }
   };
+
+
+
+  // const downloadPageAsPDF = (fileName) => {
+  //   // Hide elements with the 'ignorebutton' class
+  //   const ignoreElements = document.querySelectorAll('.ignorebutton');
+  //   const shadowElements = document.querySelectorAll('.box-shadow');
+  //   ignoreElements.forEach(el => el.style.visibility = 'hidden');
+  //   shadowElements.forEach(el => {
+  //     el.classList.remove('box-shadow'); // Remove the same classes
+  //   });
+
+  //   html2canvas(document.body, { scale: 1 }) // Adjust scale as needed
+  //     .then((canvas) => {
+  //       // Show the 'ignorebutton' elements again
+  //       ignoreElements.forEach(el => el.style.visibility = 'visible');
+
+  //       const imgData = canvas.toDataURL('image/png');
+  //       const imgWidth = 210; // A4 width in mm
+  //       const pageHeight = 295;  // A4 height in mm
+  //       const imgHeight = canvas.height * imgWidth / canvas.width;
+  //       let heightLeft = imgHeight;
+
+  //       const pdf = new jsPDF('p', 'mm');
+  //       let position = 0;
+
+  //       // Add image to first page
+  //       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //       heightLeft -= pageHeight;
+
+  //       // Add new pages if content overflows
+  //       while (heightLeft >= 0) {
+  //         position = heightLeft - imgHeight;
+  //         pdf.addPage();
+  //         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //         heightLeft -= pageHeight;
+  //       }
+
+  //       pdf.save(`${fileName}.pdf`);
+  //       shadowElements.forEach(el => {
+  //         el.classList.add('box-shadow'); // Add back the same classes
+  //       });
+  //     });
+  // };
 
 
   if (data) {
@@ -130,7 +148,7 @@ function Preview(props) {
 
     return (
       <>
-
+        {console.log(data)}
 
 
 
@@ -601,7 +619,29 @@ function Preview(props) {
 
 
 
+            <div className="my-3">
 
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Signature</p>
+
+              <div className="my-3 flex gap-10 items-center">
+                <p className=" text-sm font-bold">SIGNATURE</p>
+                <a target='_blank' href={data.data.signature} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+                  View
+                  <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                </a>
+
+                <button onClick={() => handleDownload(data.data.signature, `${data.data.application_id}_signature.jpeg`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+
+                  Download
+                  <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                </button>
+
+
+              </div>
+
+            </div>
 
 
           </div>
@@ -609,9 +649,11 @@ function Preview(props) {
 
         </div>
 
+
+
         <div className="flex justify-center items-center">
 
-          <button className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" onClick={() => downloadPageAsPDF(data.data.application_id)}>Download as PDF</button>
+          <button className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white" onClick={() => handleDownloadadmin(data.data.id, data.data.application_id)}>Download as PDF</button>
         </div>
 
       </>

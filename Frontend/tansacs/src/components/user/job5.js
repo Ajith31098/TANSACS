@@ -33,23 +33,45 @@ function Job5(props) {
 
                 <div className="lg:col-span-2 col-span-3">
                     <div className="border border-black p-3 flex flex-col gap-5 text-start">
-                        <p>Bachelors Degree in Medical Sciences and MD/DNB (Community Medicine / Epidemiology )
+                        <p className="text-base font-bold">Essential Qualification:</p>
+                        <li>Bachelors Degree in Medical Sciences and MD/DNB (Community
+                            Medicine / Epidemiology)
                             OR
-                            Master / Post Graduation in Public Health / Health Administration /
-                            Applied Epidemiology or Diploma in Public Health/Masters in Demography /
-                            Statistics / Population Sciences / Social Sciences /
-                            Computer Application (Two year course) and similar streams from a Recognized University.
+                            Master / Post Graduation in Public Health / Health Administration
+                            / Applied Epidemiology or Diploma in Public Health/Masters in
+                            Demography / Statistics / Population Sciences / Social Sciences /
+                            Computer Application (Two year course) and similar streams from
+                            a Recognized University
+                        </li>
 
-                        </p>
-
-                        <p className="text-base font-bold">Experience:</p>
+                        <p className="text-base font-bold">Essential Experience:</p>
                         <ul className="list-disc mx-4">
-                            <li>5 years experience in Public Health in surveillance / research / M&E / epidemiology.</li>
+                            <li>5 years experience in Public Health in surveillance / research
+                                / M&E / Epidemiology.
+                            </li>
 
-                            <li>Working knowledge of computers including MS office package and SPSS</li>
+                            <li>Working knowledge of computers including MS office package
+                                and SPSS </li>
 
-                            <li>Good working knowledge of epidemiological analysis and biostatistics.</li>
+                            <li>Good working knowledge of Epidemiological analysis and
+                                biostatistics.
+                            </li>
                         </ul>
+
+                        <p className="text-base font-bold">Desirable:</p>
+                        <ul className="list-disc mx-4">
+                            <li>Past experience of working in HIV/AIDS programme or
+                                projects under Government or bilateral / multi-lateral
+                                agencies in India. Good working knowledge of
+                                Epidemiological analysis and other statistical packages.
+                            </li>
+                            <li>Preference will be given to the candidate working in the
+                                field of HIV/AIDS.
+                            </li>
+
+                        </ul>
+
+
                         <p>
                             <small className="text-base font-bold"> Age limit:</small>
                             60 years as on 30.06.2023

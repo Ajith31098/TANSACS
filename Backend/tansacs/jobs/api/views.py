@@ -22,6 +22,8 @@ from django.http import HttpResponse
 from xhtml2pdf import pisa
 from io import BytesIO
 
+from django.shortcuts import render
+
 
 class JobView(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -44,6 +46,7 @@ class JobView(APIView):
         token = Token.objects.get(key=request.auth)
 
         position = validated_data['position']
+        signature = validated_data['signature']
 
         # NOC = validated_data['NOC']
         with transaction.atomic():
@@ -63,7 +66,7 @@ class JobView(APIView):
                 ), ug_serializer.save()
 
                 job_serializer = JobSerializer(
-                    data={'position': position, 'sslc': sslc.id, 'hsc': hsc.id, 'ug': ug.id, 'user': token.user.id})
+                    data={'position': position, 'sslc': sslc.id, 'hsc': hsc.id, 'ug': ug.id, 'user': token.user.id, 'signature': signature})
 
                 if job_serializer.is_valid():
                     job = job_serializer.save()
@@ -135,6 +138,9 @@ def send_application_email(applicant_email, applicant_name, job_title, applicati
 #     except Job.DoesNotExist:
 #         return HttpResponse("Product not found", status=404)
 
+def aaaaa(request):
+    return render(request, 'aaaaa.html')
+
 
 def application_success(request, pk):
     try:
@@ -143,6 +149,39 @@ def application_success(request, pk):
         print(obj)
         html_content = render_to_string(
             "ApplicationSuccessPdf.html", {'job': obj})
+
+        # Create a Django response object, and specify content_type as pdf
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Application.pdf"'
+
+        # Create a PDF buffer
+        pdf = BytesIO()
+
+        # Convert HTML content to PDF using xhtml2pdf and write it to the buffer
+        pisa_status = pisa.CreatePDF(html_content, dest=pdf)
+
+        # Seek to the beginning of the stream
+        pdf.seek(0)
+
+        # Return PDF as a response
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html_content + '</pre>')
+        else:
+            response.write(pdf.getvalue())
+            return response
+
+    except Job.DoesNotExist:
+        print("not found")
+        return HttpResponse("Job not found", status=404)
+
+
+def application_summary_admin(request, pk):
+    try:
+        obj = Job.objects.get(id=pk)
+
+        print(obj)
+        html_content = render_to_string(
+            "ApplicationSuccessPdf_admin.html", {'job': obj})
 
         # Create a Django response object, and specify content_type as pdf
         response = HttpResponse(content_type='application/pdf')

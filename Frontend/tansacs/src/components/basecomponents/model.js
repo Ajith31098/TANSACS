@@ -23,7 +23,9 @@ const Modal = (props) => {
   };
 
   const redirectButton = () => {
-    props.exp_age()
+    if (!props.normal_check) {
+      props.exp_age()
+    }
     props.set_permission()
     navigate(props.link)
   }
@@ -57,48 +59,65 @@ const Modal = (props) => {
             <div className=' flex justify-end'>
               <CloseIcon onClick={hideModal} />
             </div>
-            <div className="p-4 md:p-5 space-y-4">
-              {props.job_count ? (
-                <p className="leading-relaxed">
-                  You have already applied for two jobs.
-                </p>
-              ) : (
-                props.applied ? (
+            {props.normal_check ? (
+              <div className="p-4 md:p-5 space-y-4">
+
+                Verify the credential before apply for this job.
+              </div>
+
+
+            ) : (
+
+
+              <div className="p-4 md:p-5 space-y-4">
+
+
+                {props.job_count ? (
                   <p className="leading-relaxed">
-                    You have already applied for this Job.
+                    You have already applied for two jobs.
                   </p>
-
                 ) : (
-                  props.apply ? (
-                    <>
-                      <p className=" text-sm">
+                  props.applied ? (
+                    <p className="leading-relaxed">
+                      You have already applied for this Job.
+                    </p>
 
-                        The existing employees of <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is 55 years as on 30.06.2023.
-                        If you have experience in above mentioned then you can apply
-                      </p>
-                    </>
-                  )
-                    :
-                    (<>
-                      {props.main ? (
+                  ) : (
+                    props.apply ? (
+                      <>
+                        <p className=" text-sm">
 
-                        <p className=" text-sm">The existing employees of  <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is 55 years as on 30.06.2023.
-                          For other candidates, age limit is 50 years as on 30.06.2023.</p>
-                      ) :
-
-                        (
-                          <p className=" text-sm"> <small className='font-bold text-sm'>Age limit :</small> {props.min_age} years as on 30.06.2023</p>
-                        )}
-                    </>
+                          The existing employees of <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is 55 years as on 30.06.2023.
+                          If you have experience in above mentioned then you can apply
+                        </p>
+                      </>
                     )
-                )
-              )}
-            </div>
+                      :
+                      (<>
+                        {props.main ? (
+
+                          <p className=" text-sm">The existing employees of  <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is 55 years as on 30.06.2023.
+                            For other candidates, age limit is 50 years as on 30.06.2023.</p>
+                        ) :
+
+                          (
+                            <p className=" text-sm"> <small className='font-bold text-sm'>Age limit :</small> {props.min_age} years as on 30.06.2023</p>
+                          )}
+                      </>
+                      )
+                  )
+                )}
 
 
 
-            <div className="flex w-full p-4 md:p-5  rounded-b border-gray-600">
-              {(props.apply) ?
+              </div>
+            )}
+
+
+            {props.normal_check ? (
+
+              <div className="flex w-full p-4 md:p-5  rounded-b border-gray-600">
+
 
                 <button
                   data-modal-hide="default-modal"
@@ -109,15 +128,37 @@ const Modal = (props) => {
 
                   APPLY
                 </button>
-                :
-                <Link to={'/tansacs/jobs'} className="px-[15px] py-[5px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                  Back to Job Selection
-                  <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                </Link>
 
-              }
-            </div>
+
+
+              </div>
+
+            ) : (
+              <div className="flex w-full p-4 md:p-5  rounded-b border-gray-600">
+                {(props.apply) ?
+
+                  <button
+                    data-modal-hide="default-modal"
+                    type="button"
+                    onClick={redirectButton}
+                    className="text-white w-full font-medium rounded-lg text-sm px-[15px] py-[5px] text-center bg-custom-red "
+                  >
+
+                    APPLY
+                  </button>
+                  :
+                  <Link to={'/tansacs/jobs'} className="px-[15px] py-[5px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+                    Back to Job Selection
+                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+
+                  </Link>
+
+                }
+              </div>
+
+            )}
+
           </div>
         </div>
       </div>

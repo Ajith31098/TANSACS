@@ -58,8 +58,6 @@ function VerifyOTP(props) {
 
         } catch (error) {
             navigate('/server_error_500')
-            throw error
-
 
         }
     }
@@ -81,7 +79,7 @@ function VerifyOTP(props) {
             }
             else {
                 navigate('/server_error_500')
-                throw error
+                // throw error
             }
         }
     }

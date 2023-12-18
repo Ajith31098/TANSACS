@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 
 
 function FileInput(props) {
-  const { label, name, id, formik, ...rest } = props
+  const { label, name, id, formik, custom, ...rest } = props
   const [field, meta] = useField(name);
 
   return (
@@ -16,7 +16,8 @@ function FileInput(props) {
           <>
 
             <div className='relative flex flex-col items-center'>
-              <label htmlFor={id} className="text-[13px] font-Roboto font-semibold w-max bg-custom-gray px-6 py-1 rounded-md absolute top-1/2 start-1/2 -translate-x-2/4 -translate-y-2/4 text-white">{label}</label>
+              {custom ? (<label htmlFor={id} className="text-[13px] font-Roboto font-semibold w-max border border-custom-red  px-6 py-[7px] absolute top-1/2 start-1/2 -translate-x-2/4 -translate-y-2/4 text-custom-red underline">{label}</label>) :
+                <label htmlFor={id} className="text-[13px] font-Roboto font-semibold w-max bg-custom-gray px-6 py-1 rounded-md absolute top-1/2 start-1/2 -translate-x-2/4 -translate-y-2/4 text-white">{label}</label>}
 
               <TextField
                 {...field}

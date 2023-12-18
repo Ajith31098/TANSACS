@@ -194,8 +194,8 @@ function SignIn(props) {
 
                     <DownloadButton file_name="TANSACS recruitment.pdf" content="TANSACS Recruitment Eligibility Criteria.pdf" />
                     <DownloadButton file_name="NOC_Format.pdf" content="NOC Form.pdf" />
-                    <p className='text-custom-red font-bold mb-3 font6'>Note: TANSACS Job Posting Details are given in the link above, please read carefully before applying.</p>
-                    <p className='font-semibold text-lg font6'>JOB POSTING WILL BE ALLOCATED PURELY BASED ON THE CRITERIA.</p>
+                    <p className='text-custom-red font-bold mb-3 font6'>Note: TANSACS requirement Details are given in the link above, please read carefully before applying.</p>
+                    <p className='font-semibold text-lg font6'>SELECTION OF THE CANDIDATE PURELY BASED ON THE CRITERIA.</p>
 
                     <p className='text-right font-semibold text-lg font6 w-full'> <CopyrightIcon className='text-custom-red' /> 2023TANSACS, All rights reserved  </p>
                 </div>

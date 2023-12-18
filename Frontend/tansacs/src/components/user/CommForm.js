@@ -35,23 +35,22 @@ function CommonForm
     }, [])
 
     async function ApplicationForm(values) {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/jobs/job', values, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `token ${props.token}`
-                },
-            });
 
-            return response.data;
-        } catch (error) {
-            // Handle errors here if needed
-            // Re-throw the error to be caught by the caller
-            setLoading(false)
-            navigate('/server_error_500')
-            throw error
-        }
+        const response = await axios.post('http://127.0.0.1:8000/jobs/job', values, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `token ${props.token}`
+            },
+        });
+
+        return response.data;
+
+        // Handle errors here if needed
+        // Re-throw the error to be caught by the caller
+
     }
+
+    const val = 'Medical or Allied Health Sciences'
 
     const [loading, setLoading] = React.useState(false);
 
@@ -130,18 +129,20 @@ function CommonForm
                 company: 'TSU',
                 year: '',
                 certificate: '',
-                NOC: null
+                NOC: ''
 
             }
         ],
         position: props.position,
+        declaration: false,
+        signature: ''
 
     }
 
     const sslc_hsc_Scheme = Yup.object().shape({
         first_name: Yup.string().required('Required'),
         // last_name: Yup.string().required('Required'),
-        register_number: Yup.number().typeError('invalid').required('Required').positive('invalid'),
+        register_number: Yup.string().required('Required'),
         percentage: Yup.number()
             .required('Required')
             .typeError("Enter Valid Percentage")
@@ -176,7 +177,7 @@ function CommonForm
         // last_name: Yup.string().required('Required'),
         degree: Yup.string().required('Required'),
         department: Yup.string().required('Required'),
-        register_number: Yup.number().required('Required').positive('Enter valid Register Number'),
+        register_number: Yup.string().required('Required'),
         percentage: Yup.number()
             .required('Required')
             .typeError("Enter Valid Percentage")
@@ -204,6 +205,133 @@ function CommonForm
         year: Yup.string().required('Required'),
     })
 
+    const pg_Schema = Yup.object().shape({
+        first_name: Yup.string().when(['degree', 'department', 'register_number', 'percentage', 'marksheet', 'month', 'year'], {
+            is: (degree, department, register_number, percentage, marksheet, month, year) =>
+                !!degree || !!department || !!register_number || !!percentage || !!marksheet || !!month || !!year,
+            then: () => Yup.string().required('First name is required'),
+            otherwise: () => Yup.string(),
+        }),
+        // ... Similar for last_name if needed
+
+        degree: Yup.string().when(['first_name', 'department', 'register_number', 'percentage', 'marksheet', 'month', 'year'], {
+            is: (first_name, department, register_number, percentage, marksheet, month, year) =>
+                !!first_name || !!department || !!register_number || !!percentage || !!marksheet || !!month || !!year,
+            then: () => Yup.string().required('Degree is required'),
+            otherwise: () => Yup.string(),
+        }),
+
+        department: Yup.string().when(['first_name', 'degree', 'register_number', 'percentage', 'marksheet', 'month', 'year'], {
+            is: (first_name, degree, register_number, percentage, marksheet, month, year) =>
+                !!first_name || !!degree || !!register_number || !!percentage || !!marksheet || !!month || !!year,
+            then: () => Yup.string().required('Department is required'),
+            otherwise: () => Yup.string(),
+        }),
+
+        register_number: Yup.string()
+            .when(['first_name', 'degree', 'department', 'percentage', 'marksheet', 'month', 'year'], {
+                is: (first_name, degree, department, percentage, marksheet, month, year) =>
+                    !!first_name || !!degree || !!department || !!percentage || !!marksheet || !!month || !!year,
+                then: () => Yup.string().required('Required'),
+                otherwise: () => Yup.string(),
+            }),
+
+        percentage: Yup.number()
+
+            .when(['first_name', 'degree', 'department', 'register_number', 'marksheet', 'month', 'year'], {
+                is: (first_name, degree, department, register_number, marksheet, month, year) =>
+                    !!first_name || !!degree || !!department || !!register_number || !!marksheet || !!month || !!year,
+                then: () => Yup.number().required('Percentage is required').typeError("Enter Valid Percentage")
+                    .positive('Must be positive')
+                    .max(100, 'Decimal after 2 digits')
+                    .test(
+                        'is-decimal',
+                        'Enter Value with Max 2 Decimals',
+                        number => number === undefined || /^\d+(\.\d{1,2})?$/.test(String(number))
+                    ),
+                otherwise: () => Yup.number().typeError("Enter Valid Percentage")
+                    .positive('Must be positive')
+                    .max(100, 'Decimal after 2 digits')
+                    .test(
+                        'is-decimal',
+                        'Enter Value with Max 2 Decimals',
+                        number => number === undefined || /^\d+(\.\d{1,2})?$/.test(String(number))
+                    ),
+            }),
+
+        marksheet: Yup.mixed()
+
+            .when(['first_name', 'degree', 'department', 'register_number', 'percentage', 'month', 'year'], {
+                is: (first_name, degree, department, register_number, percentage, month, year) =>
+                    !!first_name || !!degree || !!department || !!register_number || !!percentage || !!month || !!year,
+                then: () => Yup.mixed().required('Marksheet is required').test(
+                    'fileType',
+                    'Only PDF files are allowed',
+                    value => value === undefined || (value.type === 'application/pdf')
+                )
+                    .test(
+                        'fileSize',
+                        'File too large, should be less than 200KB',
+                        value => value === undefined || (value.size <= 200 * 1024) // 200KB in bytes
+                    ),
+                otherwise: () => Yup.mixed().test(
+                    'fileType',
+                    'Only PDF files are allowed',
+                    value => value === undefined || (value.type === 'application/pdf')
+                )
+                    .test(
+                        'fileSize',
+                        'File too large, should be less than 200KB',
+                        value => value === undefined || (value.size <= 200 * 1024) // 200KB in bytes
+                    ),
+            }),
+
+        month: Yup.string().when(['first_name', 'degree', 'department', 'register_number', 'percentage', 'marksheet', 'year'], {
+            is: (first_name, degree, department, register_number, percentage, marksheet, year) =>
+                !!first_name || !!degree || !!department || !!register_number || !!percentage || !!marksheet || !!year,
+            then: () => Yup.string().required('Month is required'),
+            otherwise: () => Yup.string(),
+        }),
+
+        year: Yup.string().when(['first_name', 'degree', 'department', 'register_number', 'percentage', 'marksheet', 'month'], {
+            is: (first_name, degree, department, register_number, percentage, marksheet, month) =>
+                !!first_name || !!degree || !!department || !!register_number || !!percentage || !!marksheet || !!month,
+            then: () => Yup.string().required('Year is required'),
+            otherwise: () => Yup.string(),
+        }),
+    }, [
+        ['first_name', 'degree'],
+        ['first_name', 'department'],
+        ['first_name', 'register_number'],
+        ['first_name', 'percentage'],
+        ['first_name', 'marksheet'],
+        ['first_name', 'month'],
+        ['first_name', 'year'],
+        ['degree', 'department'],
+        ['degree', 'register_number'],
+        ['degree', 'percentage'],
+        ['degree', 'marksheet'],
+        ['degree', 'month'],
+        ['degree', 'year'],
+        ['department', 'register_number'],
+        ['department', 'percentage'],
+        ['department', 'marksheet'],
+        ['department', 'month'],
+        ['department', 'year'],
+        ['register_number', 'percentage'],
+        ['register_number', 'marksheet'],
+        ['register_number', 'month'],
+        ['register_number', 'year'],
+        ['percentage', 'marksheet'],
+        ['percentage', 'month'],
+        ['percentage', 'year'],
+        ['marksheet', 'month'],
+        ['marksheet', 'year'],
+        ['month', 'year']
+    ]);
+
+
+
     const experienceSchema = Yup.object().shape({
         degree: Yup.string().when(['company', 'year', 'certificate', 'course'], {
             is: (company, year, certificate, course) =>
@@ -217,15 +345,30 @@ function CommonForm
             then: () => Yup.string().required('Company Name is required'),
             otherwise: () => Yup.string(),
         }),
-        year: Yup.number().when(['degree', 'company', 'certificate', 'course'], {
-            is: (degree, company, certificate, course) =>
-                !!degree || !!company || !!certificate || !!course,
-            then: () => Yup.number().typeError('Enter Years')
-                .required('year is required')
-                .positive('Enter a valid number of years')
-                .test('length', 'Enter a valid number of years', (val) => val && val.toString().length < 3),
-            otherwise: () => Yup.string(),
-        }),
+        year: Yup.number()
+            .when(['degree', 'company', 'certificate', 'course'], {
+                is: (degree, company, certificate, course) =>
+                    !!degree || !!company || !!certificate || !!course,
+                then: () => Yup.number()
+                    .typeError('Enter Years as a number')
+                    .required('Year is required')
+                    .positive('Year must be a positive number')
+                    .integer('Year must be an integer')
+                    .test(
+                        'length',
+                        'Year must be less than 3 digits',
+                        (val) => val && val.toString().length <= 2
+                    ),
+                otherwise: () => Yup.number()
+                    .typeError('Enter Years as a number')
+                    .positive('Year must be a positive number')
+                    .integer('Year must be an integer')
+                    .test(
+                        'length',
+                        'Year must be less than 3 digits',
+                        (val) => val === undefined || val && val.toString().length <= 2
+                    ),
+            }),
         course: Yup.string().when(['degree', 'company', 'certificate', 'year'], {
             is: (degree, company, certificate, year) =>
                 !!degree || !!company || !!certificate || !!year,
@@ -246,7 +389,16 @@ function CommonForm
                     'File too large, should be less than 200KB',
                     value => value && value.size <= 200 * 1024 // 200KB in bytes
                 ),
-            otherwise: () => Yup.string(),
+            otherwise: () => Yup.mixed().test(
+                'fileType',
+                'Only  PDF files are allowed',
+                value => value === undefined || (value && (value.type === 'application/pdf'))
+            )
+                .test(
+                    'fileSize',
+                    'File too large, should be less than 200KB',
+                    value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                ),
         }),
     }, [
         ['degree', 'company'],
@@ -260,39 +412,123 @@ function CommonForm
         ['company', 'course'],
         ['degree', 'course'],
     ])
+    const experienceSchemaa = Yup.object().shape({
+        degree: Yup.string().required('degree is required'),
+
+        company: Yup.string().required('Company Name is required'),
+        year: Yup.number()
+            .required('year is required')
+            .typeError('Enter Years as a number')
+            .positive('Year must be a positive number')
+            .integer('Year must be an integer')
+            .test(
+                'length',
+                'Year must be less than 3 digits',
+                (val) => val && val.toString().length <= 2
+            ),
+
+        course: Yup.string().required('Required'),
+
+
+        certificate: Yup.mixed().required('certificate is required').test(
+            'fileType',
+            'Only  PDF files are allowed',
+            value => value && (value.type === 'application/pdf')
+        )
+            .test(
+                'fileSize',
+                'File too large, should be less than 200KB',
+                value => value && value.size <= 200 * 1024 // 200KB in bytes
+            ),
+
+    })
 
 
     const prefered_expereinceSchema = Yup.object().shape({
         year: Yup.number()
-            .typeError('Enter a number')
-            .positive('Year must be a positive number')
-            .when(['certificate'], {
-                is: (certificate) => !!certificate,
+
+            .when(['certificate', 'NOC'], {
+                is: (certificate, NOC) => !!certificate || !!NOC,
                 then: () => Yup.number()
-                    .typeError('Enter a number')
+                    .typeError('Enter Years as a number')
+                    .required('Year is required')
                     .positive('Year must be a positive number')
-                    .required('Year is required'),
-                otherwise: () => Yup.number(),
+                    .integer('Year must be an integer')
+                    .test(
+                        'length',
+                        'Year must be less than 3 digits',
+                        (val) => val === undefined || val && val.toString().length <= 2
+                    ),
+                otherwise: () => Yup.number()
+                    .typeError('Enter Years as a number')
+                    .positive('Year must be a positive number')
+                    .integer('Year must be an integer')
+                    .test(
+                        'length',
+                        'Year must be less than 3 digits',
+                        (val) => val === undefined || val && val.toString().length <= 2
+                    ),
             }),
         certificate: Yup.mixed()
-            .when(['year'], {
-                is: (year) => !!year,
+            .when(['year', 'NOC'], {
+                is: (year, NOC) => !!year || !!NOC,
                 then: () => Yup.mixed()
                     .required('Certificate is required')
                     .test(
                         'fileType',
                         'Only PDF files are allowed',
-                        value => value && (value.type === 'application/pdf')
+                        value => value === undefined || (value && (value.type === 'application/pdf'))
                     )
                     .test(
                         'fileSize',
                         'File too large, should be less than 200KB',
-                        value => value && value.size <= 200 * 1024 // 200KB in bytes
+                        value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
                     ),
-                otherwise: () => Yup.string(),
+                otherwise: () => Yup.mixed()
+
+                    .test(
+                        'fileType',
+                        'Only PDF files are allowed',
+                        value => value === undefined || (value && (value.type === 'application/pdf'))
+                    )
+                    .test(
+                        'fileSize',
+                        'File too large, should be less than 200KB',
+                        value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                    ),
             }),
+        NOC: Yup.mixed().when(['year', 'certificate'], {
+            is: (year, certificate) => !!year || !!certificate,
+            then: () => Yup.mixed()
+                .required('Certificate is required')
+                .test(
+                    'fileType',
+                    'Only PDF files are allowed',
+                    value => value === undefined || (value && (value.type === 'application/pdf'))
+                )
+                .test(
+                    'fileSize',
+                    'File too large, should be less than 200KB',
+                    value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                )
+            ,
+            otherwise: () => Yup.mixed().test(
+                'fileType',
+                'Only PDF files are allowed',
+                value => value === undefined || (value && (value.type === 'application/pdf'))
+            )
+                .test(
+                    'fileSize',
+                    'File too large, should be less than 200KB',
+                    value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                )
+        })
+
     }, [
-        ['year', 'certificate']
+        ['year', 'certificate'],
+        ['year', 'NOC'],
+        ['certificate', 'NOC']
+
     ])
 
 
@@ -305,17 +541,49 @@ function CommonForm
         sslc: sslc_hsc_Scheme,
         hsc: sslc_hsc_Scheme,
         ug: ug_pg_Schema,
-        pg: Yup.array().of(
-            ug_pg_Schema
-        ),
-        experience: Yup.array().of(
-            experienceSchema
-        ),
+        pg: Yup.array().when('ug.degree', {
+            is: (degree) => degree === 'Medical or Allied Health Sciences',
+            then: () => Yup.array().of(
+                pg_Schema
+            ),
+            otherwise: () => Yup.array().of(
+                ug_pg_Schema
+            )
+        }),
+        experience: Yup.array().when('ug.degree', {
+
+            is: (degree) => degree === 'Medical or Allied Health Sciences',
+            then: () => Yup.array().of(
+                experienceSchemaa
+            ),
+            // ).test(
+            //     'at-least-one-object',
+            //     'At least one experience must be filled',
+            //     (array) => array.some(exp => exp.degree || exp.company || exp.year || exp.certificate || exp.course)
+            // ),
+            otherwise: () => Yup.array().of(
+                experienceSchema
+            )
+        }),
 
         prefered_experience: Yup.array().of(
             prefered_expereinceSchema
 
         )
+        ,
+        declaration: Yup.boolean().required("Required").oneOf([true], "Declaration must be checked"),
+        signature: Yup.mixed()
+            .required('Required')
+            .test(
+                'fileType',
+                'Only jpeg or jpg files are allowed',
+                value => value && (value.type === 'image/jpeg' || value.type === 'image/jpg')
+            )
+            .test(
+                'fileSize',
+                'File too large, should be less than 10KB',
+                value => value && value.size <= 200 * 1024 // 200KB in bytes
+            )
     })
 
     const onSubmit = values => {
@@ -343,7 +611,7 @@ function CommonForm
 
 
                 setLoading(false)
-                navigate('/server_error_500')
+                // navigate('/server_error_500')
 
             },
         })
@@ -432,6 +700,8 @@ function CommonForm
                             name="position"
 
                         />
+
+                        {console.log(formik)}
 
                         <div className="container font-sans">
 
@@ -538,7 +808,11 @@ function CommonForm
                                             formik={formik}
                                             label="Browse File"
                                         />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                        {!formik.values.sslc.marksheet && (
+                                            <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+
+                                        )}
 
 
                                     </div>
@@ -649,7 +923,11 @@ function CommonForm
                                             formik={formik}
                                             label="Browse File"
                                         />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                        {!formik.values.hsc.marksheet && (
+                                            <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+
+                                        )}
 
                                     </div>
 
@@ -788,7 +1066,14 @@ function CommonForm
                                             formik={formik}
                                             label="Browse File"
                                         />
-                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+                                        {!formik.values.ug.marksheet && (
+                                            <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+
+                                        )}
+
+
 
                                     </div>
 
@@ -942,7 +1227,11 @@ function CommonForm
                                                                                 formik={formik}
                                                                                 label="Browse File"
                                                                             />
-                                                                            <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                                            {!pg[index].marksheet && (
+                                                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+
+                                                                            )}
 
                                                                         </div>
 
@@ -988,7 +1277,9 @@ function CommonForm
                             </div>
 
                             <div className='w-full mb-5 '>
+
                                 <p className='text-custom-red mb-2 text-start underline font-bold'>EXPERIENCE CERTIFICATES</p>
+
                                 <FieldArray name='experience'>
 
                                     {
@@ -998,6 +1289,9 @@ function CommonForm
                                             const { experience } = values
                                             return (
                                                 <div className='border-solid border border-gray-400 rounded-md p-4 mb-5'>
+                                                    {formik?.errors?.experience && typeof formik?.errors?.experience === 'string' && (
+                                                        <p className='text-custom-red text-start text-xs font-bold'>{formik?.errors?.experience}</p>
+                                                    )}
                                                     {
                                                         experience.map((experience_cantidate, index) => (
                                                             <div key={index} className='w-full'>
@@ -1071,7 +1365,10 @@ function CommonForm
                                                                                     formik={formik}
                                                                                     label="Browse File"
                                                                                 />
-                                                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                                                {!experience[index].certificate && (
+                                                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+                                                                                )}
 
                                                                             </div>
 
@@ -1153,7 +1450,10 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse file"
                                                 />
-                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                {!formik.values.prefered_experience[0].certificate && (
+                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+                                                )}
 
                                             </div>
 
@@ -1206,7 +1506,10 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse File"
                                                 />
-                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                {!formik.values.prefered_experience[1].certificate && (
+                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+                                                )}
 
                                             </div>
 
@@ -1261,7 +1564,10 @@ function CommonForm
                                                     formik={formik}
                                                     label="Browse File"
                                                 />
-                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                {!formik.values.prefered_experience[2].certificate && (
+                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+
+                                                )}
 
                                             </div>
 
@@ -1301,6 +1607,42 @@ function CommonForm
 
                                 </div>
                                 <p className='text-xs text-start text-black mt-2 font-bold'><small className='font-bold text-custom-red text-sm'>Note : </small>  Only for the existing employees of NACO/TANSACS/TSU</p>
+                            </div>
+
+                            <div className='w-full mb-5'>
+                                <p className='text-custom-red mb-2 text-start underline font-bold'>DECLARATION  </p>
+                                <div>
+                                    <FormikControl
+                                        control='check'
+                                        type='checkbox'
+                                        id={"declaration"}
+                                        name={"declaration"}
+                                        label={"I hereby declare that all the contents entered in the application form is true to my knowledge and I have entered my full consciousness"}
+
+                                    />
+                                </div>
+                                <div className='flex justify-end'>
+                                    <div className='text-center w-[250px]'>
+                                        <p className=' text-custom-red underline font-bold mb-2'> Signature</p>
+                                        <FormikControl
+                                            control='file'
+                                            type='file'
+                                            id={"signature"}
+                                            name={"signature"}
+                                            formik={formik}
+                                            label="upload a signature"
+                                            custom={true}
+                                        />
+                                        {!formik?.values?.signature &&
+                                            (
+                                                <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: Uploaded file to be less than 10 kb and only .jpeg, .jpg formats are allowed </p>
+
+                                            )
+                                        }
+
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

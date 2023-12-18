@@ -34,21 +34,28 @@ function Job4(props) {
 
                 <div className="lg:col-span-2 col-span-3">
                     <div className="border border-black p-3 flex flex-col gap-5 text-start">
-                        <p>M.Sc. (Microbiology / Biotechnology / Biochemistry / Life Sciences)
+                        <p className="text-base font-bold">Essential Qualification:</p>
+                        <li>M.Sc. (Microbiology / Biotechnology / Biochemistry / Life Sciences)
                             OR
                             B.Tech (Biotechnology)
 
-                        </p>
+                        </li>
+                        <p className="text-base font-bold">Desirable Qualification:</p>
+                        <li>PhD (Microbiology / Biotechnology / Biochemistry / Life
+                            Sciences)
+                        </li>
 
-                        <p className="text-base font-bold">Experience:</p>
+                        <p className="text-base font-bold">Essential Experience:</p>
                         <ul className="list-disc mx-4">
-                            <li>5 years of experience for candidates with M.Sc / B.Tech (in the above subjects ) OR</li>
+                            <li>5 years of experience for candidates with M.Sc / B.Tech (in the
+                                above subjects ) OR
+                            </li>
 
                             <li>3 years of experience of working in medical diagnostic
                                 laboratory for candidates with Phd.</li>
 
-                            <li>Candidates with experience of working in
-                                ccredited labs or those labs who have applied for accreditation will be preferred.</li>
+                            <li> Candidates with experience of working in accredited labs or
+                                those labs who have applied for accreditation will be preferred. </li>
                         </ul>
                         <p>
                             <small className="text-base font-bold"> Age limit:</small>

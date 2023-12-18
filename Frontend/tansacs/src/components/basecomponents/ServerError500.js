@@ -7,11 +7,11 @@ function ServerError500(props) {
     return (
         <>
             <div className="w-full  flex  items-center justify-center p-4 my-10">
-                <div className="w-full lg:w-1/2 shadow-md">
+                <div className="w-full lg:w-1/2 shadow-md p-5">
                     <div className="w-full  flex flex-col items-center justify-center lg:px-2 xl:px-0 text-center p-4">
                         <p className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-wider text-gray-300">500</p>
                         <p className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-gray-300 mt-2">Server Error</p>
-                        <p className="text-lg md:text-xl lg:text-2xl text-gray-500 my-12">Whoops, something went wrong on our servers.</p>
+                        <p className="text-lg md:text-xl lg:text-2xl text-gray-500 my-12">Whoops, something went wrong on our servers.Please check your network connections.</p>
 
                         {props.isLogin ? (
                             props.is_superuser ? (

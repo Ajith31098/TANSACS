@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user',
     'jobs',
     'superadmin',
+
 ]
 
 MIDDLEWARE = [
@@ -155,8 +156,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # The default port is often 587 or 25
 EMAIL_USE_TLS = True  # Use TLS encryption
-EMAIL_HOST_USER = 'info@tansacsrecruitment.in'
-EMAIL_HOST_PASSWORD = 'fmqowydftwzvqusy'
+EMAIL_HOST_USER = 'info@tnsacsrecruitment.in'
+EMAIL_HOST_PASSWORD = 'sxmrynopfwedaaky'
 
 
 CORS_ALLOW_ALL_ORIGINS = True

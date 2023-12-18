@@ -3,6 +3,7 @@ import Select from './selectfeild';
 import FileInput from './filefeild'
 import PasswordField from "./passwordfeild";
 import AddharInput from "./Addharcomponent";
+import FormikCheckbox from "./checkboxfield";
 
 function FormikControl(props) {
 
@@ -20,6 +21,8 @@ function FormikControl(props) {
         // return <Textarea {...rest} />
         case 'select':
             return <Select {...rest} />
+        case 'check':
+            return <FormikCheckbox {...rest} />
         // case 'radio':
         // return <RadioButtons {...rest} />
         // case 'checkbox':

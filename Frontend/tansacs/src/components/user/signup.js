@@ -140,7 +140,7 @@ const genderOptions = [
     { key: 'GENDER', value: '' },
     { key: 'MALE', value: 'male' },
     { key: 'FEMALE', value: 'female' },
-    { key: 'OTHERS', value: 'others' },
+    { key: 'OTHERS', value: 'other' },
 
 ]
 const stateOptions = [

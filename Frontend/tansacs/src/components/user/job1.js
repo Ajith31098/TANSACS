@@ -35,22 +35,56 @@ function Job1(props) {
 
                 <div className="lg:col-span-2 col-span-3">
                     <div className="border border-black p-3 flex flex-col gap-5 text-start">
+                        <p className="text-base font-bold">Qualification:</p>
                         <p>Bachelor’s Degree in Medical or Allied Health Sciences / Master’s
-                            Degree in Public Health / Healthcare Management / Healthcare Administration /
-                            Social Science / Psychology / Applied Epidemiology / Demography / Statistics /
-                            Population Sciences or similar fields.
+                            Degree in Public Health / Healthcare Management / Healthcare
+                            Administration / Social Science / Psychology / Applied
+                            Epidemiology / Demography / Statistics / Population Sciences or
+                            similar fields.
                         </p>
 
                         <p className="text-base font-bold">Experience:</p>
                         <ul className="list-disc mx-4">
-                            <li>Three year's experience for candidates with Master’s Degree in Public Health / Healthcare Management / Healthcare Administration / Applied Epidemiology.</li>
-                            <li>Five year's experience in Public Health for Bachelor’s Degree in Medical and Allied Sciences / Masters in Social Science / Psychology / Demography / Statistics / Population Sciences including a minimum two years of experience in HIV/AIDS sector.</li>
+                            <li>Three years’ experience for candidates with Master’s Degree
+                                in Public Health / Healthcare Management / Healthcare
+                                Administration / Applied Epidemiology </li>
+                            <li> Five years’ experience in Public Health for Bachelor’s Degree
+                                in Medical and Allied Sciences / Masters in Social Science /
+                                Psychology / Demography / Statistics / Population Sciences
+                                including a minimum two years of experience in HIV/AIDS
+                                sector.
+                            </li>
                         </ul>
+
+                        <p className="text-base font-bold">Desirable:</p>
+                        <ul className="list-disc mx-4">
+                            <li>The suitable candidate should be familiar with the
+                                organization and functions of the State and local public
+                                health systems / State AIDS Control Societies  </li>
+                            <li> Excellent written and verbal communication skills in local
+                                languages and English (Speaking, Reading and
+                                Writing).
+                            </li>
+                            <li>Strong analytical, Advocacy and negotiation skills</li>
+                            <li>Willingness to travel extensively </li>
+                            <li>Other expertise includes:</li>
+
+                        </ul>
+                        <ul className="list-disc mx-8">
+                            <li>Programme Management Skills</li>
+                            <li>Good knowledge of computers</li>
+                            <li>Coordination and leading teams
+                            </li>
+
+
+                        </ul>
+
+
                         <p>
                             <small className="text-base font-bold"> Age limit: </small>
-                            For the existing employees of NACO/TANSACS/TSU, the upper age limit is 55
-                            years as on 30.06.2023. For other candidates,
-                            upper age limit is 50 years as on 30.06.2023.
+                            Age limit: For the existing employees of NACO/TANSACS/TSU,
+                            the upper age limit is 55 years as on 30.06.2023. For other
+                            candidates, upper age limit is 50 years as on 30.06.2023.
                         </p>
                     </div>
                 </div>
@@ -64,7 +98,7 @@ function Job1(props) {
                                 CONSOLIDATED MONTHLY REMUNERATION
                                 ( PER MONTH ) RS 54,300/-
                             </caption>
-                            <thead>
+                            {/* <thead>
                                 <tr className="bg-gray-200 border-2 border-gray-400">
                                     <th className="border-gray-400  text-center text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         S.NO
@@ -164,7 +198,7 @@ function Job1(props) {
                                     </td>
 
                                 </tr>
-                            </tbody>
+                            </tbody> */}
 
                         </table>
                     </div>

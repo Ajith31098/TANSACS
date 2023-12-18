@@ -6,5 +6,7 @@ urlpatterns = [
 
     path('download/<int:pk>',
          views.application_success, name="application_success"),
+    path('admin_download/<int:pk>', views.application_summary_admin,
+         name="application_summary_admin")
 
 ]

@@ -100,6 +100,8 @@ class Job(models.Model):
     position = models.CharField(max_length=100, choices=POSITION.choices)
     objects = models.Manager()
     c_objects = JobManager()
+    signature = models.FileField(
+        upload_to="signature/", blank=True, null=True)
 
 
 class PG(models.Model):
