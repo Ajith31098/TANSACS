@@ -76,6 +76,7 @@ function AdminHome(props) {
     if (data) {
         return (
             <>
+                {console.log(data.data)}
                 <h4 className='text-4xl text-custom-red font-bold mt-14 mb-14'>Tamil Nadu State AIDS Control Society</h4>
 
                 <p className=' text-2xl font-semibold mb-5'>DASHBORD HAS TO BE ESTABLISHED TO TRACK RECIEVED JOB POSTING</p>
@@ -88,7 +89,7 @@ function AdminHome(props) {
                     <div className="lg:col-span-1 col-span-3">
                         <div className='w-full mb-10'>
                             <Link to={'CPM'} className="p-0 truncate px-3 block group relative  w-full overflow-hidden rounded-xl bg-custom-red text-lg font-semibold text-white">
-                                Cluster Program Manager - 7 Posts
+                                Cluster Programme Manager - 7 Posts
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                             </Link>

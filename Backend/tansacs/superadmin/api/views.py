@@ -17,7 +17,7 @@ class JobApplicantsCount(APIView):
         print(request.auth)
         # Get counts of applicants for each position using the custom manager
         counts = Job.c_objects.get_applicants_count_by_position()
-        print(counts)
+        # print(counts)
         # Serialize the counts using the serializer
         serializer = JobApplicantsCountSerializer([
             {'position': position, 'applicants_count': count} for position, count in counts.items()

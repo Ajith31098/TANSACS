@@ -3,7 +3,6 @@ export const DDSI_ug = [
     { key: 'Medical or Allied Health Sciences', value: 'Medical or Allied Health Sciences' },
     { key: 'Bachelor of Arts (B.A.)', value: 'Bachelor of Arts (B.A.)' },
     { key: 'Bachelor of Science (B.Sc.)', value: 'Bachelor of Science (B.Sc.)' },
-    { key: 'Bachelor of Pharmacy (B.Pharm)', value: 'Bachelor of Pharmacy (B.Pharm)' },
     { key: 'Bachelor of Science in Nursing (B.Sc. Nursing)', value: 'Bachelor of Science in Nursing (B.Sc. Nursing)' },
     { key: 'Bachelor of Dental Surgery (BDS)', value: 'Bachelor of Dental Surgery (BDS) ' },
     { key: 'Bachelor of Computer Applications (BCA)', value: 'Bachelor of Computer Applications (BCA)' },
@@ -27,16 +26,30 @@ export const DDSI_pg = [
     { key: "Master's Degree in Population Sciences", value: "Master's Degree in Population Sciences" },
     { key: "Master's Degree in Social Sciences", value: "Master's Degree in Social Sciences" },
     { key: "Master's Degree in Computer Application", value: "Master's Degree in Computer Application" },
-    { key: "Similar Streams from a Recognized University", value: "Similar Streams from a Recognized University" },
+    { key: 'Doctor of Medicine (M.D.)', value: 'Doctor of Medicine (M.D.)' },
+    { key: 'Diplomate of National Board (DNB)', value: 'Diplomate of National Board (DNB)  ' },
+    { key: 'Similar Field', value: 'Similar Field' },
+
+
+
 ]
 
 export const DDSI_experience = [
     { key: 'Select', value: '' },
-    { key: 'Public Health in surveillance ', value: 'Public Health in surveillance' },
-    { key: 'research/ M&E / epidemiology', value: 'research/ M&E / epidemiology' },
-    { key: 'MS office package and SPSS', value: 'MS office package and SPSS' },
-    { key: 'epidemiological analysis ', value: 'epidemiological analysis' },
-    { key: 'biostatistics', value: 'biostatistics' },
-    { key: 'HIV/AIDS ', value: 'hiv/aids' },
+    { key: 'Medical or Allied Health Sciences', value: 'Medical or Allied Health Sciences' },
+    { key: "Master's Degree in Public Health", value: "Master's Degree in Public Health" },
+    { key: "Master's Degree in Healthcare Administration", value: "Master's Degree in Healthcare Administration" },
+    { key: "Master's Degree in Social Science", value: "Master's Degree in Social Science" },
+    { key: "Master's Degree in Applied Epidemiology", value: "Master's Degree in Applied Epidemiology" },
+    { key: "Master's Degree in Demography", value: "Master's Degree in Demography" },
+    { key: "Master's Degree in Statistics", value: "Master's Degree in Statistics" },
+    { key: "Master's Degree in Population Sciences", value: "Master's Degree in Population Sciences" },
+    { key: "Master's Degree in Social Sciences", value: "Master's Degree in Social Sciences" },
+    { key: "Master's Degree in Computer Application", value: "Master's Degree in Computer Application" },
+    { key: 'Doctor of Medicine (M.D.)', value: 'Doctor of Medicine (M.D.)' },
+    { key: 'Diplomate of National Board (DNB)', value: 'Diplomate of National Board (DNB)  ' },
+    { key: 'Public health in surveillance / Research / M&E / Epidemiology', value: 'Public health in surveillance / Research / M&E / Epidemiology' },
+    { key: 'Similar Field', value: 'Similar Field' },
+
 
 ]

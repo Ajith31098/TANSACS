@@ -197,7 +197,7 @@ function SignIn(props) {
                     <p className='text-custom-red font-bold mb-3 font6'>Note: TANSACS requirement Details are given in the link above, please read carefully before applying.</p>
                     <p className='font-semibold text-lg font6'>SELECTION OF THE CANDIDATE PURELY BASED ON THE CRITERIA.</p>
 
-                    <p className='text-right font-semibold text-lg font6 w-full'> <CopyrightIcon className='text-custom-red' /> 2023TANSACS, All rights reserved  </p>
+                    <p className='text-right font-semibold text-lg font6 w-full'> <CopyrightIcon className='text-custom-red' /> 2023TANSACS, All Rights Reserved  </p>
                 </div>
 
 

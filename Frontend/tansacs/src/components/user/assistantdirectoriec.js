@@ -11,7 +11,7 @@ function AssistantDirectorIEC() {
 
     return (
 
-        <CommForm position="Assistent Director (IEC)" ug={AssistantDirector_IEC_ug} pg={AssistantDirector_IEC_pg} exp={AssistantDirector_IEC_experience} />
+        <CommForm position="Assistant Director (IEC)" ug={AssistantDirector_IEC_ug} pg={AssistantDirector_IEC_pg} exp={AssistantDirector_IEC_experience} />
     )
 }
 

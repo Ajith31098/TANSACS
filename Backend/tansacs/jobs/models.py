@@ -68,14 +68,14 @@ class UG(models.Model):
 class Job(models.Model):
 
     class POSITION(models.TextChoices):
-        CLUSTER_MANAGER = 'Cluster Program Manager'
-        CLINICAL_OFFICER = 'Clinical Service Officer'
-        DATA_MONITORING_OFFICER = 'Data Monitoring Documentation Officer'
+        CLUSTER_MANAGER = 'Cluster Programme Manager'
+        CLINICAL_OFFICER = 'Clinical Services Officer'
+        DATA_MONITORING_OFFICER = 'Data Monitoring and Documentation Officer'
         DEPUTY_LS_DIRECTOR = 'Deputy Director (LS)'
         DEPUTY_SI_DIRECTOR = 'Deputy Director (SI)'
-        ASSISTANT_ICTC_DIRECTOR = 'Assistent Director (BSD) /(ICTC)'
-        ASSISTANT_TI_DIRECTOR = 'Assistent Director (PREVENTION) /(TI)'
-        ASSISTANT_IEC_DIRECTOR = 'Assistent Director (IEC)'
+        ASSISTANT_ICTC_DIRECTOR = 'Assistant Director (BSD) /(ICTC)'
+        ASSISTANT_TI_DIRECTOR = 'Assistant Director (PREVENTION) /(TI)'
+        ASSISTANT_IEC_DIRECTOR = 'Assistant Director (IEC)'
 
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="jobs")
@@ -102,6 +102,8 @@ class Job(models.Model):
     c_objects = JobManager()
     signature = models.FileField(
         upload_to="signature/", blank=True, null=True)
+    applied_date = models.DateField(
+        auto_now_add=True, null=True, blank=True)
 
 
 class PG(models.Model):

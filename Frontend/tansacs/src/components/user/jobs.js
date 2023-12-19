@@ -30,11 +30,11 @@ function Jobs(props) {
                 <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
                 <div className='flex flex-col gap-2 mb-2'>
-                    <p className='font-semibold lg:text-[20px] md:text-[10px] text-[15px]'>Tamil Nadu State AIDS Control Society (TANSACS), Chennai invites applications
-                        from eligible candidates with the qualifications / requirements mentioned against each along with recent passport
-                        size photographs with self attested  Xerox copies of Mark sheet (10th, +2, UG degree & PG degree) & Experience
-                        certificates (to be uploaded) for the following contractual posts on consolidated monthly remuneration and purely
-                        temporary</p>
+                    <p className='font-semibold lg:text-[18px] md:text-[10px] text-[15px]'>Tamil Nadu State AIDS Control Society (TANSACS), Chennai invites applications from eligible candidates
+                        with the qualifications / requirements mentioned against each along with recent passport size photographs with self
+                        attested Xerox copies of Mark sheet (10th, +2, UG degree & PG degree), Degree Certificates & Experience certificates
+                        (to be uploaded) for the following contractual posts on consolidated monthly remuneration and purely temporary.
+                    </p>
 
                 </div>
 
@@ -45,7 +45,8 @@ function Jobs(props) {
                     <div className="col-span-4 flex flex-col gap-4 lg:mt-14 mt-0 order-2 lg:order-2">
                         <div className='w-full'>
                             <Link to={'/tansacs/cluster_manager'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-sm font-semibold text-white">
-                                Cluster Program Manager - 7 Posts
+                                Cluster Programme Manager
+                                (CPM) - 7 Posts
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                             </Link>
@@ -54,7 +55,8 @@ function Jobs(props) {
                         <div className='w-full'>
                             <Link to={'/tansacs/clinical_officer'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-sm font-semibold text-white">
 
-                                Clinical Service Officer - 2 Posts
+                                Clinical Services Officer (CSO) -
+                                2 Posts
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                             </Link>
@@ -62,7 +64,10 @@ function Jobs(props) {
                         </div>
                         <div className='w-full'>
                             <Link to={'/tansacs/data_monitoring_officer'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-sm font-semibold text-white">
-                                Data Monitoring Documentation Officer - 1 Post
+                                Data Monitoring and
+                                Documentation Officer (DMDO) -
+                                1 Post
+
                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                             </Link>
@@ -79,7 +84,7 @@ function Jobs(props) {
 
                     </div>
                     <div className="col-span-3 order-1 lg:order-2 flex flex-col justify-between">
-                        <p className='text-red-600 mb-2 font-bold underline'>Please Select Your Job</p>
+                        <p className='text-red-600 mb-2 font-bold underline'>Please Select Your Job Post</p>
                         <img src={Ribbon} alt="ribbon" className='block w-full h-3/4' />
 
                     </div>
@@ -91,13 +96,16 @@ function Jobs(props) {
                         </Link>
 
                         <Link to={'/tansacs/assistant_director_ictc'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-sm font-semibold text-white">
-                            Assistant Director (BSD) / (ICTC) - 1 Post
+                            Assistant Director (BSD)/(ICTC)
+                            - 1 Post
                             <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                         </Link>
 
                         <Link to={'/tansacs/assistant_director_ti'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-sm font-semibold text-white">
-                            Assistant Director (Prevention) / (TI) - 2 Posts
+                            Assistant Director (Prevention) /
+                            (TI) - 2 Posts
+
                             <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                         </Link>

@@ -387,7 +387,7 @@ function CommonForm
                 .test(
                     'fileSize',
                     'File too large, should be less than 200KB',
-                    value => value && value.size <= 200 * 1024 // 200KB in bytes
+                    value => value && value.size <= 50 * 1024 // 200KB in bytes
                 ),
             otherwise: () => Yup.mixed().test(
                 'fileType',
@@ -397,7 +397,7 @@ function CommonForm
                 .test(
                     'fileSize',
                     'File too large, should be less than 200KB',
-                    value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                    value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                 ),
         }),
     }, [
@@ -438,7 +438,7 @@ function CommonForm
             .test(
                 'fileSize',
                 'File too large, should be less than 200KB',
-                value => value && value.size <= 200 * 1024 // 200KB in bytes
+                value => value && value.size <= 50 * 1024 // 200KB in bytes
             ),
 
     })
@@ -482,7 +482,7 @@ function CommonForm
                     .test(
                         'fileSize',
                         'File too large, should be less than 200KB',
-                        value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                        value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                     ),
                 otherwise: () => Yup.mixed()
 
@@ -494,7 +494,7 @@ function CommonForm
                     .test(
                         'fileSize',
                         'File too large, should be less than 200KB',
-                        value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                        value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                     ),
             }),
         NOC: Yup.mixed().when(['year', 'certificate'], {
@@ -509,7 +509,7 @@ function CommonForm
                 .test(
                     'fileSize',
                     'File too large, should be less than 200KB',
-                    value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                    value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                 )
             ,
             otherwise: () => Yup.mixed().test(
@@ -520,7 +520,7 @@ function CommonForm
                 .test(
                     'fileSize',
                     'File too large, should be less than 200KB',
-                    value => value === undefined || (value && value.size <= 200 * 1024) // 200KB in bytes
+                    value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                 )
         })
 
@@ -582,7 +582,7 @@ function CommonForm
             .test(
                 'fileSize',
                 'File too large, should be less than 10KB',
-                value => value && value.size <= 200 * 1024 // 200KB in bytes
+                value => value && value.size <= 10 * 1024 // 200KB in bytes
             )
     })
 
@@ -673,7 +673,7 @@ function CommonForm
                 <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
                 <p className='text-lg my-5 text-start text-custom-red font-bold uppercase'>{props.position}</p>
-                <p className='text-lg my-5  text-custom-red underline font-bold'>EDUCATION QUALIFICATION & EXPERIENCE</p>
+                <p className='text-lg my-5  text-custom-red underline font-bold'>EDUCATIONAL QUALIFICATION & EXPERIENCE</p>
 
 
             </div>
@@ -1278,7 +1278,7 @@ function CommonForm
 
                             <div className='w-full mb-5 '>
 
-                                <p className='text-custom-red mb-2 text-start underline font-bold'>EXPERIENCE CERTIFICATES</p>
+                                <p className='text-custom-red mb-2 text-start underline font-bold'>EXPERIENCE CERTIFICATE</p>
 
                                 <FieldArray name='experience'>
 
@@ -1366,7 +1366,7 @@ function CommonForm
                                                                                     label="Browse File"
                                                                                 />
                                                                                 {!experience[index].certificate && (
-                                                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .pdf formats.</p>
 
                                                                                 )}
 
@@ -1451,7 +1451,7 @@ function CommonForm
                                                     label="Browse file"
                                                 />
                                                 {!formik.values.prefered_experience[0].certificate && (
-                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .pdf formats.</p>
 
                                                 )}
 
@@ -1507,7 +1507,7 @@ function CommonForm
                                                     label="Browse File"
                                                 />
                                                 {!formik.values.prefered_experience[1].certificate && (
-                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .pdf formats.</p>
 
                                                 )}
 
@@ -1565,7 +1565,7 @@ function CommonForm
                                                     label="Browse File"
                                                 />
                                                 {!formik.values.prefered_experience[2].certificate && (
-                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 200KB and only in .pdf formats.</p>
+                                                    <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .pdf formats.</p>
 
                                                 )}
 
@@ -1611,7 +1611,41 @@ function CommonForm
 
                             <div className='w-full mb-5'>
                                 <p className='text-custom-red mb-2 text-start underline font-bold'>DECLARATION  </p>
-                                <div>
+
+                                <ul className='text-start list-disc ms-5 list-outside'>
+                                    <li>I hereby declare that all the particulars furnished in this application are true, correct
+                                        and complete to the best of my knowledge and belief. In the event of any information
+                                        being found false or incorrect or ineligibility being detected before or after the selection,
+                                        action can be taken against me by the TANSACS. </li>
+
+                                    <li>I further declare that I fulfill all the eligibility conditions prescribed for admission to this
+                                        post.
+                                    </li>
+
+                                    <li>
+                                        I have gone through the instructions etc., for this recruitment, before filling up the
+                                        application form through online mode.
+
+                                    </li>
+                                    <li>
+                                        I have informed my employer in writing that I am applying for this post and furnish the
+                                        NOC for this purpose (if applicable).
+
+                                    </li>
+                                    <li>
+                                        I am not a terminated employee.
+                                    </li>
+                                    <li>
+                                        There is no pending criminal case / Vigilance Case
+                                    </li>
+                                    <li>
+                                        I hereby declare that my character / antecedents are suitable for appointment to this
+                                        post.
+
+                                    </li>
+                                </ul>
+
+                                <div className='list-disc list-none mt-5'>
                                     <FormikControl
                                         control='check'
                                         type='checkbox'

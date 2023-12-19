@@ -43,15 +43,16 @@ export const CSO_pg = [
 
 export const CSO_experience = [
     { key: 'Select', value: '' },
-    { key: 'Public Health', value: 'Public Health' },
-    { key: 'Healthcare Management ', value: 'Healthcare Management ' },
-    { key: 'Healthcare Administration', value: 'Healthcare Administration' },
-    { key: 'Applied Epidemiology', value: 'Applied Epidemiology' },
-    { key: 'Medical or Allied Sciences ', value: 'Medical and Allied Sciences ' },
-    { key: 'Social Science', value: 'Social Science' },
-    { key: 'Psychology ', value: 'Psychology ' },
-    { key: 'Demography ', value: 'Demography ' },
-    { key: 'Statistics ', value: 'Statistics ' },
-    { key: 'Population Sciences', value: 'Population Sciences' },
-    { key: 'HIV/AIDS ', value: 'HIV/AIDS' },
+    { key: 'Medical or Allied Health Sciences ', value: 'Medical or Allied Health Sciences' },
+    { key: "Master's Degree in Public Health", value: "Master's Degree in Public Health" },
+    { key: "Master's Degree in Healthcare Management", value: "Master's Degree in Healthcare Management" },
+    { key: "Master's Degree in Healthcare Administration", value: "Master's Degree in Healthcare Administration" },
+    { key: "Master's Degree in Social Science", value: "Master's Degree in Social Science" },
+    { key: "Master's Degree in Applied Epidemiology", value: "Master's Degree in Applied Epidemiology" },
+    { key: "Master's Degree in Psychology", value: "Master's Degree in Psychology" },
+    { key: "Master's Degree in Demography", value: "Master's Degree in Demography" },
+    { key: "Master's Degree in Statistics", value: "Master's Degree in Statistics" },
+    { key: "Master's Degree in Population Sciences (Including Min. 1 Years experience in the HIV/AIDS Sector)", value: "Master's Degree in Population Sciences (Including Min. 1 Years experience in the HIV/AIDS Sector)" },
+    { key: 'Similar Field', value: 'Similar Field' },
+
 ]

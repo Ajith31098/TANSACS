@@ -50,7 +50,7 @@ const validationSchema = Yup.object({
         .test(
             'fileSize',
             'File too large, should be less than 100KB',
-            value => value && value.size <= 100000 // 100KB in bytes
+            value => value && value.size <= 50 * 1024 // 100KB in bytes
         ),
     first_name: Yup.string().required("Required").matches(/^[A-Za-z ]+$/, "Invalid Data"),
     last_name: Yup.string().matches(/^[A-Za-z ]+$/, "Invalid Data"),
@@ -310,7 +310,7 @@ function Signup(props) {
                                         </label>
 
                                     </div>
-                                    {!values.profile_image && <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 100KB and only in .jpeg or .jpg formats.</p>}
+                                    {!values.profile_image && <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .jpeg or .jpg formats.</p>}
 
 
 

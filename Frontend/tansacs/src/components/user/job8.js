@@ -29,45 +29,16 @@ function Job8(props) {
 
             </div>
 
-            <div className="grid grid-cols-3 gap-5  mt-5 p-10">
-
-                <div className="lg:col-span-2 col-span-3">
-                    <div className="border border-black p-3 flex flex-col gap-5 text-start">
-                        <p>Post Graduate degree in Social Sciences / Humanities or any other related field
-
-                        </p>
-
-                        <p className="text-base font-bold">Experience:</p>
-                        <ul className="list-disc mx-4">
-                            <li>Minimum 3 years experience in planning, implementing and
-                                monitoring of mid-media activities at State level</li>
-
-                            <li>A good understanding of folk and traditional media, BTL and other mid media vehicles. Excellent written and oral communication skills in Hindi and English
-                                Candidate is willing to undertake extensive travel
-                                Additional experience of designing communication aids on HIV / AIDS
-
-                            </li>
-
-                            <li>Sound knowledge of handling virtual meeting platforms,
-                                video conferencing, social media platforms and computer skills</li>
-                        </ul>
-                        <p>
-                            <small className="text-base font-bold"> Age limit:</small>
-                            60 years as on 30.06.2023
-                        </p>
-                    </div>
-                </div>
-
-                <div className="lg:col-span-1 col-span-3">
+            <div className="lg:col-span-3 col-span-3">
 
 
-                    <div className="block w-full overflow-x-auto">
-                        <table className="items-center bg-transparent w-full  border-collapse border border-gray-400">
-                            <caption className="caption-top bg-red-600 p-4 font-semibold text-white">
-                                CONSOLIDATED MONTHLY REMUNERATION
-                                ( PER MONTH ) RS 35,000/-
-                            </caption>
-                            {/* <thead>
+                <div className="block w-full overflow-x-auto rounded-t-md">
+                    <table className="items-center bg-transparent w-full  border-collapse border border-gray-400">
+                        <caption className="caption-top bg-red-600 p-4 font-semibold text-white">
+                            CONSOLIDATED MONTHLY REMUNERATION
+                            ( PER MONTH ) RS 35,000/-
+                        </caption>
+                        {/* <thead>
                                 <tr className="bg-gray-200 border-2 border-gray-400">
                                     <th className="border-gray-400 text-red-500 align-middle border-2 border-solid  py-3 text-xs uppercase  whitespace-nowrap font-semibold">
                                         S.NO
@@ -98,16 +69,58 @@ function Job8(props) {
 
 
 
-                            {/* </tbody> */}
+                        {/* </tbody> */}
 
-                        </table>
-                    </div>
-
+                    </table>
                 </div>
 
             </div>
 
-            <div className='flex justify-center'>
+            <div className="grid grid-cols-3 gap-5">
+
+                <div className="lg:col-span-3 col-span-3">
+                    <div className="border border-slate-400 rounded-b-md p-5 flex flex-col gap-5 text-start">
+                        <p className="text-base font-bold uppercase">Essential Qualification:</p>
+                        <li>Post Graduate degree in Social Sciences / Humanities or any
+                            other related field
+                        </li>
+
+                        <p className="text-base font-bold uppercase">Essential Experience:</p>
+                        <ul className="list-disc mx-4">
+                            <li>Minimum 3 years experience in planning, implementing
+                                and monitoring of mid-media activities at State level</li>
+
+                            <li>A good understanding of folk and traditional media, BTL
+                                and other mid media vehicles.</li>
+
+                            <li>Excellent written and oral communication skills in Hindi
+                                and English</li>
+
+                            <li>Candidate is willing to undertake extensive travel </li>
+
+                            <li>Additional experience of designing communication aids on
+                                HIV / AIDS</li>
+
+                            <li>Additional experience of designing communication aids on
+                                HIV / AIDS </li>
+
+                        </ul>
+
+
+                        <p className="text-base font-bold uppercase">Age limit:</p>
+
+                        <ul className="list-disc mx-4">
+                            <li> 60 year's as on 30.06.2023</li>
+
+                        </ul>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div className='flex justify-center mt-5'>
                 <ApplyButton position="Assistent Director (IEC)" min_age={60} emin_age={60} link={'/tansacs/assistant_director_iec/apply'} />
 
                 {/* <Link to={'/assistant_director_iec/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">

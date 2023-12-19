@@ -92,7 +92,7 @@ const ConfrimModal = (props) => {
                     (
 
                       <p>
-                        please fill any one tansac exper
+                        please fill any one of work Experience  with in <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>.
                       </p>
                     )
                   }

@@ -4,6 +4,8 @@ import { exp_age, set_permission } from '../../redux';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link } from 'react-router-dom'
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+
 
 
 const Modal = (props) => {
@@ -56,7 +58,10 @@ const Modal = (props) => {
           <div className="relative w-full h-full p-4 bg-white rounded-lg shadow bg-white  relative">
 
 
-            <div className=' flex justify-end'>
+            <div className=' flex justify-end relative'>
+              <ReportGmailerrorredIcon className='absolute start-1/2 top-0 -translate-y-2/4 -translate-x-2/4 bg-white rounded-full text-custom-red customFormSubmit mb-5' />
+
+
               <CloseIcon onClick={hideModal} />
             </div>
             {props.normal_check ? (
@@ -87,8 +92,8 @@ const Modal = (props) => {
                       <>
                         <p className=" text-sm">
 
-                          The existing employees of <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is 55 years as on 30.06.2023.
-                          If you have experience in above mentioned then you can apply
+                          The existing employees of <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is {props.emin_age} years as on 30.06.2023.
+                          For other candidates, upper age limit is {props.min_age} years as on 30.06.2023.
                         </p>
                       </>
                     )
@@ -135,26 +140,29 @@ const Modal = (props) => {
               </div>
 
             ) : (
-              <div className="flex w-full p-4 md:p-5  rounded-b border-gray-600">
-                {(props.apply) ?
+              <div className='flex justify-center items-center'>
 
-                  <button
-                    data-modal-hide="default-modal"
-                    type="button"
-                    onClick={redirectButton}
-                    className="text-white w-full font-medium rounded-lg text-sm px-[15px] py-[5px] text-center bg-custom-red "
-                  >
+                <div className="flex w-1/2 p-4 md:p-5  rounded-b border-gray-600">
+                  {(props.apply) ?
 
-                    APPLY
-                  </button>
-                  :
-                  <Link to={'/tansacs/jobs'} className="px-[15px] py-[5px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                    Back to Job Selection
-                    <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                    <button
+                      data-modal-hide="default-modal"
+                      type="button"
+                      onClick={redirectButton}
+                      className="text-white w-full font-medium rounded-lg text-sm px-[15px] py-[5px] text-center bg-custom-red "
+                    >
 
-                  </Link>
+                      APPLY
+                    </button>
+                    :
+                    <Link to={'/tansacs/jobs'} className="px-[15px] py-[5px]  block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+                      Back to Job Selection
+                      <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                }
+                    </Link>
+
+                  }
+                </div>
               </div>
 
             )}

@@ -10,7 +10,7 @@ function AssistantDirectorTI() {
 
     return (
 
-        <CommForm position='Assistent Director (PREVENTION) /(TI)' ug={AssistantDirector_Prevention_ug} pg={AssistantDirector_Prevention_pg} exp={AssistantDirector_Prevention_experience} />
+        <CommForm position='Assistant Director (PREVENTION) /(TI)' ug={AssistantDirector_Prevention_ug} pg={AssistantDirector_Prevention_pg} exp={AssistantDirector_Prevention_experience} />
     )
 
 }

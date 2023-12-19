@@ -187,6 +187,10 @@ function Preview(props) {
                     <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.position}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
+                    <p className="w-1/2 text-start text-sm font-bold">APPLIED DATE</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.applied_date}</p>
+                  </div>
+                  <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">NAME OF APPLICANT</p>
                     <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.first_name + " " + data.data?.user_profile.last_name}</p>
                   </div>

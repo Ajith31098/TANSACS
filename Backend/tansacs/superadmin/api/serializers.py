@@ -3,14 +3,14 @@ from jobs.models import Job
 from jobs.api.serializers import SSLCSerializer, HSCSerializer, UGSerializer, PGSerializer, ExperienceSerializer, PreferedExperienceSerializer
 from user.models import Profile, Address
 POSITION_ABBREVIATIONS = {
-    'Cluster Program Manager': 'CPM',
-    'Clinical Service Officer': 'CSO',
-    'Data Monitoring Documentation Officer': 'DMDO',
+    'Cluster Programme Manager': 'CPM',
+    'Clinical Services Officer': 'CSO',
+    'Data Monitoring and Documentation Officer': 'DMDO',
     'Deputy Director (LS)': 'DD_LS',
     'Deputy Director (SI)': 'DD_SI',
-    'Assistent Director (BSD) /(ICTC)': 'AD_ICTC',
-    'Assistent Director (PREVENTION) /(TI)': 'AD_TI',
-    'Assistent Director (IEC)': 'AD_IEC',
+    'Assistant Director (BSD) /(ICTC)': 'AD_ICTC',
+    'Assistant Director (PREVENTION) /(TI)': 'AD_TI',
+    'Assistant Director (IEC)': 'AD_IEC',
     # Add abbreviations for other positions here
 }
 
