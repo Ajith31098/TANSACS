@@ -13,6 +13,8 @@ export const CPM_ug = [
     { key: 'Bachelor of Homeopathic Medicine and Surgery (BHMS)', value: 'Bachelor of Homeopathic Medicine and Surgery (BHMS)' },
     { key: 'Bachelor of Unani Medicine and Surgery (BUMS)', value: 'Bachelor of Unani Medicine and Surgery (BUMS)' },
     { key: 'Bachelor of Science in Agriculture (B.Sc. Ag.)', value: 'Bachelor of Science in Agriculture (B.Sc. Ag.)' },
+    { key: "Similar Field", value: "Similar Field" },
+
 
 ]
 
@@ -37,16 +39,22 @@ export const CPM_pg = [
     { key: 'Master of Social Work (MSW)', value: 'Master of Social Work (MSW)' },
     { key: 'Master of Public Health (MPH)', value: 'Master of Public Health (MPH)' },
     { key: 'Master of Architecture (M.Arch)', value: 'Master of Architecture (M.Arch)' },
+    { key: "Similar Field", value: "Similar Field" },
+
 ]
 
 export const CPM_experience = [
     { key: 'Select', value: '' },
-    { key: 'Public Health', value: 'Public Health' },
-    { key: 'Medical and Allied Sciences ', value: 'Medical and Allied Sciences ' },
-    { key: 'Social Science', value: 'Social Science' },
-    { key: 'Psychology ', value: 'Psychology' },
-    { key: 'Demography ', value: 'Demography' },
-    { key: 'Statistics ', value: 'Statistics' },
-    { key: 'Population Sciences', value: 'Population Sciences' },
-    { key: 'HIV/AIDS ', value: 'HIV/AIDS' },
+    { key: 'Medical or Allied Health Sciences', value: 'Medical or Allied Health Sciences' },
+    { key: "Master's Degree in Public Health", value: "Master's Degree in Public Health" },
+    { key: "Master's Degree in Healthcare Management", value: "Master's Degree in Healthcare Management" },
+    { key: "Master's Degree in Healthcare Administration", value: "Master's Degree in Healthcare Administration" },
+    { key: "Master's Degree in Social Science", value: "Master's Degree in Social Science" },
+    { key: "Master's Degree in Applied Epidemiology", value: "Master's Degree in Applied Epidemiology" },
+    { key: "Master's Degree in Psychology", value: "Master's Degree in Psychology" },
+    { key: "Master's Degree in Statistics", value: "Master's Degree in Statistics" },
+    { key: "Master's Degree in Population Sciences", value: "Master's Degree in Population Sciences" },
+    { key: "Master's Degree in Demography", value: "Master's Degree in Demography" },
+    { key: "Similar Field", value: "Similar Field" },
+
 ]
