@@ -50,11 +50,18 @@ def cpm_exp_score(instance):
 #     return ug * 7
 
 
-def get_score_cpm(ug, pg):
-    pg_sum = 0
+def get_score_cpm(ug, pg, phd=0):
+    total = 0
     if pg > 0:
-        pg_sum = pg * 4
+        if pg >= 3:
+            total += 20
+        elif pg == 2:
+            total += 13
+        elif pg == 1:
+            total += 7
+        else:
+            total += 0
 
-    ug_sum = ug * 7
+    total += (ug * 4)
 
-    return pg_sum+ug_sum
+    return total

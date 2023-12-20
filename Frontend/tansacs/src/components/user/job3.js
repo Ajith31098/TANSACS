@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { removeexp_age } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { DATA_MONITORING_OFFICER } from '../initialValues/JobPost'
+
 
 function Job3(props) {
 
@@ -144,7 +146,7 @@ function Job3(props) {
             </div>
 
             <div className='flex justify-center mt-5'>
-                <ApplyButton position="Data Monitoring Documentation Officer" min_age={45} emin_age={50} link={'/tansacs/data_monitoring_officer/apply'} />
+                <ApplyButton position={DATA_MONITORING_OFFICER} min_age={45} emin_age={50} link={'/tansacs/data_monitoring_officer/apply'} />
 
                 {/* <Link to={'/data_monitoring_officer/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply

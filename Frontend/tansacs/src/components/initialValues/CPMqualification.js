@@ -15,7 +15,6 @@ export const CPM_ug = [
     { key: 'Bachelor of Science in Agriculture (B.Sc. Ag.)', value: 'Bachelor of Science in Agriculture (B.Sc. Ag.)' },
     { key: "Similar Field", value: "Similar Field" },
 
-
 ]
 
 export const CPM_pg = [

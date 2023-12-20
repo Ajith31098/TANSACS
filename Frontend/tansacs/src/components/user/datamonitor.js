@@ -5,12 +5,13 @@ import FormikControl from '../formcomponents/formcontrol'
 import { Link } from 'react-router-dom'
 import CommForm from './CommForm';
 import { DMDO_pg, DMDO_ug, DMDO_experience } from '../initialValues/DMDOqualification';
+import { DATA_MONITORING_OFFICER } from '../initialValues/JobPost'
 
 function DataMonitoringDocumentationOfficer() {
 
 
    return (
-      <CommForm position="Data Monitoring and Documentation Officer" ug={DMDO_ug} pg={DMDO_pg} exp={DMDO_experience} />
+      <CommForm position={DATA_MONITORING_OFFICER} ug={DMDO_ug} pg={DMDO_pg} exp={DMDO_experience} />
    )
 
 }

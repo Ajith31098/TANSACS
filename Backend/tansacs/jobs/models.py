@@ -102,7 +102,7 @@ class Job(models.Model):
     c_objects = JobManager()
     signature = models.FileField(
         upload_to="signature/", blank=True, null=True)
-    applied_date = models.DateField(
+    applied_date = models.DateTimeField(
         auto_now_add=True, null=True, blank=True)
 
 
@@ -130,6 +130,7 @@ class Experience(models.Model):
     class Course(models.TextChoices):
         UG = 'UG'
         PG = 'PG'
+        PHD = "PHD"
     degree = models.CharField(max_length=200)
     company = models.CharField(max_length=100)
     year = models.IntegerField()

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { removeexp_age } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { CLUSTER_MANAGER } from '../initialValues/JobPost'
 
 
 function Job1(props) {
@@ -217,7 +218,7 @@ function Job1(props) {
 
             <div className='flex justify-center mt-5'>
 
-                <ApplyButton position="Cluster Program Manager" main={true} min_age={50} emin_age={55} link={'/tansacs/cluster_manager/apply'} />
+                <ApplyButton position={CLUSTER_MANAGER} main={true} min_age={50} emin_age={55} link={'/tansacs/cluster_manager/apply'} />
 
 
 

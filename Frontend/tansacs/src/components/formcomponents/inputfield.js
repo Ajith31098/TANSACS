@@ -1,5 +1,5 @@
-import React, { useState ,useEffect} from 'react'
-import { useField, FastField, ErrorMessage , Field } from 'formik'
+import React, { useState, useEffect } from 'react'
+import { useField, FastField, ErrorMessage, Field } from 'formik'
 import TextError from './texterror'
 // import TextField from '@material-ui/core/TextField';
 import TextField from '@mui/material/TextField';
@@ -18,42 +18,42 @@ function Input(props) {
 
     // Check if the key is for a nested object
     if (errorFieldKey.includes('.')) {
-        // Create a selector for the nested field
-        fieldSelector = `[name="${errorFieldKey}"]`;
+      // Create a selector for the nested field
+      fieldSelector = `[name="${errorFieldKey}"]`;
     } else {
-        // Handle arrays or top-level fields
-        
-       
-        if (Array.isArray(errors[errorFieldKey])) {
+      // Handle arrays or top-level fields
 
 
-          const firstNonUndefinedIndex = errors[errorFieldKey].findIndex((element) => element !== undefined);
-          if (firstNonUndefinedIndex !== -1) {
+      if (Array.isArray(errors[errorFieldKey])) {
 
-          
-            const nestedErrorKey = Object.keys(errors[errorFieldKey][firstNonUndefinedIndex])[0];
-            // For arrays, select the first element's error
-            fieldSelector = `[name="${errorFieldKey}[${firstNonUndefinedIndex}].${nestedErrorKey}"]`;
-          }
-        } else {
-          const nestedErrorKey = Object.keys(errors[errorFieldKey])[0];
-            // For objects, select the nested field
-            fieldSelector = `[name="${errorFieldKey}.${nestedErrorKey}"]`;
+
+        const firstNonUndefinedIndex = errors[errorFieldKey].findIndex((element) => element !== undefined);
+        if (firstNonUndefinedIndex !== -1) {
+
+
+          const nestedErrorKey = Object.keys(errors[errorFieldKey][firstNonUndefinedIndex])[0];
+          // For arrays, select the first element's error
+          fieldSelector = `[name="${errorFieldKey}[${firstNonUndefinedIndex}].${nestedErrorKey}"]`;
         }
+      } else {
+        const nestedErrorKey = Object.keys(errors[errorFieldKey])[0];
+        // For objects, select the nested field
+        fieldSelector = `[name="${errorFieldKey}.${nestedErrorKey}"]`;
+      }
     }
 
     // Find and scroll to the error field
     const errorField = document.querySelector(fieldSelector);
     if (errorField) {
-        errorField.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      errorField.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-};
+  };
   useEffect(() => {
     if (isSubmitting && !isValidating && Object.keys(errors).length) {
 
-        scrollToFirstError(errors);
+      scrollToFirstError(errors);
     }
-}, [isSubmitting, isValidating, errors]);
+  }, [isSubmitting, isValidating, errors]);
 
   return (
     <>
@@ -61,7 +61,7 @@ function Input(props) {
         {({ field, meta }) => (
 
           <>
-          {/* {console.log(meta.error && meta.error)} */}
+            {/* {console.log(meta.error && meta.error)} */}
             <TextField
               {...field}
               {...rest}
@@ -73,7 +73,7 @@ function Input(props) {
                   // className: 'text-sm fond-bold',
                   style: {
                     fontSize: '11px',
-                    textTransform: applyUppercase ? 'uppercase' : 'none',
+                    textTransform: applyUppercase ? 'uppercase' : 'lowercase',
                   },
                 },
 
@@ -82,7 +82,7 @@ function Input(props) {
           </>
         )}
       </Field>
-      <ErrorMessage component={TextError} name={name}  />
+      <ErrorMessage component={TextError} name={name} />
 
 
     </>

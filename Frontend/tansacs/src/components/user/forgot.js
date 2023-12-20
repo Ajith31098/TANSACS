@@ -80,7 +80,7 @@ function ForgotPassword(props) {
                     const errorData = error.response;
                     setLoading(false)
 
-                    console.log(errorData)
+                    // console.log(errorData)
                     if (errorData.status == 400) {
                         if (errorData.data.username) {
                             setFieldError('username', errorData.data.username);

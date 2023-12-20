@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { removeexp_age } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { ASSISTANT_TI_DIRECTOR } from '../initialValues/JobPost'
 
 function Job7(props) {
 
@@ -121,7 +122,7 @@ function Job7(props) {
             </div>
 
             <div className='flex justify-center mt-5'>
-                <ApplyButton position="Assistent Director (TI)" min_age={60} emin_age={60} link={'/tansacs/assistant_director_ti/apply'} />
+                <ApplyButton position={ASSISTANT_TI_DIRECTOR} min_age={60} emin_age={60} link={'/tansacs/assistant_director_ti/apply'} />
                 {/* 
                     <Link to={'/assistant_director_ti/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply

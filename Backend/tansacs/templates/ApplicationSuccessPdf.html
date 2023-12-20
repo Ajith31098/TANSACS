@@ -10,7 +10,8 @@
     <title>TNPSC Application Form</title>
     <style>
         @page {
-            size: 210mm 600mm;
+            size: 210mm 210mm;
+
             margin: 20mm;
         }
 
@@ -32,8 +33,9 @@
 
         tr {
             border: 1px solid black;
-            padding: 2px;
+            padding: 3px;
             page-break-inside: avoid;
+
         }
 
 
@@ -41,12 +43,21 @@
             line-height: 1;
             border: none;
             font-size: 15px;
+
+
+        }
+
+        li {
+            border: none;
+            font-size: 15px;
+
+
         }
 
         .headers {
             color: white;
             margin: 10px 0;
-            text-transform: uppercase;
+
             background: #f40000;
             padding: 5px;
             font-size: 15px;
@@ -64,6 +75,8 @@
         p {
             line-height: 1;
             font-size: 15px;
+
+
         }
     </style>
 </head>
@@ -114,51 +127,52 @@
 
         <tr>
             <td>UNIQUE ID</td>
-            <td>{{job.application_id}}</td>
+            <td>{{job.application_id|upper}}</td>
+        </tr>
+
+        <tr>
+            <td>SELECTED JOB POST</td>
+            <td>{{job.position|upper}}</td>
         </tr>
         <tr>
-            <td>Select Job Posting</td>
-            <td>{{job.position}}</td>
-        </tr>
-        <tr>
-            <td>Applied Date</td>
+            <td>APPLIED DATE</td>
             <td>{{job.applied_date}}</td>
         </tr>
         <tr>
-            <td>Name of the Applicant</td>
-            <td>{{job.user.profile.first_name}} {{job.user.profile.last_name}}</td>
+            <td>NAME OF THE APPLICANT</td>
+            <td>{{job.user.profile.first_name|upper}} {{job.user.profile.last_name|upper}}</td>
         </tr>
 
 
         <tr>
             <td>
-                Applicant Mobile Number
+                APPLICANT MOBILE NUMBER
 
             </td>
             <td>
-                +91 {{job.user.profile.phone_number}}
+                +91 {{job.user.profile.phone_number|upper}}
             </td>
         </tr>
         <tr>
             <td>
-                Date of Birth
+                DATE OF BIRTH
 
             </td>
             <td>
-                {{job.user.profile.DOB}}
+                {{job.user.profile.DOB|upper}}
             </td>
         </tr>
         <tr>
             <td>
-                Age
+                AGE
             </td>
             <td>
-                {{job.user.profile.age}}
+                {{job.user.profile.age|upper}}
             </td>
         </tr>
         <tr>
             <td>
-                Email ID
+                EMAIL ID
 
             </td>
             <td>
@@ -167,31 +181,31 @@
         </tr>
         <tr>
             <td>
-                Parent's Name
+                PARENT'S NAME
 
             </td>
             <td>
-                {{job.user.profile.guardian_name}} {{job.user.profile.guardian_name_initial}}
+                {{job.user.profile.guardian_name|upper}} {{job.user.profile.guardian_name_initial|upper}}
             </td>
         </tr>
         <tr>
             <td>
-                Aadhar Card Number
+                AADHAR CARD NUMBER
 
             </td>
             <td>
-                {{job.user.profile.aadhar}}
+                {{job.user.profile.aadhar|upper}}
             </td>
         </tr>
         <tr>
             <td>
-                Emergency Contact Number
+                EMERGENCY PHONE NUMBER
 
             </td>
             <td>
-                +91 {{job.user.profile.alternate_phone_number}}
+                +91 {{job.user.profile.alternate_phone_number|upper}}
             </td>
-        </tr><!-- Add more rows as needed -->
+        </tr>
     </table>
 
     <!-- Address Details -->
@@ -203,26 +217,26 @@
     {% endif %}
     <table style="width:100%;">
         <tr>
-            <td>Address Line 1</td>
-            <td>{{each.address_line1}}</td>
+            <td>ADDRESS LINE 1</td>
+            <td>{{each.address_line1|upper}}</td>
         </tr>
         {% if each.address_line2 %}
         <tr>
-            <td>Address Line 2</td>
-            <td>{{each.address_line2}}</td>
+            <td>ADDRESS LINE 2</td>
+            <td>{{each.address_line2|upper}}</td>
         </tr>
         {% endif %}
         <tr>
-            <td>State</td>
-            <td>{{each.state}}</td>
+            <td>STATE</td>
+            <td>{{each.state|upper}}</td>
         </tr>
         <tr>
-            <td>District</td>
-            <td>{{each.district}}</td>
+            <td>DISTRICT</td>
+            <td>{{each.district|upper}}</td>
         </tr>
         <tr>
-            <td>Pincode</td>
-            <td>{{each.pincode}}</td>
+            <td>PINCODE</td>
+            <td>{{each.pincode|upper}}</td>
         </tr>
 
         <!-- Add more rows as needed -->
@@ -236,20 +250,20 @@
     <p class="headers">S.S.L.C.</p>
     <table style="width:100%;">
         <tr>
-            <td>S.S.L.C. Register Number</td>
-            <td>{{job.sslc.register_number}}</td>
+            <td>S.S.L.C. REGISTER NUMBER</td>
+            <td>{{job.sslc.register_number|upper}}</td>
         </tr>
         <tr>
-            <td>Month / Year of Passing</td>
-            <td>{{job.sslc.month}} {{job.sslc.year}}</td>
+            <td>MONTH / YEAR OF PASSING</td>
+            <td>{{job.sslc.month|upper}} {{job.sslc.year|upper}}</td>
         </tr>
         <tr>
-            <td>Type of Board</td>
-            <td>{{job.sslc.board}}</td>
+            <td>TYPE OF BOARD</td>
+            <td>{{job.sslc.board|upper}}</td>
         </tr>
         <tr>
-            <td>Percentage</td>
-            <td>{{job.sslc.percentage}}</td>
+            <td>PERCENTAGE</td>
+            <td>{{job.sslc.percentage|upper}}</td>
         </tr>
 
         <!-- Add more rows as needed -->
@@ -259,20 +273,20 @@
     <p class="headers">H.S.C.</p>
     <table style="width:100%;">
         <tr>
-            <td>H.S.C Register Number</td>
-            <td>{{job.hsc.register_number}}</td>
+            <td>H.S.C REGISTER NUMBER</td>
+            <td>{{job.hsc.register_number|upper}}</td>
         </tr>
         <tr>
-            <td>Month / Year of Passing</td>
-            <td>{{job.hsc.month}} {{job.hsc.year}}</td>
+            <td>MONTH / YEAR OF PASSING</td>
+            <td>{{job.hsc.month|upper}} {{job.hsc.year|upper}}</td>
         </tr>
         <tr>
-            <td>Type of Board</td>
-            <td>{{job.hsc.board}}</td>
+            <td>TYPE OF BOARD</td>
+            <td>{{job.hsc.board|upper}}</td>
         </tr>
         <tr>
-            <td>Percentage</td>
-            <td>{{job.hsc.percentage}}</td>
+            <td>PERCENTAGE</td>
+            <td>{{job.hsc.percentage|upper}}</td>
         </tr>
 
         <!-- Add more rows as needed -->
@@ -282,21 +296,25 @@
     <p class="headers">UNDERGRADUATE </p>
     <table style="width:100%;">
         <tr>
-            <td>U.G Degree</td>
-            <td>{{job.ug.degree}}</td>
+            <td>U.G DEGREE</td>
+            <td>{{job.ug.degree|upper}}</td>
         </tr>
         <tr>
-            <td>U.G Register Number</td>
-            <td>{{job.ug.register_number}}</td>
+            <td>DEPARTMENT</td>
+            <td>{{job.ug.department|upper}}</td>
         </tr>
         <tr>
-            <td>Month / Year of Passing</td>
-            <td>{{job.ug.month}} {{job.ug.year}}</td>
+            <td>U.G REGISTER NUMBER</td>
+            <td>{{job.ug.register_number|upper}}</td>
+        </tr>
+        <tr>
+            <td>MONTH / YEAR OF PASSING</td>
+            <td>{{job.ug.month|upper}} {{job.ug.year|upper}}</td>
         </tr>
 
         <tr>
-            <td>Percentage</td>
-            <td>{{job.ug.percentage}}</td>
+            <td>PERCENTAGE</td>
+            <td>{{job.ug.percentage|upper}}</td>
         </tr>
 
         <!-- Add more rows as needed -->
@@ -308,21 +326,27 @@
 
     <table style="width:100%;">
         <tr>
-            <td>P.G Degree</td>
-            <td>{{each.degree}}</td>
-        </tr>
-        <tr>
-            <td>P.G Register Number</td>
-            <td>{{each.register_number}}</td>
-        </tr>
-        <tr>
-            <td>Month / Year of Passing</td>
-            <td>{{each.month}} {{each.year}}</td>
+            <td>P.G DEGREE</td>
+            <td>{{each.degree|upper}}</td>
         </tr>
 
         <tr>
-            <td>Percentage</td>
-            <td>{{each.percentage}}</td>
+            <td>DEPARTMENT</td>
+            <td>{{each.department|upper}}</td>
+        </tr>
+
+        <tr>
+            <td>P.G REGISTER NUMBER</td>
+            <td>{{each.register_number|upper}}</td>
+        </tr>
+        <tr>
+            <td>MONTH / YEAR OF PASSING</td>
+            <td>{{each.month|upper}} {{each.year|upper}}</td>
+        </tr>
+
+        <tr>
+            <td>PERCENTAGE</td>
+            <td>{{each.percentage|upper}}</td>
         </tr>
 
         <!-- Add more rows as needed -->
@@ -337,18 +361,18 @@
 
     <table style="width:100%;">
         <tr>
-            <td>Degree</td>
-            <td>{{each.degree}}</td>
+            <td>DEGREE</td>
+            <td>{{each.degree|upper}}</td>
         </tr>
         <tr>
-            <td>Company</td>
-            <td>{{each.company}}</td>
+            <td>COMPANY</td>
+            <td>{{each.company|upper}}</td>
         </tr>
 
 
         <tr>
-            <td>Years</td>
-            <td>{{each.year}}</td>
+            <td>YEARS</td>
+            <td>{{each.year|upper}}</td>
         </tr>
 
         <!-- Add more rows as needed -->
@@ -364,13 +388,48 @@
         {% get_experience job as companies %}
         {% for company, year in companies.items %}
         <tr>
-            <td>Experience in {{ company }}</td>
-            <td>{{ year }}</td>
+            <td>EXPERIENCE in {{ company |upper}}</td>
+            <td>{{ year |upper}}</td>
         </tr>
         {% endfor %}
     </table>
 
     <h4 style="color:red ; margin:0px ;font-size: 15px;">DECLARATION</h4>
+
+
+
+    <ul>
+        <li>
+            I hereby declare that all the particulars furnished in this application are true, correct
+            and complete to the best of my knowledge and belief. In the event of any information
+            being found false or incorrect or ineligibility being detected before or after the selection,
+            action can be taken against me by the TANSACS.
+        </li>
+        <li>
+            I further declare that I fulfill all the eligibility conditions prescribed for admission to this
+            post.
+        </li>
+        <li>
+            I have gone through the instructions etc., for this recruitment, before filling up the
+            application form through online mode.
+
+        </li>
+        <li>
+            I have informed my employer in writing that I am applying for this post and furnish the
+            NOC for this purpose (if applicable).
+        </li>
+        <li>
+            I am not a terminated employee.
+        </li>
+        <li>
+            There is no pending criminal case / Vigilance Case
+        </li>
+        <li>
+            I hereby declare that my character / antecedents are suitable for appointment to this
+            post.
+
+        </li>
+    </ul>
 
     <p>
         I hereby declare that all the contents entered in the application form is true to my <br><br>knowledge and I

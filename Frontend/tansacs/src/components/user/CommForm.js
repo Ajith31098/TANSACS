@@ -386,7 +386,7 @@ function CommonForm
             )
                 .test(
                     'fileSize',
-                    'File too large, should be less than 200KB',
+                    'File too large, should be less than 50KB',
                     value => value && value.size <= 50 * 1024 // 200KB in bytes
                 ),
             otherwise: () => Yup.mixed().test(
@@ -396,7 +396,7 @@ function CommonForm
             )
                 .test(
                     'fileSize',
-                    'File too large, should be less than 200KB',
+                    'File too large, should be less than 50KB',
                     value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                 ),
         }),
@@ -437,7 +437,7 @@ function CommonForm
         )
             .test(
                 'fileSize',
-                'File too large, should be less than 200KB',
+                'File too large, should be less than 50KB',
                 value => value && value.size <= 50 * 1024 // 200KB in bytes
             ),
 
@@ -481,7 +481,7 @@ function CommonForm
                     )
                     .test(
                         'fileSize',
-                        'File too large, should be less than 200KB',
+                        'File too large, should be less than 50KB',
                         value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                     ),
                 otherwise: () => Yup.mixed()
@@ -493,7 +493,7 @@ function CommonForm
                     )
                     .test(
                         'fileSize',
-                        'File too large, should be less than 200KB',
+                        'File too large, should be less than 50KB',
                         value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                     ),
             }),
@@ -508,7 +508,7 @@ function CommonForm
                 )
                 .test(
                     'fileSize',
-                    'File too large, should be less than 200KB',
+                    'File too large, should be less than 50KB',
                     value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                 )
             ,
@@ -519,7 +519,7 @@ function CommonForm
             )
                 .test(
                     'fileSize',
-                    'File too large, should be less than 200KB',
+                    'File too large, should be less than 50KB',
                     value => value === undefined || (value && value.size <= 50 * 1024) // 200KB in bytes
                 )
         })
@@ -611,7 +611,7 @@ function CommonForm
 
 
                 setLoading(false)
-                // navigate('/server_error_500')
+                navigate('/server_error_500')
 
             },
         })
@@ -657,7 +657,8 @@ function CommonForm
     const ExperienceCoursse = [
         { key: 'Select', value: '' },
         { key: 'UG', value: 'UG' },
-        { key: 'PG', value: 'PG' }
+        { key: 'PG', value: 'PG' },
+        { key: 'PHD', value: 'PHD' },
     ]
 
 
@@ -701,7 +702,7 @@ function CommonForm
 
                         />
 
-                        {console.log(formik)}
+                        {/* {console.log(formik)} */}
 
                         <div className="container font-sans">
 

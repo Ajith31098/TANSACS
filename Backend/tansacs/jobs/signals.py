@@ -30,9 +30,9 @@ ABBREVIATION_POSITIONS = {
 }
 
 
-def get_score(ug, pg, position):
+def get_score(ug, pg, phd, position):
 
-    return ABBREVIATION_POSITIONS[position](ug, pg)
+    return ABBREVIATION_POSITIONS[position](ug, pg, phd)
 
 
 # Define the abbreviation dictionary
@@ -66,6 +66,8 @@ def my_custom_signal_receiver(sender, **kwargs):
     ) if exps.course == Experience.Course.UG)
     exp_total_years_pg = sum(exps.year for exps in instance.exp.all(
     ) if exps.course == Experience.Course.PG)
+    exp_total_years_phd = sum(exps.year for exps in instance.exp.all(
+    ) if exps.course == Experience.Course.PHD)
     # print("exp_score", exp_percentage)
     # exp_percentage = exp_total_years_ug * \
     #     4 if exp_total_years_pg == 0 else exp_total_years_pg*7
@@ -73,7 +75,7 @@ def my_custom_signal_receiver(sender, **kwargs):
     # print(exp_percentage)
 
     exp_percentage = get_score(
-        exp_total_years_ug, exp_total_years_pg, instance.position)
+        exp_total_years_ug, exp_total_years_pg, exp_total_years_phd, instance.position)
 
     exp_percentage = exp_percentage if exp_percentage <= 20 else 20
 

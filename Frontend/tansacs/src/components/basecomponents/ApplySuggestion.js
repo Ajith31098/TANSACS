@@ -22,7 +22,7 @@ function ApplyButton(props) {
             });
             return response.data;
         } catch (error) {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             throw new Error(error);
         }
     };

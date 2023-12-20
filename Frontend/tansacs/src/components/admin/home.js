@@ -76,7 +76,7 @@ function AdminHome(props) {
     if (data) {
         return (
             <>
-                {console.log(data.data)}
+                {/* {console.log(data.data)} */}
                 <h4 className='text-4xl text-custom-red font-bold mt-14 mb-14'>Tamil Nadu State AIDS Control Society</h4>
 
                 <p className=' text-2xl font-semibold mb-5'>DASHBORD HAS TO BE ESTABLISHED TO TRACK RECIEVED JOB POSTING</p>

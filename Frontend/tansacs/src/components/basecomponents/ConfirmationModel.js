@@ -29,7 +29,7 @@ const ConfrimModal = (props) => {
       obj.year !== '' && obj.certificate !== ''
     );
 
-    console.log(isFilled, formValues.prefered_experience)
+    // console.log(isFilled, formValues.prefered_experience)
 
 
     if (!isFilled && props.exp_user_age) {

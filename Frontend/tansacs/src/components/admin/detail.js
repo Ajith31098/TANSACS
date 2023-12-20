@@ -60,7 +60,10 @@ function Detail(props) {
 
 
   const rows = searchvalue
-    ? initialRows.filter((row) => row.application_id.toLowerCase().startsWith(searchvalue.toLowerCase()))
+    ? initialRows.filter((row) =>
+      row.application_id.toLowerCase().startsWith(searchvalue.toLowerCase()) ||
+      row.user_full_name.toLowerCase().startsWith(searchvalue.toLowerCase())
+    )
     : initialRows;
 
 
@@ -114,7 +117,7 @@ function Detail(props) {
 
     return (
       <>
-        {console.log(data.data)}
+        {/* {console.log(data.data)} */}
         <div>
           <h4 className='text-4xl text-custom-red font-bold mt-10 mb-14'>Tamil Nadu State AIDS Control Society</h4>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

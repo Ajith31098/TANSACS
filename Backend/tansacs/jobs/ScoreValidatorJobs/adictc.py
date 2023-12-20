@@ -13,9 +13,13 @@ def adictc_exp_score(instance):
     return 20 if score >= 20 else score
 
 
-def get_score_adictc(ug, pg):
+def get_score_adictc(ug, pg, phd=0):
 
-    if pg > 0:
-        return pg * 7
-
-    return 0
+    if pg >= 3:
+        return 20
+    elif pg == 2:
+        return 13
+    elif pg == 1:
+        return 7
+    else:
+        return 0

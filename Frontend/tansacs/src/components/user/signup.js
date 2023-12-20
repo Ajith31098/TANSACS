@@ -49,7 +49,7 @@ const validationSchema = Yup.object({
         )
         .test(
             'fileSize',
-            'File too large, should be less than 100KB',
+            'File too large, should be less than 50KB',
             value => value && value.size <= 50 * 1024 // 100KB in bytes
         ),
     first_name: Yup.string().required("Required").matches(/^[A-Za-z ]+$/, "Invalid Data"),
@@ -68,7 +68,20 @@ const validationSchema = Yup.object({
             val => val && val.length === 12 // Check if the length is exactly 12
         ),
     email: Yup.string().required("Required").matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format"),
-    confrim_email: Yup.string().oneOf([Yup.ref('email'), ''], 'email not matched').required('Required'),
+    confrim_email: Yup.string()
+        .required('Required')
+        .trim()
+        .test(
+            'email-match',
+            'Email not matched',
+            function (value) {
+                // Get the value of the 'email' field
+                const email = this.resolve(Yup.ref('email'));
+
+                // Compare the lowercase versions of both email and confirm_email
+                return email.toLowerCase() === value.toLowerCase();
+            }
+        ),
     guardian_name: Yup.string().required("Required").matches(/^[A-Za-z ]+$/, "Invalid Data"),
     guardian_name_initial: Yup.string().matches(/^[A-Za-z ]+$/, "Invalid Data"),
     DOB: Yup.string().required('Required'),
@@ -186,7 +199,7 @@ function Signup(props) {
 
             onSuccess: (data) => {
 
-                console.log('success', values.profile_image, data.profile_id);
+                // console.log('success', values.profile_image, data.profile_id);
                 const id = data.profile_id
 
                 const formData = new FormData();
@@ -203,7 +216,7 @@ function Signup(props) {
                         navigate('/verify', { replace: true })
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        // console.log(error);
                         navigate('/')
                     })
 

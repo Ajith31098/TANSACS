@@ -22,9 +22,11 @@ def ddsi_exp_score(instance):
     return 20 if score >= 20 else score
 
 
-def get_score_ddsi(ug, pg):
-
+def get_score_ddsi(ug, pg, phd=0):
+    total = 0
     if pg > 0:
-        return pg * 4
+        total += (pg * 4)
 
-    return 0
+    total += (ug*4)
+
+    return total

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { removeexp_age } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { DEPUTY_LS_DIRECTOR } from '../initialValues/JobPost'
 
 function Job4(props) {
     const navigate = useNavigate()
@@ -121,7 +122,7 @@ function Job4(props) {
             </div>
 
             <div className='flex justify-center mt-5'>
-                <ApplyButton position="Deputy Director (LS)" min_age={60} emin_age={60} link={'/tansacs/deputy_director_ls/apply'} />
+                <ApplyButton position={DEPUTY_LS_DIRECTOR} min_age={60} emin_age={60} link={'/tansacs/deputy_director_ls/apply'} />
 
                 {/* <Link to={'/deputy_director_ls/apply'} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply

@@ -36,9 +36,21 @@ def ddls_exp_score(instance):
     return 20 if score >= 20 else score
 
 
-def get_score_ddls(ug, pg):
+def get_score_ddls(ug, pg, phd=0):
 
+    total = 0
     if pg > 0:
-        return pg * 4
+        total += (pg * 4)
 
-    return ug * 4
+    if phd >= 3:
+        total += 20
+    elif phd == 2:
+        total += 13
+    elif phd == 1:
+        total += 7
+    else:
+        total += 0
+
+    total += (ug * 4)
+
+    return total

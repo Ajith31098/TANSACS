@@ -84,7 +84,7 @@ function Preview(props) {
       const response = await axios.get(`http://127.0.0.1:8000/jobs/admin_download/${id}`, {
         responseType: 'blob',  // Important for handling PDF download
       });
-      console.log("success");
+      // console.log("success");
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -143,12 +143,31 @@ function Preview(props) {
 
   if (data) {
 
+    const DateConverter = (dateTimeString) => {
+
+      // const dateTimeString = "2023-12-20T17:25:21.238254+05:30";
+
+      // Convert the string to a Date object
+      const date = new Date(dateTimeString);
+
+      // Format the date
+      const optionsDate = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const formattedDate = date.toLocaleDateString('en-US', optionsDate);
+
+      // Format the time
+      const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: true };
+      const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
+
+      // Combine date and time
+      return `${formattedDate}, ${formattedTime}`;
+    }
+
 
 
 
     return (
       <>
-        {console.log(data)}
+        {/* {console.log(data)} */}
 
 
 
@@ -188,7 +207,7 @@ function Preview(props) {
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">APPLIED DATE</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.applied_date}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{DateConverter(data.data?.applied_date)}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">NAME OF APPLICANT</p>
@@ -362,26 +381,33 @@ function Preview(props) {
 
                 </div>
                 <div className="lg:w-1/2 w-full  p-3">
-                  <div className="flex flex-col gap-5 p-3" style={{
+                  <div className="flex flex-col gap-5 p-3 min-h-[350px] justify-between" style={{
                     boxShadow:
                       "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
                   }}>
 
-                    <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
-                      <p className="w-1/2 text-start text-sm font-bold">UG DEGREE</p>
-                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.degree} </p>
-                    </div>
-                    <div className="flex w-full justify-center items-center gap-3">
-                      <p className="w-1/2 text-start text-sm font-bold">UG REGISTER NUMBER</p>
-                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.register_number}</p>
-                    </div>
-                    <div className="flex w-full justify-center items-center gap-3">
-                      <p className="w-1/2 text-start text-sm font-bold">MONTH /YEAR OF PASSING</p>
-                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.year}</p>
-                    </div>
-                    <div className="flex w-full justify-center items-center gap-3">
-                      <p className="w-1/2 text-start text-sm font-bold">PERCENTAGE</p>
-                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.percentage}</p>
+                    <div className="flex flex-col gap-5">
+
+                      <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
+                        <p className="w-1/2 text-start text-sm font-bold">UG DEGREE</p>
+                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.degree} </p>
+                      </div>
+                      <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
+                        <p className="w-1/2 text-start text-sm font-bold">DEPARTMENT</p>
+                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.department} </p>
+                      </div>
+                      <div className="flex w-full justify-center items-center gap-3">
+                        <p className="w-1/2 text-start text-sm font-bold">UG REGISTER NUMBER</p>
+                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.register_number}</p>
+                      </div>
+                      <div className="flex w-full justify-center items-center gap-3">
+                        <p className="w-1/2 text-start text-sm font-bold">MONTH /YEAR OF PASSING</p>
+                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.year}</p>
+                      </div>
+                      <div className="flex w-full justify-center items-center gap-3">
+                        <p className="w-1/2 text-start text-sm font-bold">PERCENTAGE</p>
+                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.percentage}</p>
+                      </div>
                     </div>
 
                     <div className="flex justify-between items-center ignorebutton">
@@ -408,26 +434,32 @@ function Preview(props) {
                 {data.data.pg.map((pg, index) => (
 
                   <div key={index} className="lg:w-1/2 w-full p-3" >
-                    <div className="flex flex-col gap-5 p-3" style={{
+                    <div className="flex flex-col gap-5 p-3 min-h-[350px] justify-between" style={{
                       boxShadow:
                         "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
                     }}>
 
-                      <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
-                        <p className="w-1/2 text-start text-sm font-bold"> PG DEGREE</p>
-                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.degree}</p>
-                      </div>
-                      <div className="flex w-full justify-center items-center gap-3">
-                        <p className="w-1/2 text-start text-sm font-bold"> PG REGISTER NUMBER</p>
-                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.register_number}</p>
-                      </div>
-                      <div className="flex w-full justify-center items-center gap-3">
-                        <p className="w-1/2 text-start text-sm font-bold"> MONTH / YEAR OF PASSING </p>
-                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.year}</p>
-                      </div>
-                      <div className="flex w-full justify-center items-center gap-3">
-                        <p className="w-1/2 text-start text-sm font-bold"> PERCENTAGE </p>
-                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.percentage}</p>
+                      <div className="flex flex-col gap-5">
+                        <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
+                          <p className="w-1/2 text-start text-sm font-bold"> PG DEGREE</p>
+                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.degree}</p>
+                        </div>
+                        <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
+                          <p className="w-1/2 text-start text-sm font-bold">DEPARTMENT</p>
+                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.department}</p>
+                        </div>
+                        <div className="flex w-full justify-center items-center gap-3">
+                          <p className="w-1/2 text-start text-sm font-bold"> PG REGISTER NUMBER</p>
+                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.register_number}</p>
+                        </div>
+                        <div className="flex w-full justify-center items-center gap-3">
+                          <p className="w-1/2 text-start text-sm font-bold"> MONTH / YEAR OF PASSING </p>
+                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.year}</p>
+                        </div>
+                        <div className="flex w-full justify-center items-center gap-3">
+                          <p className="w-1/2 text-start text-sm font-bold"> PERCENTAGE </p>
+                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.percentage}</p>
+                        </div>
                       </div>
 
                       <div className="flex justify-between items-center ignorebutton">
@@ -466,25 +498,27 @@ function Preview(props) {
 
                   {data.data.exp.map((exp, index) => (
 
-                    <div className="lg:w-1/2 w-full p-2" key={index}>
+                    <div className="lg:w-1/2 w-full p-2 " key={index}>
 
-                      <div className=" flex flex-col gap-5 p-4" style={{
+                      <div className=" flex flex-col gap-5 justify-between p-4 min-h-[250px]" style={{
                         boxShadow:
                           "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
                       }}>
-                        <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
-                          <p className="w-1/2 text-start text-sm font-bold">SELECTED DEGREE</p>
-                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.degree}</p>
+                        <div className="flex flex-col gap-5">
+                          <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
+                            <p className="w-1/2 text-start text-sm font-bold">SELECTED DEGREE</p>
+                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.degree}</p>
+                          </div>
+                          <div className="flex w-full justify-center items-center gap-3">
+                            <p className="w-1/2 text-start text-sm font-bold">COMPANY NAME</p>
+                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.company}</p>
+                          </div>
+                          <div className="flex w-full justify-center items-center gap-3">
+                            <p className="w-1/2 text-start text-sm font-bold">EXPERIENCE</p>
+                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.year}</p>
+                          </div>
                         </div>
-                        <div className="flex w-full justify-center items-center gap-3">
-                          <p className="w-1/2 text-start text-sm font-bold">COMPANY NAME</p>
-                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.company}</p>
-                        </div>
-                        <div className="flex w-full justify-center items-center gap-3">
-                          <p className="w-1/2 text-start text-sm font-bold">EXPERIENCE</p>
-                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.year}</p>
-                        </div>
-                        <div className="flex justify-between items-center ignorebutton">
+                        <div className="flex justify-between items-center ignorebutton ">
 
                           <a target='_blank' href={exp.certificate} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
                             Certificate
