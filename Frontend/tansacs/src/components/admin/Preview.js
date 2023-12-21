@@ -181,7 +181,7 @@ function Preview(props) {
               <div className="md:w-1/2 w-full">
                 <div className="flex w-full justify-start items-center text-sm font-bold gap-3">
                   <p className=" text-start text-sm font-bold">APPLICATION NUMBER</p>
-                  <p className=" text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.application_id}</p>
+                  <p className=" text-start box-shadow rounded-md text-sm font-bold p-2 ">{data.data.application_id}</p>
                 </div>
               </div>
               <div className="md:w-1/2 w-full md:mt-0 mt-5">
@@ -193,17 +193,17 @@ function Preview(props) {
             </div>
 
             <div className="my-3">
-              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Personal Details</p>
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold uppercase">Personal Details</p>
 
               <div className="flex flex-wrap w-full my-5">
                 <div className="lg:w-3/5 lg:order-1 order-2 w-full flex flex-col gap-5">
                   <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
-                    <p className="w-1/2 text-start text-sm font-bold">UNIQUE ID</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.application_id}</p>
+                    <p className="w-1/2 text-start text-sm font-bold uppercase">UNIQUE ID</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.application_id}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
-                    <p className="w-1/2 text-start text-sm font-bold">SELECTED JOB POSTING</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.position}</p>
+                    <p className="w-1/2 text-start text-sm font-bold uppercase">SELECTED JOB POSTING</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data?.position}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">APPLIED DATE</p>
@@ -211,7 +211,7 @@ function Preview(props) {
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">NAME OF APPLICANT</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.first_name + " " + data.data?.user_profile.last_name}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data?.user_profile.first_name + " " + data.data?.user_profile.last_name}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">DATE OF BIRTH</p>
@@ -223,7 +223,7 @@ function Preview(props) {
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">GENDER</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.gender}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data?.user_profile.gender}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">MAIL ID</p>
@@ -231,7 +231,7 @@ function Preview(props) {
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">FATHER NAME</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data?.user_profile.guardian_name}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data?.user_profile.guardian_name}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">AADHAR CARD</p>
@@ -253,25 +253,25 @@ function Preview(props) {
 
 
             <div className="my-3">
-              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Permenent Address</p>
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold uppercase">Permenent Address</p>
 
               <div className="flex w-full flex-wrap my-5">
                 <div className="lg:w-3/5 w-full flex flex-col gap-5">
                   <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">ADDRESS LINE 1</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.address[0].address_line1}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.address[0].address_line1}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">STATE</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.address[0].state}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.address[0].state}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">DISTRICT</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.address[0].district}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.address[0].district}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">TOWN/TALUK/CITY</p>
-                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.address[0].city}</p>
+                    <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.address[0].city}</p>
                   </div>
                   <div className="flex w-full justify-center items-center gap-3">
                     <p className="w-1/2 text-start text-sm font-bold">PINCODE</p>
@@ -287,7 +287,7 @@ function Preview(props) {
 
 
             <div className="my-3">
-              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Education Details</p>
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold uppercase">Education Details</p>
 
               <div className="flex  flex-wrap w-full my-5" >
                 <div className="lg:w-1/2 w-full p-3" >
@@ -306,7 +306,7 @@ function Preview(props) {
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
                       <p className="w-1/2 text-start text-sm font-bold">TYPE OF BOARD</p>
-                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.sslc.board}</p>
+                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.sslc.board}</p>
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
                       <p className="w-1/2 text-start text-sm font-bold">PERCENTAGE</p>
@@ -350,7 +350,7 @@ function Preview(props) {
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
                       <p className="w-1/2 text-start text-sm font-bold">TYPE OF BOARD</p>
-                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.hsc.board}</p>
+                      <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.hsc.board}</p>
                     </div>
                     <div className="flex w-full justify-center items-center gap-3">
                       <p className="w-1/2 text-start text-sm font-bold">PERCENTAGE</p>
@@ -390,11 +390,11 @@ function Preview(props) {
 
                       <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
                         <p className="w-1/2 text-start text-sm font-bold">UG DEGREE</p>
-                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.degree} </p>
+                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.ug.degree} </p>
                       </div>
                       <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
                         <p className="w-1/2 text-start text-sm font-bold">DEPARTMENT</p>
-                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.ug.department} </p>
+                        <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{data.data.ug.department} </p>
                       </div>
                       <div className="flex w-full justify-center items-center gap-3">
                         <p className="w-1/2 text-start text-sm font-bold">UG REGISTER NUMBER</p>
@@ -442,11 +442,11 @@ function Preview(props) {
                       <div className="flex flex-col gap-5">
                         <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
                           <p className="w-1/2 text-start text-sm font-bold"> PG DEGREE</p>
-                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.degree}</p>
+                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{pg.degree}</p>
                         </div>
                         <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
                           <p className="w-1/2 text-start text-sm font-bold">DEPARTMENT</p>
-                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{pg.department}</p>
+                          <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{pg.department}</p>
                         </div>
                         <div className="flex w-full justify-center items-center gap-3">
                           <p className="w-1/2 text-start text-sm font-bold"> PG REGISTER NUMBER</p>
@@ -492,7 +492,7 @@ function Preview(props) {
 
 
             <div className="my-3">
-              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Experience Details</p>
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold uppercase">Experience Details</p>
               {data.data.exp.length !== 0 ? (
                 <div className="flex w-full flex-wrap my-5">
 
@@ -507,11 +507,11 @@ function Preview(props) {
                         <div className="flex flex-col gap-5">
                           <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
                             <p className="w-1/2 text-start text-sm font-bold">SELECTED DEGREE</p>
-                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.degree}</p>
+                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{exp.degree}</p>
                           </div>
                           <div className="flex w-full justify-center items-center gap-3">
                             <p className="w-1/2 text-start text-sm font-bold">COMPANY NAME</p>
-                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.company}</p>
+                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{exp.company}</p>
                           </div>
                           <div className="flex w-full justify-center items-center gap-3">
                             <p className="w-1/2 text-start text-sm font-bold">EXPERIENCE</p>
@@ -549,7 +549,7 @@ function Preview(props) {
             </div>
 
             <div className="w-full my-3 ">
-              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Work Experience With in ( NACO / TANSACS / TSU )</p>
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold uppercase">Work Experience With in ( NACO / TANSACS / TSU )</p>
 
               <div className=" w-full my-5  flex flex-col gap-5">
                 <div className="flex w-full flex-wrap justify-start items-center text-sm font-bold ">
@@ -659,7 +659,7 @@ function Preview(props) {
 
             <div className="my-3">
 
-              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold">Signature</p>
+              <p className="text-white text-start px-4 bg-custom-red py-2 font-bold uppercase">Signature</p>
 
               <div className="my-3 flex gap-10 items-center">
                 <p className=" text-sm font-bold">SIGNATURE</p>
