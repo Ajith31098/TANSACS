@@ -96,7 +96,7 @@ function Jobs(props) {
                         </Link>
 
                         <Link to={'/tansacs/assistant_director_ictc'} className="p-2 block group relative  w-full overflow-hidden rounded-2xl bg-red-600 text-sm font-semibold text-white">
-                            Assistant Director (BSD)/(ICTC)
+                            Assistant Director (BSD) / (ICTC)
                             - 1 Post
                             <div className="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 

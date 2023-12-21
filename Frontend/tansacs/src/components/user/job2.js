@@ -30,7 +30,7 @@ function Job2(props) {
                 <h4 className='text-custom-red font-bold mb-7  lg:text-[50px] md:text-[40px] text-[35px]'>Tamil Nadu State AIDS Control Society</h4>
 
 
-                <h4 className='text-2xl my-5 underline font-semibold'>CLINICAL SERVICE OFFICER - 2 POSTS</h4>
+                <h4 className='text-2xl my-5 underline font-semibold'>CLINICAL SERVICE OFFICER (CSO) - 2 POSTS</h4>
 
 
             </div>

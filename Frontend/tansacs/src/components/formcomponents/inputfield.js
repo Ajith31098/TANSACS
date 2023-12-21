@@ -75,9 +75,18 @@ function Input(props) {
                     fontSize: '11px',
                     textTransform: applyUppercase ? 'uppercase' : 'lowercase',
                   },
+                  sx: {
+                    '&::placeholder': {
+                      color: 'black',
+                      opacity: .5,
+                      textTransform: 'Uppercase',
+                    }
+                  }
+
                 },
 
-              }}
+              }
+              }
             />
           </>
         )}

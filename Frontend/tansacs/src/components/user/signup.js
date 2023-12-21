@@ -216,7 +216,7 @@ function Signup(props) {
                         navigate('/verify', { replace: true })
                     })
                     .catch(function (error) {
-                        // console.log(error);
+                        console.log(error);
                         navigate('/')
                     })
 
@@ -317,7 +317,7 @@ function Signup(props) {
 
                                         <label htmlFor="profile_image" className='w-full'>
 
-                                            {!values.profile_image && <p className='text-[8px] uppercase font-semibold'>upload a photo here</p>}
+                                            {!values.profile_image && <p className='text-[9px] uppercase font-semibold'>Click here To upload</p>}
                                             {values.profile_image && <p className='mt-2 text-sm truncate'>{values.profile_image.name}</p>}
                                             {touched.profile_image && errors.profile_image ? <p className='text-custom-red text-center font-bold text-[10px]'>{errors.profile_image}</p> : null}
                                         </label>
@@ -511,7 +511,7 @@ function Signup(props) {
                                             type='text'
                                             name='password'
                                             label="PASSWORD"
-                                            placeholder="PASSWORD"
+                                            placeholder="ENTER NEW PASSWORD"
                                         />
 
                                     </div>

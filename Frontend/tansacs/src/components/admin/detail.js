@@ -184,7 +184,7 @@ function Detail(props) {
                   <TableCell className='uppercase'>Name</TableCell>
                   <TableCell className='uppercase'>Email</TableCell>
                   <TableCell className='uppercase'>Phone Number</TableCell>
-                  <TableCell className='uppercase'>Score</TableCell>
+                  <TableCell className='uppercase'>overall Score</TableCell>
                   <TableCell className='uppercase'>View</TableCell>
                 </TableRow>
               </TableHead>

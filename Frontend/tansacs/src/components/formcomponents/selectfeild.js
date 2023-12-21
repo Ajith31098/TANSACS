@@ -37,7 +37,8 @@ function Select(props) {
                   '& > div': { // Targeting the inner div
                     padding: '0px',
                     fontSize: "11px",
-                    color: isDefaultSelected ? 'gray' : 'inherit',
+                    color: isDefaultSelected ? 'black' : 'inherit',
+                    opacity: .9,
                     border: "none",
                     fontWeight: isDefaultSelected ? "200" : '400',
                     textTransform: "uppercase"

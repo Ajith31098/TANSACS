@@ -1637,7 +1637,7 @@ function CommonForm
                                         I am not a terminated employee.
                                     </li>
                                     <li>
-                                        There is no pending criminal case / Vigilance Case
+                                        There is no pending criminal case / Vigilance Case.
                                     </li>
                                     <li>
                                         I hereby declare that my character / antecedents are suitable for appointment to this
@@ -1652,7 +1652,7 @@ function CommonForm
                                         type='checkbox'
                                         id={"declaration"}
                                         name={"declaration"}
-                                        label={"I hereby declare that all the contents entered in the application form is true to my knowledge and I have entered my full consciousness"}
+                                        label={"I hereby declare that I have read all of the declaration clauses, that all of the above contents are true to the best of my knowledge, and that I have entered with full consciousness."}
 
                                     />
                                 </div>

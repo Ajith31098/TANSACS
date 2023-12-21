@@ -67,7 +67,7 @@ const Modal = (props) => {
             {props.normal_check ? (
               <div className="p-4 md:p-5 space-y-4">
 
-                Verify the credential before apply for this job.
+                Verify the credential before applying for this job.
               </div>
 
 
@@ -106,7 +106,9 @@ const Modal = (props) => {
                         ) :
 
                           (
-                            <p className=" text-sm"> <small className='font-bold text-sm'>Age limit :</small> {props.min_age} years as on 30.06.2023</p>
+                            // <p className=" text-sm"> <small className='font-bold text-sm'>Age limit :</small> {props.min_age} years as on 30.06.2023</p>
+                            <p className="text-sm font-bold text-sm"> For the existing employees of NACO/TANSACS/TSU, the upper age limit is 50 years as on 30.06.2023
+                              . For other candidates, upper age limit is 45 years as on 30.06.2023</p>
                           )}
                       </>
                       )
