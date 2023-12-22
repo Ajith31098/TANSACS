@@ -163,7 +163,7 @@ function Preview(props) {
     }
 
 
-
+    const companies = ['NACO', 'TANSACS', 'TSU'];
 
     return (
       <>
@@ -381,7 +381,7 @@ function Preview(props) {
 
                 </div>
                 <div className="lg:w-1/2 w-full  p-3">
-                  <div className="flex flex-col gap-5 p-3 min-h-[350px] justify-between" style={{
+                  <div className="flex flex-col gap-5 p-3 min-h-[400px] justify-between" style={{
                     boxShadow:
                       "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
                   }}>
@@ -434,7 +434,7 @@ function Preview(props) {
                 {data.data.pg.map((pg, index) => (
 
                   <div key={index} className="lg:w-1/2 w-full p-3" >
-                    <div className="flex flex-col gap-5 p-3 min-h-[350px] justify-between" style={{
+                    <div className="flex flex-col gap-5 p-3 min-h-[400px] justify-between" style={{
                       boxShadow:
                         "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
                     }}>
@@ -500,13 +500,13 @@ function Preview(props) {
 
                     <div className="lg:w-1/2 w-full p-2 " key={index}>
 
-                      <div className=" flex flex-col gap-5 justify-between p-4 min-h-[250px]" style={{
+                      <div className=" flex flex-col gap-5 justify-between p-4 min-h-[350px]" style={{
                         boxShadow:
                           "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
                       }}>
                         <div className="flex flex-col gap-5">
                           <div className="flex w-full justify-center items-center text-sm font-bold gap-3">
-                            <p className="w-1/2 text-start text-sm font-bold">SELECTED DEGREE</p>
+                            <p className="w-1/2 text-start text-sm font-bold">SELECTED DEPARTMENT</p>
                             <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2 uppercase">{exp.degree}</p>
                           </div>
                           <div className="flex w-full justify-center items-center gap-3">
@@ -517,11 +517,15 @@ function Preview(props) {
                             <p className="w-1/2 text-start text-sm font-bold">EXPERIENCE</p>
                             <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.year}</p>
                           </div>
+                          <div className="flex w-full justify-center items-center gap-3">
+                            <p className="w-1/2 text-start text-sm font-bold">DEGREE</p>
+                            <p className="w-1/2 text-start box-shadow rounded-md text-sm font-bold p-2">{exp.course}</p>
+                          </div>
                         </div>
                         <div className="flex justify-between items-center ignorebutton ">
 
                           <a target='_blank' href={exp.certificate} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-                            Certificate
+                            View
                             <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
                           </a>
@@ -552,102 +556,68 @@ function Preview(props) {
               <p className="text-white text-start px-4 bg-custom-red py-2 font-bold uppercase">Work Experience With in ( NACO / TANSACS / TSU )</p>
 
               <div className=" w-full my-5  flex flex-col gap-5">
-                <div className="flex w-full flex-wrap justify-start items-center text-sm font-bold ">
-                  <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">NACO EXPERIENCE : </p>
-                  <p className="lg:w-1/4 w-2/4 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.pexp[0]?.year ? data.data.pexp[0].year : 0} </p>
-                  <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
-                    {data.data.pexp[0]?.certificate ? (
 
-                      // <a target='_blank' href={data.data.pexp[0].certificate} download="Certificate.pdf">
-                      //   <button className="text-custom-red underline font-bold text-base">Certificate</button>
-                      // </a>
-                      <button onClick={() => handleDownload(data.data.pexp[0].certificate, `${data.data.application_id}_NACO.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+                {companies.map((companyName, index) => {
+                  const companyData = data.data.pexp.find(p => p.company === companyName);
 
-                        Certificate
-                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                  if (companyData) {
+                    // JSX for when company data is found
+                    return (
+                      <div key={index} className="flex w-full flex-wrap justify-start items-center text-sm font-bold">
+                        <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">{companyData.company} EXPERIENCE : </p>
+                        <p className="lg:w-1/4 w-2/4 text-start box-shadow rounded-md text-sm font-bold p-2">{companyData?.year ? companyData.year : 0} </p>
+                        <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
+                          {companyData?.certificate ? (
 
-                      </button>
-                    ) : <p className="font-semibold text-sm">No Certificate</p>}
-                  </div>
-                  <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center lg:mt-0 mt-5">
-                    {data.data.pexp[0]?.NOC ? (
+                            // <a target='_blank' href={companyData.certificate} download="Certificate.pdf">
+                            //   <button className="text-custom-red underline font-bold text-base">Certificate</button>
+                            // </a>
+                            <button onClick={() => handleDownload(companyData.certificate, `${data.data.application_id}_NACO.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
 
-                      // <a target='_blank' href={data.data.pexp[0].NOC} download="NOC.pdf">
-                      //   <button className="text-custom-red underline font-bold text-base">NOC</button>
-                      // </a>
-                      <button onClick={() => handleDownload(data.data.pexp[0].NOC, `${data.data.application_id}_NACO_NOC.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+                              Certificate
+                              <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                        NOC
-                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                            </button>
+                          ) : <p className="font-semibold text-sm">No Certificate</p>}
+                        </div>
+                        <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
+                          {companyData?.NOC ? (
 
-                      </button>
-                    ) : <p className="font-semibold text-sm">No NOC</p>}
-                  </div>
-                </div>
-                <div className="flex w-full flex-wrap justify-start items-center text-sm font-bold ">
-                  <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">TANSAC EXPERIENCE : </p>
-                  <p className="lg:w-1/4 w-2/4 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.pexp[1]?.year ? data.data.pexp[1].year : 0} </p>
-                  <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
-                    {data.data.pexp[1]?.certificate ? (
+                            // <a target='_blank' href={data.data.pexp[0].NOC} download="NOC.pdf">
+                            //   <button className="text-custom-red underline font-bold text-base">NOC</button>
+                            // </a>
+                            <button onClick={() => handleDownload(companyData.NOC, `${data.data.application_id}_NACO_NOC.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
 
-                      // <a target='_blank' href={data.data.pexp[0].certificate} download="Certificate.pdf">
-                      //   <button className="text-custom-red underline font-bold text-base">Certificate</button>
-                      // </a>
-                      <button onClick={() => handleDownload(data.data.pexp[1].certificate, `${data.data.application_id}_NACO.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+                              NOC
+                              <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                        Certificate
-                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
+                            </button>
+                          ) : <p className="font-semibold text-sm">No NOC</p>}
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    // JSX for when company data is not found
+                    return (
+                      <div key={index} className="flex w-full flex-wrap justify-start items-center text-sm font-bold">
+                        <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">{companyName} EXPERIENCE : </p>
+                        <p className="lg:w-1/4 w-2/4 text-start box-shadow rounded-md text-sm font-bold p-2">0</p>
+                        <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center lg:mt-0 mt-5">
+                          <p className="font-semibold text-sm">No Certificate</p>
+                        </div>
+                        <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center lg:mt-0 mt-5">
+                          <p className="font-semibold text-sm">No NOC</p>
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
 
-                      </button>
-                    ) : <p className="font-semibold text-sm">No Certificate</p>}
-                  </div>
-                  <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
-                    {data.data.pexp[1]?.NOC ? (
 
-                      // <a target='_blank' href={data.data.pexp[0].NOC} download="NOC.pdf">
-                      //   <button className="text-custom-red underline font-bold text-base">NOC</button>
-                      // </a>
-                      <button onClick={() => handleDownload(data.data.pexp[1].NOC, `${data.data.application_id}_NACO_NOC.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
 
-                        NOC
-                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
-                      </button>
-                    ) : <p className="font-semibold text-sm">No NOC</p>}
-                  </div>
-                </div>
-                <div className="flex w-full flex-wrap justify-start items-center text-sm font-bold ">
-                  <p className="lg:w-1/4 w-2/4 text-start text-sm font-bold">TSU EXPERIENCE : </p>
-                  <p className="lg:w-1/4 w-2/4 text-start box-shadow rounded-md text-sm font-bold p-2">{data.data.pexp[2]?.year ? data.data.pexp[2].year : 0} </p>
-                  <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
-                    {data.data.pexp[2]?.certificate ? (
 
-                      // <a target='_blank' href={data.data.pexp[2].certificate} download="Certificate.pdf">
-                      //   <button className="text-custom-red underline font-bold text-base">Certificate</button>
-                      // </a>
-                      <button onClick={() => handleDownload(data.data.pexp[2].certificate, `${data.data.application_id}_NACO.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
 
-                        Certificate
-                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                      </button>
-                    ) : <p className="font-semibold text-sm">No Certificate</p>}
-                  </div>
-                  <div className="lg:w-1/4 w-2/4 flex flex-wrap justify-center items-center  lg:mt-0 mt-5">
-                    {data.data.pexp[2]?.NOC ? (
-
-                      // <a target='_blank' href={data.data.pexp[0].NOC} download="NOC.pdf">
-                      //   <button className="text-custom-red underline font-bold text-base">NOC</button>
-                      // </a>
-                      <button onClick={() => handleDownload(data.data.pexp[2].NOC, `${data.data.application_id}_NACO_NOC.pdf`)} className="px-[30px] py-[3px] block group relative  w-max overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
-
-                        NOC
-                        <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-
-                      </button>
-                    ) : <p className="font-semibold text-sm">No NOC</p>}
-                  </div>
-                </div>
 
 
 

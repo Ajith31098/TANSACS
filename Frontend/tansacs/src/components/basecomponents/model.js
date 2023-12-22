@@ -144,7 +144,7 @@ const Modal = (props) => {
             ) : (
               <div className='flex justify-center items-center'>
 
-                <div className="flex w-1/2 p-4 md:p-5  rounded-b border-gray-600">
+                <div className="flex md:w-1/2 w-full p-4 md:p-5  rounded-b border-gray-600">
                   {(props.apply) ?
 
                     <button

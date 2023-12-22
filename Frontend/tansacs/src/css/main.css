@@ -49,3 +49,69 @@
 .customFormSubmitsuccess {
     font-size: 60px !important;
 }
+
+.loader-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heartbeat-animation {
+    animation: heartbeat 1.5s ease-in-out infinite;
+    border-radius: 50%;
+    width: 100px;
+    /* Adjust the size as needed */
+    height: 100px;
+    /* Adjust the size as needed */
+}
+
+.loader-circle {
+    position: absolute;
+    border: 2px solid transparent;
+    border-top-color: red;
+    /* Loader color */
+    border-radius: 50%;
+    width: 120px;
+    /* Loader size, should be larger than the image */
+    height: 120px;
+    /* Loader size, should be larger than the image */
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    25% {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

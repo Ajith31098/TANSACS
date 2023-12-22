@@ -39,7 +39,7 @@ class JobView(APIView):
             ']', ''): v for k, v in validated_data.items() if k.startswith('hsc[')}
         ug_data = {k.replace('ug[', '').replace(
             ']', ''): v for k, v in validated_data.items() if k.startswith('ug[')}
-        pg_data = get_list_dict(validated_data, 'pg')
+        pg_data = get_list_dict(validated_data, 'pg', 'degree')
         experience_data = get_list_dict(validated_data, 'experience', 'degree')
         prefered_experience_data = get_list_dict(
             validated_data, 'prefered_experience', 'year')
@@ -47,6 +47,8 @@ class JobView(APIView):
 
         position = validated_data['position']
         signature = validated_data['signature']
+
+        print("prefered experence", prefered_experience_data)
 
         # NOC = validated_data['NOC']
         with transaction.atomic():

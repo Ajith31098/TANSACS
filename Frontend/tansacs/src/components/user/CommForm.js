@@ -1100,10 +1100,10 @@ function CommonForm
                                                         pg.map((pgdegree, index) => (
                                                             <div key={index} className='w-full   gap-1 grid grid-cols-12'>
                                                                 <div className='lg:col-span-3 col-span-12'>
-
+                                                                    {console.log(values.ug)}
                                                                     <div className="grid grid-cols-4 gap-1">
                                                                         <div className="col-span-4">
-                                                                            <p className='text-start text-xs font-bold mb-2'>Degree: <small className='text-custom-red text-sm'>*</small></p>
+                                                                            <p className='text-start text-xs font-bold mb-2'>Degree: {values?.ug?.degree !== 'Medical or Allied Health Sciences' ? (<small className='text-custom-red text-sm'>*</small>) : null}</p>
                                                                             <FormikControl
                                                                                 control='select'
                                                                                 type='text'
@@ -1113,7 +1113,7 @@ function CommonForm
 
                                                                         </div>
                                                                         <div className="col-span-4">
-                                                                            <p className='text-start text-xs font-bold mb-2'>As per P.G. Certificate: <small className='text-custom-red text-sm'>*</small></p>
+                                                                            <p className='text-start text-xs font-bold mb-2'>As per P.G. Certificate: {values?.ug?.degree !== 'Medical or Allied Health Sciences' ? (<small className='text-custom-red text-sm'>*</small>) : null}</p>
 
                                                                             <div className="grid grid-cols-4 gap-1">
                                                                                 <div className='col-span-3'>
@@ -1149,7 +1149,7 @@ function CommonForm
 
 
                                                                     <div className="lg:col-span-6 col-span-8">
-                                                                        <p className='text-start text-xs font-bold mb-2'>Courses / Discipline: <small className='text-custom-red text-sm'>*</small></p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>Courses / Discipline: {values?.ug?.degree !== 'Medical or Allied Health Sciences' ? (<small className='text-custom-red text-sm'>*</small>) : null}</p>
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
@@ -1162,7 +1162,7 @@ function CommonForm
 
 
                                                                     <div className="lg:col-span-2 col-span-8">
-                                                                        <p className='text-start text-xs font-bold mb-2'>P.G. Register Number: <small className='text-custom-red text-sm'>*</small></p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>P.G. Register Number: {values?.ug?.degree !== 'Medical or Allied Health Sciences' ? (<small className='text-custom-red text-sm'>*</small>) : null}</p>
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
@@ -1174,7 +1174,7 @@ function CommonForm
                                                                     </div>
 
                                                                     <div className="lg:col-span-2 col-span-12">
-                                                                        <p className='text-start text-xs font-bold mb-2'>P.G. Month / Year of Passing: <small className='text-custom-red text-sm'>*</small></p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>P.G. Month / Year of Passing: {values?.ug?.degree !== 'Medical or Allied Health Sciences' ? (<small className='text-custom-red text-sm'>*</small>) : null}</p>
                                                                         <div className="grid grid-cols-4 gap-1">
 
                                                                             <div className='col-span-2'>
@@ -1203,7 +1203,7 @@ function CommonForm
                                                                     </div>
 
                                                                     <div className="lg:col-span-2 col-span-6">
-                                                                        <p className='text-start text-xs font-bold mb-2'>Enter Percentage: <small className='text-custom-red text-sm'>*</small></p>
+                                                                        <p className='text-start text-xs font-bold mb-2'>Enter Percentage: {values?.ug?.degree !== 'Medical or Allied Health Sciences' ? (<small className='text-custom-red text-sm'>*</small>) : null}</p>
                                                                         <FormikControl
                                                                             control='input'
                                                                             type='text'
@@ -1218,7 +1218,7 @@ function CommonForm
                                                                 <div className="lg:col-span-2 col-span-6">
                                                                     <div className="grid col-1 justify-center gap-1">
                                                                         <div>
-                                                                            <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: <small className='text-custom-red text-sm'>*</small></p>
+                                                                            <p className='lg:text-center text-start text-xs font-bold mb-2'>Upload Marksheet: {values?.ug?.degree !== 'Medical or Allied Health Sciences' ? (<small className='text-custom-red text-sm'>*</small>) : null}</p>
 
                                                                             <FormikControl
                                                                                 control='file'
@@ -1656,7 +1656,7 @@ function CommonForm
 
                                     />
                                 </div>
-                                <div className='flex justify-end'>
+                                <div className='flex md:justify-end justify-center'>
                                     <div className='text-center w-[250px]'>
                                         <p className=' text-custom-red underline font-bold mb-2'> Signature</p>
                                         <FormikControl

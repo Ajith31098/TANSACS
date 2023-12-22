@@ -23,7 +23,7 @@ const initialvalues = {
 
 const validationSchema = Yup.object({
 
-    username: Yup.string().required("Enter Username").email("Invalid Username"),
+    username: Yup.string().required("Enter Register Email-ID").email("Invalid Username"),
     password: Yup.string().required("Enter Password")
 })
 
@@ -130,15 +130,20 @@ function SignIn(props) {
                     <h4 className=' font-normal lg:text-[33px] md:text-[25px] text-[20px]' style={{
                         textShadow: "#5a32325c 3px 3px 4px"
                     }}>TANSACS RECRUITMENT PORTAL</h4>
+
+                    <p className='text-custom-red font-bold mb-3 font6 border border-gray-400 p-1 rounded-sm' style={{
+                        textShadow: "#5a32325c 3px 3px 4px"
+                    }}>Before you log in for the first time, please take a moment to REGISTER your details</p>
+
                     <p>{props.isLogin}</p>
-                    <div className='lg:w-2/5 md:w-3/5 w-4/5 image_ribbon'>
+                    <div className='lg:w-2/5 md:w-3/5 w-full image_ribbon'>
                         <Formik
                             initialValues={initialvalues}
                             validationSchema={validationSchema}
                             onSubmit={onSubmit} >
 
                             {(formik) => (
-                                <Form className='flex flex-col justify-center items-center mt-5'>
+                                <Form className='flex flex-col justify-center items-center mt-1'>
 
                                     <div className='w-2/3 mb-4'>
                                         <p className='text-custom-red font-bold mb-1 text-start'>Username</p>
@@ -174,7 +179,7 @@ function SignIn(props) {
                                                 </a> */}
                                         </div>
                                         <div className='w-max'>
-                                            <Link to={'/signup'} className="px-[30px] py-[3px] block group relative  w-full overflow-hidden rounded-lg bg-custom-red text-sm font-semibold text-white">
+                                            <Link to={'/signup'} className="px-[30px] py-[3px] block group relative  w-full overflow-hidden rounded-lg bg-red-500 text-sm font-semibold text-white">
                                                 Register
                                                 <div className="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 
@@ -194,10 +199,12 @@ function SignIn(props) {
 
                     <DownloadButton file_name="TANSACS recruitment.pdf" content="TANSACS Recruitment Eligibility Criteria.pdf" />
                     <DownloadButton file_name="NOC_Format.pdf" content="NOC Form.pdf" />
-                    <p className='text-custom-red font-bold mb-3 font6'>Note: TANSACS requirement Details are given in the link above, please read carefully before applying.</p>
-                    <p className='font-semibold text-lg font6'>SELECTION OF THE CANDIDATE PURELY BASED ON THE CRITERIA.</p>
+                    <p className='text-custom-red font-bold mb-3 font6 border border-gray-400 p-1 rounded-sm'>Note: TANSACS requirement Details are given in the link above, please read carefully before applying.</p>
+                    <p className='font-semibold text-lg font6 border border-red-400 rounded-md mb-2'>SELECTION OF THE CANDIDATE PURELY BASED ON THE CRITERIA</p>
+                    <p className='font-semibold text-lg font6 border border-red-400 rounded-md'>TANSACS Recruitment will be open until 00-00-000 at 00:00 PM</p>
 
-                    <p className='text-right font-semibold text-lg font6 w-full'> <CopyrightIcon className='text-custom-red' /> 2023TANSACS, All Rights Reserved  </p>
+
+                    <p className='lg:text-right text-center font-semibold text-lg font6 w-full'> <CopyrightIcon className='text-custom-red' /> 2023TANSACS, All Rights Reserved  </p>
                 </div>
 
 

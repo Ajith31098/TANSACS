@@ -18,11 +18,13 @@ class CustomUserSerializer(serializers.Serializer):
     password = serializers.CharField(max_length=100)
 
     def validate_username(self, value):
+        value = value.lower()
         if not User.objects.filter(username=value).exists():
             raise serializers.ValidationError("Invalid username")
         return value
 
     def validate_password(self, value):
+        username = self.initial_data['username']
         user = User.objects.filter(
             username=self.initial_data['username']).first()
         if not user or not user.check_password(value):

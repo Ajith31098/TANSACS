@@ -29,10 +29,11 @@ const addressSchema = Yup.object().shape({
     state: Yup.string().required('State is Required'),
     district: Yup.string().required('District is Required'),
     city: Yup.string().required('City is Required'),
-    pincode: Yup.number().typeError("Enter valid Pin Code")
+    pincode: Yup.string()
         .required('Required')
-        .positive('Enter valid Pin Code')
-        .test('len', 'Enter valid Pin Code', (val) => val && val.toString().length === 6),
+        .matches(/^\d{6}$/, 'Invalid Pin Code')
+        .test('len', 'Enter valid Pin Code', (val) => val && val.toString().length === 6)
+
 });
 
 const validationSchema = Yup.object({
@@ -58,6 +59,7 @@ const validationSchema = Yup.object({
     age: Yup.number().typeError("Invalid Age")
         .required('Required')
         .positive('Invalid Age')
+        .integer("Invalid Age")
         .test('age limit', 'Enter valid Age', (val) => val && val <= 100),
     aadhar: Yup.string()
         .required('Required')
@@ -85,14 +87,14 @@ const validationSchema = Yup.object({
     guardian_name: Yup.string().required("Required").matches(/^[A-Za-z ]+$/, "Invalid Data"),
     guardian_name_initial: Yup.string().matches(/^[A-Za-z ]+$/, "Invalid Data"),
     DOB: Yup.string().required('Required'),
-    phone_number: Yup.number().typeError("Enter valid Phone number")
+    phone_number: Yup.string()
         .required('Required')
-        .positive('Enter valid Phone number')
-        .test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
-    alternate_phone_number: Yup.number().typeError("Enter valid Phone number")
+        .matches(/^(\+91|0)?[6789]\d{9}$/, 'Invalid Phone Number')
+        .test('len', 'Enter valid Phone number', (val) => val && val.toString().length <= 13),
+    alternate_phone_number: Yup.string()
         .required('Required')
-        .positive('Enter valid Phone number')
-        .test('len', 'Enter valid Phone number', (val) => val && val.toString().length === 10),
+        .matches(/^(\+91|0)?[6789]\d{9}$/, 'Invalid Phone Number')
+        .test('len', 'Enter valid Phone number', (val) => val && val.toString().length <= 13),
     password: Yup.string()
         .required("Enter Password")
         .min(8, 'Password is too short - should be 8 chars minimum.')
@@ -192,7 +194,6 @@ function Signup(props) {
     const onSubmit = (values, { setFieldError }) => {
 
         setLoading(true)
-
 
         mutation.mutate(values, {
 

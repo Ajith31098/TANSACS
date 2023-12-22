@@ -57,6 +57,9 @@ class LoginView(ObtainAuthToken):
     permission_classes = [IsUnauthenticated]
 
     def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        if username:
+            request.data['username'] = username.lower()
         serializer = CustomUserSerializer(data=request.data)
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})

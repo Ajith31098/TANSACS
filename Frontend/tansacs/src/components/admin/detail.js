@@ -197,7 +197,7 @@ function Detail(props) {
                     <TableCell>
                       {row.application_id}
                     </TableCell>
-                    <TableCell >
+                    <TableCell className='uppercase'>
                       {row.user_full_name}
                     </TableCell>
                     <TableCell  >
