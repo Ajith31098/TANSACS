@@ -119,7 +119,7 @@ function SignIn(props) {
         <>
 
             <img src={Ribbon} alt="Ribbon" className="ribbon lg:block hidden" style={{
-                marginTop: "230px"
+                marginTop: "177px"
             }} />
 
             <div className="grid grid-cols-5 mt-5 gap-20 relative">
@@ -131,9 +131,10 @@ function SignIn(props) {
                         textShadow: "#5a32325c 3px 3px 4px"
                     }}>TANSACS RECRUITMENT PORTAL</h4>
 
-                    <p className='text-custom-red font-bold mb-3 font6 border border-gray-400 p-1 rounded-sm' style={{
+                    <p className='text-custom-red font-bold mb-3 font6 border border-gray-400 p-1.5 rounded-full' style={{
                         textShadow: "#5a32325c 3px 3px 4px"
-                    }}>Before you log in for the first time, please take a moment to REGISTER your details</p>
+                    }}>Before you log
+                        in for the first time, please take a moment to REGISTER your details</p>
 
                     <p>{props.isLogin}</p>
                     <div className='lg:w-2/5 md:w-3/5 w-full image_ribbon'>
@@ -199,9 +200,9 @@ function SignIn(props) {
 
                     <DownloadButton file_name="TANSACS recruitment.pdf" content="TANSACS Recruitment Eligibility Criteria.pdf" />
                     <DownloadButton file_name="NOC_Format.pdf" content="NOC Form.pdf" />
-                    <p className='text-custom-red font-bold mb-3 font6 border border-gray-400 p-1 rounded-sm'>Note: TANSACS requirement Details are given in the link above, please read carefully before applying.</p>
-                    <p className='font-semibold text-lg font6 border border-red-400 rounded-md mb-2'>SELECTION OF THE CANDIDATE PURELY BASED ON THE CRITERIA</p>
-                    <p className='font-semibold text-lg font6 border border-red-400 rounded-md'>TANSACS Recruitment will be open until 00-00-000 at 00:00 PM</p>
+                    <p className='text-custom-red font-bold mb-3 font6 border border-gray-400 p-2 rounded-sm'>Note: TANSACS requirement Details are given in the link above, please read carefully before applying.</p>
+                    <p className='font-semibold text-lg font6 border border-red-400 rounded-md mb-2 p-1'>SELECTION OF THE CANDIDATE PURELY BASED ON THE CRITERIA</p>
+                    <p className='font-semibold text-lg font6 border border-red-400 rounded-md p-1'>TANSACS Recruitment will be open until 00-00-000 at 00:00 PM</p>
 
 
                     <p className='lg:text-right text-center font-semibold text-lg font6 w-full'> <CopyrightIcon className='text-custom-red' /> 2023TANSACS, All Rights Reserved  </p>

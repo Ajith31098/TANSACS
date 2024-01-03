@@ -127,6 +127,8 @@ const initialvalues = {
     password: '',
     confrim_password: '',
 
+    same_address: false,
+
     address: [{
 
         address_line1: '',
@@ -167,6 +169,30 @@ const districtOptions = district
 
 
 
+const handleSameAddressCheckbox = (e, setFieldValue, values) => {
+
+    const isChecked = e.target.checked;
+    setFieldValue('same_address', isChecked);
+    if (e.target.checked) {
+
+        // Copy communication address to permanent address
+        setFieldValue('permanent_address[0].address_line1', values.address[0].address_line1);
+        setFieldValue('permanent_address[0].address_line2', values.address[0].address_line2);
+        setFieldValue('permanent_address[0].state', values.address[0].state);
+        setFieldValue('permanent_address[0].district', values.address[0].district);
+        setFieldValue('permanent_address[0].city', values.address[0].city);
+        setFieldValue('permanent_address[0].pincode', values.address[0].pincode);
+
+    } else {
+        // Clear permanent address fields
+        setFieldValue('permanent_address[0].address_line1', '');
+        setFieldValue('permanent_address[0].address_line2', '');
+        setFieldValue('permanent_address[0].state', '');
+        setFieldValue('permanent_address[0].district', '');
+        setFieldValue('permanent_address[0].city', '');
+        setFieldValue('permanent_address[0].pincode', '');
+    }
+};
 
 
 
@@ -324,7 +350,7 @@ function Signup(props) {
                                         </label>
 
                                     </div>
-                                    {!values.profile_image && <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .jpeg or .jpg formats.</p>}
+                                    {!values.profile_image && <p className='text-[9.6px] px-2 text-custom-red textb font-semibold mt-2'>Note: The uploaded file must be less than 50KB and only in .jpeg or .jpg formats.</p>}
 
 
 
@@ -607,6 +633,23 @@ function Signup(props) {
 
 
                             </div>
+
+                            {/* <Field
+                                type="checkbox"
+                                name="sameAddress"
+                                onChange={e => handleSameAddressCheckbox(e, setFieldValue, values)}
+                            /> */}
+
+                            <FormikControl
+                                control='check'
+                                type='checkbox'
+                                id={"same_address"}
+                                name={"same_address"}
+                                onChange={e => handleSameAddressCheckbox(e, setFieldValue, values)}
+                                label={"Same as above"}
+
+                            />
+                            {/* <label htmlFor="sameAddress">Permanent Address same as Communication Address</label> */}
 
                             <p className='text-custom-red mb-2 text-start font-bold underline'>Permanent Address</p>
                             <div className="grid grid-cols-5 mb-3 gap-y-4 gap-x-10 border border-black border-solid rounded p-2">

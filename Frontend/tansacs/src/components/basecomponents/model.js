@@ -101,14 +101,13 @@ const Modal = (props) => {
                       (<>
                         {props.main ? (
 
-                          <p className=" text-sm">The existing employees of  <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is 55 years as on 30.06.2023.
-                            For other candidates, age limit is 50 years as on 30.06.2023.</p>
+                          <p className=" text-sm">The existing employees of  <small className='font-bold text-sm'>NACO/TANSACS/TSU</small>, the upper age limit is {props.emin_age} years as on 30.06.2023.
+                            For other candidates, age limit is {props.min_age} years as on 30.06.2023.</p>
                         ) :
 
                           (
                             // <p className=" text-sm"> <small className='font-bold text-sm'>Age limit :</small> {props.min_age} years as on 30.06.2023</p>
-                            <p className="text-sm font-bold text-sm"> For the existing employees of NACO/TANSACS/TSU, the upper age limit is 50 years as on 30.06.2023
-                              . For other candidates, upper age limit is 45 years as on 30.06.2023</p>
+                            <p className="text-sm font-bold text-sm"> You can not apply for this job . As per criteria the upper age limit for this job is {props.min_age}  as on 30.06.2023.</p>
                           )}
                       </>
                       )

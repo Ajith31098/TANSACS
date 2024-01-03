@@ -1,6 +1,6 @@
 export const DMDO_ug = [
     { key: 'Select', value: '' },
-    { key: 'Medical or Allied Health Sciences ', value: 'Medical or Allied Health Sciences' },
+    { key: "Bachelor's Degree in Medical or Allied Health Sciences", value: 'Medical or Allied Health Sciences' },
     { key: 'Bachelor of Arts (B.A.)', value: 'Bachelor of Arts (B.A.)' },
     { key: 'Bachelor of Science (B.Sc.)', value: 'Bachelor of Science (B.Sc.)' },
     { key: 'Bachelor of Dental Surgery (BDS)', value: 'Bachelor of Dental Surgery (BDS) ' },
@@ -13,6 +13,7 @@ export const DMDO_ug = [
     { key: 'Bachelor of Ayurvedic Medicine and Surgery (BAMS)', value: 'Bachelor of Ayurvedic Medicine and Surgery (BAMS)' },
     { key: 'Bachelor of Homeopathic Medicine and Surgery (BHMS)', value: 'Bachelor of Homeopathic Medicine and Surgery (BHMS)' },
     { key: 'Bachelor of Unani Medicine and Surgery (BUMS)', value: 'Bachelor of Unani Medicine and Surgery (BUMS)' },
+    { key: 'Similar Field', value: 'Similar Field' },
 
 ]
 
@@ -41,11 +42,13 @@ export const DMDO_pg = [
     { key: "Master's Degree in Bio-Statistics", value: "Master's Degree in Bio-Statistics" },
     { key: "Master's Degree in Mathematics", value: "Master's Degree in Mathematics" },
     { key: "Master's Degree in Economics", value: "Master's Degree in Economics" },
+    { key: 'Similar Field', value: 'Similar Field' },
+
 ]
 
 export const DMDO_experience = [
     { key: 'Select', value: '' },
-    { key: 'Medical or Allied Health Sciences ', value: 'Medical or Allied Health Sciences' },
+    { key: "Bachelor's Degree in Medical or Allied Health Sciences", value: 'Medical or Allied Health Sciences' },
     { key: "Master's Degree in Public Health", value: "Master's Degree in Public Health" },
     { key: "Master's Degree in Healthcare Management", value: "Master's Degree in Healthcare Management" },
     { key: "Master's Degree in Healthcare Administration", value: "Master's Degree in Healthcare Administration" },

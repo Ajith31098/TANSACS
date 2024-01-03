@@ -1,6 +1,6 @@
 export const DDSI_ug = [
     { key: 'Select', value: '' },
-    { key: 'Medical or Allied Health Sciences', value: 'Medical or Allied Health Sciences' },
+    { key: "Bachelor's Degree in Medical or Allied Health Sciences", value: 'Medical or Allied Health Sciences' },
     { key: 'Bachelor of Arts (B.A.)', value: 'Bachelor of Arts (B.A.)' },
     { key: 'Bachelor of Science (B.Sc.)', value: 'Bachelor of Science (B.Sc.)' },
     { key: 'Bachelor of Science in Nursing (B.Sc. Nursing)', value: 'Bachelor of Science in Nursing (B.Sc. Nursing)' },
@@ -11,7 +11,7 @@ export const DDSI_ug = [
     { key: 'Bachelor of Ayurvedic Medicine and Surgery (BAMS)', value: 'Bachelor of Ayurvedic Medicine and Surgery (BAMS)' },
     { key: 'Bachelor of Homeopathic Medicine and Surgery (BHMS)', value: 'Bachelor of Homeopathic Medicine and Surgery (BHMS)' },
     { key: 'Bachelor of Unani Medicine and Surgery (BUMS)', value: 'Bachelor of Unani Medicine and Surgery (BUMS)' },
-
+    { key: "Bachelor of Pharmacy (B.Pharm)", value: "Bachelor of Pharmacy (B.Pharm)" },
 ]
 
 
@@ -24,10 +24,10 @@ export const DDSI_pg = [
     { key: "Master's Degree in Demography", value: "Master's Degree in Demography" },
     { key: "Master's Degree in Statistics", value: "Master's Degree in Statistics" },
     { key: "Master's Degree in Population Sciences", value: "Master's Degree in Population Sciences" },
-    { key: "Master's Degree in Social Sciences", value: "Master's Degree in Social Sciences" },
     { key: "Master's Degree in Computer Application", value: "Master's Degree in Computer Application" },
     { key: 'Doctor of Medicine (M.D.)', value: 'Doctor of Medicine (M.D.)' },
     { key: 'Diplomate of National Board (DNB)', value: 'Diplomate of National Board (DNB)  ' },
+    { key: "Master's Diploma in Public Health", value: "Master's Diploma in Public Health" },
     { key: 'Similar Field', value: 'Similar Field' },
 
 
@@ -36,7 +36,7 @@ export const DDSI_pg = [
 
 export const DDSI_experience = [
     { key: 'Select', value: '' },
-    { key: 'Medical or Allied Health Sciences', value: 'Medical or Allied Health Sciences' },
+    { key: "Bachelor's Degree in Medical Sciences", value: 'Medical or Allied Health Sciences' },
     { key: "Master's Degree in Public Health", value: "Master's Degree in Public Health" },
     { key: "Master's Degree in Healthcare Administration", value: "Master's Degree in Healthcare Administration" },
     { key: "Master's Degree in Social Science", value: "Master's Degree in Social Science" },
@@ -44,9 +44,9 @@ export const DDSI_experience = [
     { key: "Master's Degree in Demography", value: "Master's Degree in Demography" },
     { key: "Master's Degree in Statistics", value: "Master's Degree in Statistics" },
     { key: "Master's Degree in Population Sciences", value: "Master's Degree in Population Sciences" },
-    { key: "Master's Degree in Social Sciences", value: "Master's Degree in Social Sciences" },
     { key: "Master's Degree in Computer Application", value: "Master's Degree in Computer Application" },
     { key: 'Doctor of Medicine (M.D.)', value: 'Doctor of Medicine (M.D.)' },
+    { key: "Master's Diploma in Public Health", value: "Master's Diploma in Public Health" },
     { key: 'Diplomate of National Board (DNB)', value: 'Diplomate of National Board (DNB)  ' },
     { key: 'Public health in surveillance / Research / M&E / Epidemiology', value: 'Public health in surveillance / Research / M&E / Epidemiology' },
     { key: 'Similar Field', value: 'Similar Field' },

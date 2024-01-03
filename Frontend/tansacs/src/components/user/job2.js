@@ -157,7 +157,7 @@ function Job2(props) {
             </div>
 
             <div className='flex justify-center mt-5'>
-                <ApplyButton position={CLINICAL_OFFICER} min_age={45} emin_age={50} link={'/tansacs/clinical_officer/apply'} />
+                <ApplyButton position={CLINICAL_OFFICER} main={true} min_age={45} emin_age={50} link={'/tansacs/clinical_officer/apply'} />
 
                 {/* <Link to={} className="px-3 py-1 block group relative  w-max overflow-hidden rounded-lg bg-red-600 text-sm font-semibold text-white">
                         Apply

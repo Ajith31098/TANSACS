@@ -77,14 +77,14 @@ const ConfrimModal = (props) => {
             <div className=' flex justify-end'>
               <CloseIcon onClick={hideModal} />
             </div>
-            <div className='p-10'>
+            <div className='px-10 py-5'>
               <div>
 
 
                 <div>
                   {!isValid ? (
                     <p>
-                      Check the Form before submit you can not change after submit.
+                      Please ensure all data is entered correctly. No corrections or omissions will be entertained.
                     </p>
 
                   ) :

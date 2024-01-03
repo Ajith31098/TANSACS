@@ -16,15 +16,16 @@ class Profile(models.Model):
         User, on_delete=models.CASCADE, related_name="profile")
     is_verified = models.BooleanField(default=False)
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(
+        max_length=30, blank=True, null=True, default="")
     gender = models.CharField(max_length=10, choices=Gender.choices)
     DOB = models.DateField()
     age = models.IntegerField()
     aadhar = models.CharField(max_length=12)
     phone_number = models.CharField(
-        max_length=13, validators=[validate_phone_number])
+        max_length=13)
     alternate_phone_number = models.CharField(
-        max_length=13, validators=[validate_phone_number])
+        max_length=13)
     email = models.EmailField(max_length=50, unique=True)
     profile_image = models.ImageField(
         upload_to="profile/", blank=True, null=True)

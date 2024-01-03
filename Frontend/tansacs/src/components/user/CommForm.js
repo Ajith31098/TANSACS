@@ -1337,7 +1337,7 @@ function CommonForm
                                                                             type='text'
                                                                             name={`experience[${index}].year`}
                                                                             label="YEARS"
-                                                                            placeholder="YEARS"
+                                                                            placeholder="YEAR"
                                                                         />
 
                                                                     </div>
@@ -1436,7 +1436,7 @@ function CommonForm
                                                     type='text'
                                                     name='prefered_experience[0].year'
                                                     label="NO OF YEARS"
-                                                    placeholder="NO OF YEARS"
+                                                    placeholder="NO OF YEAR"
                                                 />
 
                                             </div>
@@ -1473,6 +1473,11 @@ function CommonForm
                                                         label="Browse file"
                                                     />
 
+                                                    {!formik.values.prefered_experience[0].NOC && (
+                                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .pdf formats.</p>
+
+                                                    )}
+
                                                 </div>
                                             </div>
 
@@ -1492,7 +1497,7 @@ function CommonForm
                                                     type='text'
                                                     name='prefered_experience[1].year'
                                                     label="NO OF YEARS"
-                                                    placeholder="NO OF YEARS"
+                                                    placeholder="NO OF YEAR"
                                                 />
 
                                             </div>
@@ -1529,6 +1534,11 @@ function CommonForm
                                                         label="Browse file"
                                                     />
 
+                                                    {!formik.values.prefered_experience[1].NOC && (
+                                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .pdf formats.</p>
+
+                                                    )}
+
                                                 </div>
                                             </div>
 
@@ -1551,7 +1561,7 @@ function CommonForm
                                                     type='text'
                                                     name='prefered_experience[2].year'
                                                     label="NO OF YEARS"
-                                                    placeholder="NO OF YEARS"
+                                                    placeholder="NO OF YEAR"
                                                 />
                                             </div>
 
@@ -1586,6 +1596,11 @@ function CommonForm
                                                         formik={formik}
                                                         label="Browse file"
                                                     />
+
+                                                    {!formik.values.prefered_experience[2].NOC && (
+                                                        <p className='text-[9.6px] px-2 text-custom-red textb mt-2'>Note: The uploaded file must be less than 50KB and only in .pdf formats.</p>
+
+                                                    )}
 
                                                 </div>
                                             </div>

@@ -23,11 +23,11 @@ export const AssistantDirector_BSD_pg = [
     { key: "Master's Diploma in Healthcare Administration", value: "Master's Diploma in Healthcare Administration" },
     { key: "Master's Degree in Psychology", value: "Master's Degree in Psychology" },
     { key: "Master's Diploma in Social Science", value: "Master's Diploma in Social Science" },
-    { key: "Master's Degree in Applied Epidemiology", value: "Master's Degree in Applied Epidemiology" },
     { key: "Master's Diploma in Public Health", value: "Master's Diploma in Public Health" },
     { key: "Master's Degree in Sociology", value: "Master's Degree in Sociology" },
     { key: "Master's Degree in Clinical Psychology", value: "Master's Degree in Clinical Psychology" },
     { key: " Master's Degree in Medical Microbiology", value: " Master's Degree in Medical Microbiology" },
+    { key: "Master's Degree in Social Work (MSW)", value: "Master's Degree in Social Work (MSW)" },
     { key: "Similar Field", value: "Similar Field" },
 
 ]
@@ -40,11 +40,11 @@ export const AssistantDirector_BSD_experience = [
     { key: "Master's Diploma in Healthcare Administration", value: "Master's Diploma in Healthcare Administration" },
     { key: "Master's Degree in Psychology", value: "Master's Degree in Psychology" },
     { key: "Master's Diploma in Social Science", value: "Master's Diploma in Social Science" },
-    { key: "Master's Degree in Applied Epidemiology", value: "Master's Degree in Applied Epidemiology" },
     { key: "Master's Diploma in Public Health", value: "Master's Diploma in Public Health" },
     { key: "Master's Degree in Sociology", value: "Master's Degree in Sociology" },
     { key: "Master's Degree in Clinical Psychology", value: "Master's Degree in Clinical Psychology" },
     { key: " Master's Degree in Medical Microbiology", value: " Master's Degree in Medical Microbiology" },
-    { key: "Similar Field", value: "Similar Field" },
+    { key: "Master's Degree in Social Work (MSW)", value: "Master's Degree in Social Work (MSW)" },
+    { key: "Similar Field (Kindly check the TANSACS Recruitment PDF and then apply)", value: "Similar Field" },
 
 ]

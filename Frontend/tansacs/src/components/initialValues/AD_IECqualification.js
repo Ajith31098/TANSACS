@@ -20,7 +20,7 @@ export const AssistantDirector_IEC_pg = [
     { key: 'Select', value: '' },
     { key: "Master's Degree in Social Science", value: "Master's Degree in Social Science" },
     { key: "Master's Degree in Humanities", value: "Master's Degree in Humanities" },
-    { key: "Similar Field", value: "Similar Field" },
+    { key: "Related Field", value: "Similar Field" },
 
 ]
 
@@ -28,6 +28,6 @@ export const AssistantDirector_IEC_experience = [
     { key: 'Select', value: '' },
     { key: "Master's Degree in Social Science", value: "Master's Degree in Social Science" },
     { key: "Master's Degree in Humanities", value: "Master's Degree in Humanities" },
-    { key: "Similar Field (Kindly check the TANSACS Recruitment PDF and then apply)", value: "Similar Field (Kindly check the TANSACS Recruitment PDF and then apply)" },
+    { key: "Related Field (Kindly check the TANSACS Recruitment PDF and then apply)", value: "Similar Field (Kindly check the TANSACS Recruitment PDF and then apply)" },
 
 ]

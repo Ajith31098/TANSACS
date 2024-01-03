@@ -17,7 +17,8 @@ class Board(models.TextChoices):
 class SSLC(models.Model):
 
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(
+        max_length=30, blank=True, null=True, default="")
     register_number = models.CharField(max_length=20)
     month = models.CharField(max_length=20)
     year = models.IntegerField(validators=[validate_year])
